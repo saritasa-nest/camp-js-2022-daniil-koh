@@ -1,48 +1,59 @@
-export const AuthForm: Function = () => (" <div class='auth-form'>" +
-    " <div class=\"section\"></div>\n" +
-    "  <main>\n" +
-    "      <div class=\"section\"></div>\n" +
-    "\n" +
-    "      <div class=\"section\"></div>\n" +
-    "\n" +
-    "      <div class=\"container\">\n" +
-    "        <div class=\"z-depth-1 grey lighten-4 row\" style=\"display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;\">\n" +
-    "\n" +
-    "          <form class=\"col s12\" method=\"post\">\n" +
-    "            <div class='row'>\n" +
-    "              <div class='col s12'>\n" +
-    "              </div>\n" +
-    "            </div>\n" +
-    "\n" +
-    "            <div class='row'>\n" +
-    "              <div class='input-field col s12'>\n" +
-    "                <input class='validate' type='email' name='email' id='email' />\n" +
-    "                <label for='email'>Enter your email</label>\n" +
-    "              </div>\n" +
-    "            </div>\n" +
-    "\n" +
-    "            <div class='row'>\n" +
-    "              <div class='input-field col s12'>\n" +
-    "                <input class='validate' type='password' name='password' id='password' />\n" +
-    "                <label for='password'>Enter your password</label>\n" +
-    "              </div>\n" +
-    "              <label style='float: right;'>\n" +
-    "            </div>\n" +
-    "\n" +
-    "            <br />\n" +
-    "            <center>\n" +
-    "              <div class='row'>\n" +
-    "                <button type='submit' name='btn_login' class='col s12 btn btn-large waves-effect indigo'>Login</button>\n" +
-    "              </div>\n" +
-    "            </center>\n" +
-    "          </form>\n" +
-    "        </div>\n" +
-    "      </div>\n" +
-    "      <a href=\"#!\">Create account</a>\n" +
-    "\n" +
-    "    <div class=\"section\"></div>\n" +
-    "    <div class=\"section\"></div>\n" +
-    "  </main>\n" +
-    "\n" +
-    "</div>")
+import {signIn} from "../firestore";
+
+export const AuthForm: Function = () => {
+  const authForm:Element = document.getElementsByClassName('auth')[0]
+  authForm.addEventListener('submit', authFormAuthetication)
+
+  async function authFormAuthetication(event: any): Promise<void> {
+    event.preventDefault()
+    const email: string = event.target.querySelector('#email').value
+    const password: string = event.target.querySelector('#password').value
+    await signIn(email, password)
+  }
+
+  return(`<body>
+<main>
+<div class="container">
+  <h5 class="indigo-text">Please, login into your account</h5>
+</div>
+  <div class="container">
+<div class="z-depth-1 grey lighten-4 row" style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
+
+<form class="col s12" method="post">
+<div class='row'>
+<div class='col s12'>
+  </div>
+  </div>
+
+  <div class='row'>
+<div class='input-field col s12'>
+<input class='validate' type='email' name='email' id='email' />
+  <label for='email'>Enter your email</label>
+</div>
+</div>
+
+<div class='row'>
+<div class='input-field col s12'>
+<input class='validate' type='password' name='password' id='password' />
+  <label for='password'>Enter your password</label>
+</div>
+</div>
+
+<br />
+  <div class='row'>
+<button type='submit' name='btn_login' class='col s12 btn btn-large waves-effect indigo'>Login</button>
+  </div>
+  </form>
+  </div>
+  </div>
+  <a href="#!">Create account</a>
+
+<div class="section"></div>
+  <div class="section"></div>
+  </main>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+  </body>`)
+}
 

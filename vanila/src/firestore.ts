@@ -1,6 +1,7 @@
 import { collection, query, getDocs,getFirestore  } from "firebase/firestore";
-import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword,onAuthStateChanged } from "firebase/auth";
 import { initializeApp } from "firebase/app"
+import {changeAuthStatus} from "./index";
 
 export  const firebaseApp = initializeApp({
     apiKey: "AIzaSyBKPLNeEY4yJUg0eA60u8nKg30q08zGaSM",
@@ -38,15 +39,19 @@ export const signIn = async (email: string, password: string) => {
       const errorMessage: any = error.message;
       console.log(errorCode, errorMessage)
     });
+  await monitorAuthState()
 }
 
-export const monitorAuthState = new Promise(((resolve, reject) =>{
+const monitorAuthState = async () =>{
+
   onAuthStateChanged(auth, user => {
-    if (user){
-      resolve(user)
-    }else{
-      reject()
+    if (user) {
+      console.log('0')
+      changeAuthStatus(true)
+    } else {
+      console.log('2')
+      changeAuthStatus(false)
     }
   })
-}))
+}
 
