@@ -1,6 +1,6 @@
 import {AuthForm} from "./Auth/AuthForm";
-// import {AuthHandlers} from "./Auth/AuthHandlers";
 import {Table} from "./Table/Table";
+import {Navbar} from "./Navbar/Navbar";
 
 let authorization:boolean = false;
 
@@ -14,11 +14,17 @@ function render(){
     const mainDiv: Element = document.getElementsByClassName('main')[0]
     const authForm: Element = document.getElementsByClassName('auth')[0]
   if (getAuthStatus()){
-    mainDiv.innerHTML = Table()
+    mainDiv.innerHTML = Navbar() + Table()
     authForm.innerHTML = ''
   }else{
     authForm.innerHTML = AuthForm()
-    mainDiv.innerHTML = ''
+      console.log(mainDiv.children.length)
+    for (let i = 0; i < mainDiv.children.length; i++){
+      const childElement: Element| null = mainDiv.children.item(i)
+      if (childElement) {
+        childElement.innerHTML = ''
+      }
+    }
       console.log('it is work')
   }
 }
