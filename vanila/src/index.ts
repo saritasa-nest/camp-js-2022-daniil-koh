@@ -14,13 +14,14 @@ function render(){
     const mainDiv: Element = document.getElementsByClassName('main')[0]
     const authForm: Element = document.getElementsByClassName('auth')[0]
   if (getAuthStatus()){
-    mainDiv.innerHTML = Navbar() + Table()
+    mainDiv.appendChild(Navbar())
+    mainDiv.appendChild(Table())
     authForm.innerHTML = ''
   }else{
     authForm.innerHTML = AuthForm()
       console.log(mainDiv.children.length)
     for (let i = 0; i < mainDiv.children.length; i++){
-      const childElement: Element| null = mainDiv.children.item(i)
+      const childElement:Element =<Element> mainDiv.children.item(i)
       if (childElement) {
         childElement.innerHTML = ''
       }

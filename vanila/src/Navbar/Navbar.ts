@@ -1,5 +1,6 @@
-export const Navbar = () => {
-  return (`<div class="container-fluid navbar-fixed navbar">
+const TEMPLATE_EL = document.createElement('div')
+TEMPLATE_EL.className = "container-fluid navbar-fixed navbar"
+TEMPLATE_EL.innerHTML = `
 <nav class="green">
 <div class="nav-wrapper">
 <div class="container-fluid" style="margin:0px 30px;">
@@ -16,9 +17,12 @@ export const Navbar = () => {
 
 </div>
 </div>
-</nav>
-</div>
-`)
+</nav>`
+export const Navbar = () => {
+  return getElement()
+  function getElement(){
+    return TEMPLATE_EL
+  }
 }
 
 
