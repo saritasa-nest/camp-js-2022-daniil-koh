@@ -9,7 +9,7 @@
     "stylelint": "npx stylelint 'src/**/*.css'"
   },
   "devDependencies": {
-    "@chernodub/eslint-config": "^2.0.4",
+    "@chernodub/eslint-config": "^2.0.2",
     "@typescript-eslint/eslint-plugin": "^5.10.1",
     "@typescript-eslint/parser": "^5.10.1",
     "eslint": "^8.7.0",
@@ -18,7 +18,9 @@
     "eslint-plugin-prefer-arrow": "^1.2.3",
     "prettier": "^2.5.1",
     "typescript": "^4.5.5",
-    "vite": "^2.7.2"
+    "vite": "^2.7.2",
+    "stylelint": "^14.3.0",
+    "stylelint-config-recommended": "^6.0.0"
   },
   "dependencies": {
     "firebase": "^9.4.1"
