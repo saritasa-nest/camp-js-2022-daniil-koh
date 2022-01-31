@@ -1,19 +1,78 @@
-import {CollectionInterface} from "./collectionInterface";
+import { CollectionInterface } from './collectionInterface';
 
+/**
+ * Planet characteristics.
+ */
 export interface SpeciesInterface extends CollectionInterface{
-  fields:{
-    average_height: string;
-    average_lifespan: string;
+
+  /**
+   * Charactistic filds of species.
+   */
+  fields: {
+
+    /**
+     * Species average height.
+     */
+    averageHeight: string;
+
+    /**
+     * Average lifespan of species.
+     */
+    averageLifespan: string;
+
+    /**
+     * Classification of species.
+     */
     classification: string;
+
+    /**
+     * Date of creation.
+     */
     created: string;
+
+    /**
+     *Species designation.
+     */
     designation: string;
+
+    /**
+     * Date of edition.
+     */
     edited: string;
-    eye_colors: string;
+
+    /**
+     * Eye colors.
+     */
+    eyeColors: string;
+
+    /**
+     * Hair color.
+     */
     hair_colors: string;
+
+    /**
+     * Primary key of homeland planet.
+     */
     homeworld: number;
+
+    /**
+     * Language of species.
+     */
     language: string;
+
+    /**
+     * Name of species.
+     */
     name: string;
-    people: [number]
-    skin_colors: string
-  }
+
+    /**
+     * Array of primary keys of people.
+     */
+    people: [number];
+
+    /**
+     * Skin color.
+     */
+    skinColors: string;
+  };
 }

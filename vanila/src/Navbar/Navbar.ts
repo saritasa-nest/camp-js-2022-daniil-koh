@@ -1,5 +1,5 @@
-const TEMPLATE_EL = document.createElement('div')
-TEMPLATE_EL.className = "container-fluid navbar-fixed navbar"
+const TEMPLATE_EL = document.createElement('div');
+TEMPLATE_EL.className = 'container-fluid navbar-fixed navbar';
 TEMPLATE_EL.innerHTML = `
 <nav class="green">
 <div class="nav-wrapper">
@@ -17,13 +17,10 @@ TEMPLATE_EL.innerHTML = `
 
 </div>
 </div>
-</nav>`
+</nav>`;
 export const Navbar = () => {
-  return getElement()
-  function getElement(){
-    return TEMPLATE_EL
+  return getElement();
+  function getElement() {
+    return TEMPLATE_EL;
   }
-}
-
-
-
+};

@@ -1,18 +1,19 @@
-import {CollectionInterface} from "../interfaces/collectionInterface";
-import {getData} from "../firestore";
-import {DocumentData, QuerySnapshot} from "firebase/firestore";
+import { DocumentData, QuerySnapshot } from 'firebase/firestore';
 
-export const formateCollectionData = async (path: string): Promise<CollectionInterface[]> => {
+import { CollectionInterface } from '../interfaces/collectionInterface';
+import { getData } from '../firestore';
+
+export const formateCollectionData = async(path: string): Promise<CollectionInterface[]> => {
   const data: CollectionInterface[] = [];
-  const docSnap: QuerySnapshot<DocumentData> = await getData(path)
+  const docSnap: QuerySnapshot<DocumentData> = await getData(path);
   docSnap.forEach(document => {
-    const {pk, model, ...fields} = <CollectionInterface>document.data();
-    let item: CollectionInterface = {
+    const { pk, model, ...fields } = <CollectionInterface>document.data();
+    const item: CollectionInterface = {
       pk,
       model,
-      ...fields
-    }
-    data.push(item)
-  })
-  return data
-}
+      ...fields,
+    };
+    data.push(item);
+  });
+  return data;
+};

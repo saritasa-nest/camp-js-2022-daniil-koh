@@ -1,17 +1,19 @@
-import {signIn} from "../firestore";
+import { signIn } from '../firestore';
 
 export const AuthForm: Function = () => {
-  const authForm:Element = document.getElementsByClassName('auth')[0]
-  authForm.addEventListener('submit', authFormAuthetication)
+  const authForm: Element = document.getElementsByClassName('auth')[0];
+  authForm.addEventListener('submit', authFormAuthetication);
 
-  async function authFormAuthetication(event: any): Promise<void> {
-    event.preventDefault()
-    const email: string = event.target.querySelector('#email').value
-    const password: string = event.target.querySelector('#password').value
-    await signIn(email, password)
+  async function authFormAuthetication(event: Event): Promise<void> {
+    event.preventDefault();
+    if (event.target !== null) {
+      const email = (<HTMLInputElement>(<Element>event.target).querySelector('#email')).value;
+      const password: string = (<HTMLInputElement>(<Element>event.target).querySelector('#password')).value;
+      await signIn(email, password);
+    }
   }
 
-  return(`<body>
+  return (`<body>
 <main>
 <div class="container">
   <h5 class="indigo-text">Please, login into your account</h5>
@@ -54,6 +56,5 @@ export const AuthForm: Function = () => {
 
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
-  </body>`)
-}
-
+  </body>`);
+};

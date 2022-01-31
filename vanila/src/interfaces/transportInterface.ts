@@ -1,18 +1,73 @@
-import {CollectionInterface} from "./collectionInterface";
+import { CollectionInterface } from './collectionInterface';
 
+/**
+ * Transport characteristics.
+ */
 export interface TransportInterface extends CollectionInterface {
+
+  /**
+   * Transport characteristic fields.
+   */
   fields: {
-    cargo_capacity: string;
+
+    /**
+     * Cargo capacity.
+     */
+    cargoCapacity: string;
+
+    /**
+     * Consumables.
+     */
     consumables: string;
-    cost_in_credits: string;
+
+    /**
+     * Price in credits.
+     */
+    costInCredits: string;
+
+    /**
+     * Date of creation.
+     */
     created: string;
+
+    /**
+     *Crew id.
+     */
     crew: string;
+
+    /**
+     * Edited date.
+     */
     edited: string;
+
+    /**
+     * Length of transport.
+     */
     length: string;
+
+    /**
+     * Name of manufacturer.
+     */
     manufacturer: string;
-    max_atmosphering_speed: string;
+
+    /**
+     * Max atmospheric speed.
+     */
+    maxAtmospheringSpeed: string;
+
+    /**
+     * Transport model.
+     */
     model: string;
+
+    /**
+     * Transport name.
+     */
     name: string;
+
+    /**
+     *Quality of passengers.
+     */
     passengers: string;
-  }
+  };
 }

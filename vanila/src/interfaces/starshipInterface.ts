@@ -1,9 +1,28 @@
-import {CollectionInterface} from "./collectionInterface";
+import { CollectionInterface } from './collectionInterface';
 
+/**
+ * Starships characteristics.
+ */
 export interface StarshipInterface extends CollectionInterface{
+
+  /**
+   * Fields of characteristics.
+   */
   fields: {
-    MLGT: string,
-    hyperdrive_rating:string;
-    starhip_class:string
-  }
+
+    /**
+     *MLGT.
+     */
+    MLGT: string;
+
+    /**
+     * Hyperdrive rating.
+     */
+    hyperdriveRating: string;
+
+    /**
+     * Class of starship.
+     */
+    starhipClass: string;
+  };
 }

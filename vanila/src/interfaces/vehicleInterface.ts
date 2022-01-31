@@ -1,7 +1,18 @@
-import {CollectionInterface} from "./collectionInterface";
+import { CollectionInterface } from './collectionInterface';
 
+/**
+ * Vehicle characteristics.
+ */
 export interface VehicleInterface extends CollectionInterface{
+
+  /**
+   * Characteristic fieds.
+   */
   fields: {
-    vehicle_class: string
-  }
+
+    /**
+     * Class of vehicle.
+     */
+    vehicleClass: string;
+  };
 }
