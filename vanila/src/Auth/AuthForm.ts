@@ -1,9 +1,13 @@
 import { signIn } from '../firestore';
 
-export const AuthForm: Function = () => {
-  const authForm: Element = document.getElementsByClassName('auth')[0];
-  authForm.addEventListener('submit', authFormAuthetication);
+export const authForm: Function = () => {
+  const authFormElement: Element = document.getElementsByClassName('auth')[0];
+  authFormElement.addEventListener('submit', authFormAuthetication);
 
+  /**
+   * Sign in to the website.
+   * @param event Clicking on btn.
+   */
   async function authFormAuthetication(event: Event): Promise<void> {
     event.preventDefault();
     if (event.target !== null) {

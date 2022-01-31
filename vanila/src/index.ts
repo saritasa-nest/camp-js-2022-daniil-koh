@@ -1,6 +1,6 @@
-import { AuthForm } from './Auth/AuthForm';
+import { authForm } from './Auth/AuthForm';
 import { table } from './Table/Table';
-import { Navbar } from './Navbar/Navbar';
+import { navbar } from './Navbar/Navbar';
 
 let authorization = false;
 
@@ -14,11 +14,11 @@ function render() {
   const mainDiv: Element = document.getElementsByClassName('main')[0];
   const authForm: Element = document.getElementsByClassName('auth')[0];
   if (getAuthStatus()) {
-    mainDiv.appendChild(Navbar());
+    mainDiv.appendChild(navbar());
     mainDiv.appendChild(table());
     authForm.innerHTML = '';
   } else {
-    authForm.innerHTML = AuthForm();
+    authForm.innerHTML = authForm();
     console.log(mainDiv.children.length);
     for (let i = 0; i < mainDiv.children.length; i++) {
       const childElement: Element = <Element> mainDiv.children.item(i);

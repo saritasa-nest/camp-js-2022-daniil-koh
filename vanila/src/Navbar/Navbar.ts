@@ -18,9 +18,17 @@ TEMPLATE_EL.innerHTML = `
 </div>
 </div>
 </nav>`;
-export const Navbar = () => {
+
+/**
+ * Navbar component.
+ */
+export const navbar = (): Element => {
   return getElement();
-  function getElement() {
+
+  /**
+   * Return Navbar element.
+   */
+  function getElement(): Element {
     return TEMPLATE_EL;
   }
 };
