@@ -3,13 +3,18 @@ import { DocumentData, QuerySnapshot } from 'firebase/firestore';
 import { CollectionInterface } from '../interfaces/collectionInterface';
 import { getData, getSortedByData } from '../firestore';
 
-export async function formateCollectionData(path: string, sortKey?: string): Promise<CollectionInterface[]> {
+/**
+ * Get and formate data.
+ * @param collectionName Name of collection.
+ * @param sortKey Key of sorting.
+ */
+export async function formateCollectionData(collectionName: string, sortKey?: string): Promise<CollectionInterface[]> {
   const data: CollectionInterface[] = [];
   let func;
   if (typeof (sortKey) !== 'undefined') {
-    func = () => getSortedByData(path, sortKey);
+    func = () => getSortedByData(collectionName, sortKey);
   } else {
-    func = () => getData(path);
+    func = () => getData(collectionName);
   }
   const docSnap: QuerySnapshot<DocumentData> = await func();
   docSnap.forEach(document => {
