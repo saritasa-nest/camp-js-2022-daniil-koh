@@ -10,23 +10,24 @@ export const changeAuthStatus = (value: boolean): void => {
 };
 export const getAuthStatus = (): boolean => authorization;
 
-function render() {
+/**
+ * Render page, if something updated.
+ */
+function render(): void {
   const mainDiv: Element = document.getElementsByClassName('main')[0];
-  const authForm: Element = document.getElementsByClassName('auth')[0];
+  const authFormEl: Element = document.getElementsByClassName('auth')[0];
   if (getAuthStatus()) {
     mainDiv.appendChild(navbar());
     mainDiv.appendChild(table());
-    authForm.innerHTML = '';
+    authFormEl.innerHTML = '';
   } else {
-    authForm.innerHTML = authForm();
-    console.log(mainDiv.children.length);
+    authFormEl.innerHTML = authForm();
     for (let i = 0; i < mainDiv.children.length; i++) {
       const childElement: Element = <Element> mainDiv.children.item(i);
       if (childElement) {
         childElement.innerHTML = '';
       }
     }
-    console.log('it is work');
   }
 }
 

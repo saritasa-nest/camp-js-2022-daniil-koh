@@ -38,7 +38,7 @@ export interface PeopleInterface extends CollectionInterface {
     /**
      * Color of Hair.
      */
-    hair_color: string;
+    hairColor: string;
 
     /**
      * Height in sm.
@@ -48,7 +48,7 @@ export interface PeopleInterface extends CollectionInterface {
     /**
      * Primary key of homeland planet.
      */
-    homeworld: number;
+    homeWorld: number;
 
     /**
      * Mass of people.

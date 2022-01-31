@@ -18,9 +18,9 @@ const auth = getAuth();
 
 // Methods--------------------------------------------------------------------------------------------------------------------
 
-export const getData = async(pathCollection: string): Promise<QuerySnapshot<DocumentData>> => await getDocs(collection(db, pathCollection));
+export const getData = (pathCollection: string): Promise<QuerySnapshot<DocumentData>> => getDocs(collection(db, pathCollection));
 
-export const signIn = async(email: string, password: string) => {
+export const signIn = async(email: string, password: string): Promise<void> => {
   signInWithEmailAndPassword(auth, email, password)
     .catch(error => {
       throw new Error(error);
@@ -28,9 +28,9 @@ export const signIn = async(email: string, password: string) => {
   await monitorAuthState();
 };
 
-const monitorAuthState = async() => {
+const monitorAuthState = async(): Promise<void> => {
 
-  onAuthStateChanged(auth, user => {
+  await onAuthStateChanged(auth, user => {
     if (user) {
       changeAuthStatus(true);
     } else {

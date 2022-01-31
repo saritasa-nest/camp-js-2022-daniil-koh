@@ -48,12 +48,12 @@ export interface SpeciesInterface extends CollectionInterface{
     /**
      * Hair color.
      */
-    hair_colors: string;
+    hairColors: string;
 
     /**
      * Primary key of homeland planet.
      */
-    homeworld: number;
+    homeWorld: number;
 
     /**
      * Language of species.
