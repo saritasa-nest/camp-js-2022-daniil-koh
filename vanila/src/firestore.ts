@@ -1,4 +1,4 @@
-import { collection, DocumentData, getDocs, getFirestore, QuerySnapshot } from 'firebase/firestore';
+import { collection, DocumentData, getDocs, getFirestore, QuerySnapshot, query, orderBy } from 'firebase/firestore';
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
 
@@ -19,6 +19,11 @@ const auth = getAuth();
 // Methods--------------------------------------------------------------------------------------------------------------------
 
 export const getData = (pathCollection: string): Promise<QuerySnapshot<DocumentData>> => getDocs(collection(db, pathCollection));
+
+export const getSortedByData = (pathCollection: string, sortKey: string): Promise<QuerySnapshot<DocumentData>> => {
+  const queryWithSorting = query(collection(db, pathCollection), orderBy(`fields/${sortKey}`));
+  return getDocs(queryWithSorting);
+};
 
 export const signIn = async(email: string, password: string): Promise<void> => {
   signInWithEmailAndPassword(auth, email, password)

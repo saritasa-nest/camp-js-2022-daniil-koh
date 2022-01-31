@@ -28,12 +28,12 @@ export interface FilmInterface extends CollectionInterface {
     /**
      *It is primary key of this episod.
      */
-    episodeId: number;
+    episode_id: number;
 
     /**
      * Description text in the film beginning.
      */
-    openingCrawl: string;
+    opening_crawl: string;
 
     /**
      * Array of primary keys of planets.
@@ -48,7 +48,7 @@ export interface FilmInterface extends CollectionInterface {
     /**
      * Date of release.
      */
-    releaseDate: string;
+    release_date: string;
 
     /**
      *Array of primary keys .

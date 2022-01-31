@@ -1,7 +1,5 @@
 import { getAuthStatus } from '../index';
 import { formateCollectionData } from '../middlewares/formateCollectionData';
-
-// import {capitalizeFirstLetter} from "../StringFormatter/capitalizeFirstLetter";
 import { FilmInterface } from '../interfaces/filmInterface';
 
 const tableElement = document.createElement('table');
@@ -17,6 +15,21 @@ tableElement.innerHTML = (`
 const titlesForColumns = ['Title', 'Director', 'Producer', 'Release'];
 
 //  TODO sortTable(idx)
+// const sortingKeys = ["title", "director", "producer", 'release_date'];
+
+// function sortTable(sortColumnName: string) {
+//   const idxOfSortingKey = titlesForColumns.indexOf(sortColumnName)
+//   const sortKey = sortingKeys[idxOfSortingKey]
+//   formateCollectionData('films', sortKey).then(data => {
+//     const films = <FilmInterface[]>data;
+//     if (films.length !== 0) {
+//       setFilmsInTable(films);
+//     } else {
+//       tableElement.innerHTML = 'No films';
+//     }
+//   })
+//
+// }
 
 /**
  * Set films in table.
@@ -24,13 +37,13 @@ const titlesForColumns = ['Title', 'Director', 'Producer', 'Release'];
  */
 function setFilmsInTable(films: FilmInterface[]): void {
   const tableBody: Element = tableElement.getElementsByClassName('elements')[0];
+  tableBody.innerHTML = '';
   for (const [idx, film] of films.entries()) {
     const row: HTMLTableRowElement = document.createElement('tr');
     row.id = String(idx);
 
     // fields to show
-    const { director, releaseDate, producer, title } = film.fields;
-
+    const { director, release_date, producer, title } = film.fields;
     const directorEl: HTMLTableCellElement = document.createElement('td');
     const releaseDateEl: HTMLTableCellElement = document.createElement('td');
     const producerEl: HTMLTableCellElement = document.createElement('td');
@@ -42,11 +55,11 @@ function setFilmsInTable(films: FilmInterface[]): void {
     titleEL.className = 'title';
 
     directorEl.innerHTML = director;
-    releaseDateEl.innerHTML = releaseDate;
+    releaseDateEl.innerHTML = release_date;
     producerEl.innerHTML = producer;
     titleEL.innerHTML = title;
 
-    row.append(directorEl, releaseDateEl, producerEl, titleEL);
+    row.append(titleEL, directorEl, producerEl, releaseDateEl);
     tableBody.appendChild(row);
   }
 }
