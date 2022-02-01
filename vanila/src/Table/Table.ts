@@ -1,6 +1,6 @@
-import { getAuthStatus } from '../index';
-import { formateCollectionData } from '../middlewares/formateCollectionData';
-import { FilmInterface } from '../interfaces/filmInterface';
+import { getFormattedCollectionData } from '../middlewares/getFormattedCollectionData';
+import { FilmDTO } from '../DTO/filmDTO';
+import { CollectionDTO } from '../DTO/collectionDTO';
 
 const tableElement = document.createElement('table');
 tableElement.className = 'data';
@@ -20,7 +20,7 @@ const titlesForColumns = ['Title', 'Director', 'Producer', 'Release'];
 // function sortTable(sortColumnName: string) {
 //   const idxOfSortingKey = titlesForColumns.indexOf(sortColumnName)
 //   const sortKey = sortingKeys[idxOfSortingKey]
-//   formateCollectionData('films', sortKey).then(data => {
+//   formatCollectionData('films', sortKey).then(data => {
 //     const films = <FilmInterface[]>data;
 //     if (films.length !== 0) {
 //       setFilmsInTable(films);
@@ -35,7 +35,7 @@ const titlesForColumns = ['Title', 'Director', 'Producer', 'Release'];
  * Set films in table.
  * @param films Film collection from firestore.
  */
-function setFilmsInTable(films: FilmInterface[]): void {
+function setFilmsInTable(films: CollectionDTO<FilmDTO>[]): void {
   const tableBody: Element = tableElement.getElementsByClassName('elements')[0];
   tableBody.innerHTML = '';
   for (const [idx, film] of films.entries()) {
@@ -68,7 +68,7 @@ function setFilmsInTable(films: FilmInterface[]): void {
  * Set titles for columns.
  */
 function setColumnsNamesInTable(): void {
-  const columnsTitles: Element = <Element> tableElement.querySelector('.columns-titles');
+  const columnsTitles: Element = <Element>tableElement.querySelector('.columns-titles');
   columnsTitles.innerHTML = '';
 
   // eslint-disable-next-line no-unused-vars
@@ -86,7 +86,6 @@ function setColumnsNamesInTable(): void {
  * Return a table and render it during life cycle of element.
  */
 export const table = (): HTMLTableElement => {
-  // const tableElement: Element = document.getElementsByClassName('table')[0]
   initializeTable();
   return getElement();
 
@@ -94,23 +93,18 @@ export const table = (): HTMLTableElement => {
    * Init table.
    */
   function initializeTable(): void {
-
-
-    if (getAuthStatus()) {
-      formateCollectionData('films').then(data => {
-        const films = <FilmInterface[]>data;
-        if (films.length !== 0) {
-          setColumnsNamesInTable();
-          setFilmsInTable(films);
-        } else {
-          tableElement.innerHTML = 'No films';
-        }
-      })
-        .catch(er => {
-          throw new Error(er);
-        });
-    }
-
+    getFormattedCollectionData<FilmDTO>('films').then(data => {
+      const films = <CollectionDTO<FilmDTO>[]>data;
+      if (films.length !== 0) {
+        setColumnsNamesInTable();
+        setFilmsInTable(films);
+      } else {
+        tableElement.innerHTML = 'No films';
+      }
+    })
+      .catch(er => {
+        throw new Error(er);
+      });
   }
 
   /**

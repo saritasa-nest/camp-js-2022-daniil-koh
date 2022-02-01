@@ -1,8 +1,9 @@
+import { onAuthStateChanged } from 'firebase/auth';
+
 import { authModal } from './Auth/AuthModal';
 import { table } from './Table/Table';
 import { navbar } from './Navbar/Navbar';
-import {auth } from './firestore'
-import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from './firestore/init';
 
 /**
  * Render page, if something updated.
@@ -16,15 +17,10 @@ export async function render(): Promise<void> {
       mainDiv.appendChild(table());
       authFormEl.innerHTML = '';
     } else {
-      authFormEl.innerHTML = authModal();
-      for (let i = 0; i < mainDiv.children.length; i++) {
-        const childElement: Element = <Element>mainDiv.children.item(i);
-        if (childElement) {
-          childElement.innerHTML = '';
-        }
-      }
+      authFormEl.appendChild(authModal());
+      mainDiv.innerHTML = '';
     }
-  })
+  });
 }
 
 render();

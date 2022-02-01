@@ -1,29 +1,9 @@
-import { signIn } from '../firestore';
-import {render} from '../index'
+import { signIn } from '../firestore/firestoreOperations';
+import { render } from '../index';
 
-export const authModal: Function = () => {
-  const authContainerElement: Element = <Element> document.querySelector('.auth');
-  authContainerElement.addEventListener('submit', onFormSubmit);
-
-  /**
-   * Sign in to the website.
-   * @param event Clicking on btn.
-   */
-  async function onFormSubmit(event: Event): Promise<void> {
-    event.preventDefault();
-    if (event.target !== null) {
-      const authForm: Element = (<Element> authContainerElement.querySelector('.auth-form'));
-
-      // @ts-ignore
-      const { emailElement, passwordElement } = (<HTMLFormElement> authForm).elements;
-      await signIn(emailElement.value, passwordElement.value).then(()=> render());
-    }
-  }
-
-  return (`
-          <body>
-          <main>
-            <div class="container">
+const TEMPLATE_EL = document.createElement('div');
+TEMPLATE_EL.className = 'container';
+TEMPLATE_EL.innerHTML = `
               <div class="z-depth-1 grey lighten-4 row auth-box">
                 <form class="col s12 auth-form" method="post" >
                   <div class='row'>
@@ -52,8 +32,33 @@ export const authModal: Function = () => {
                   </div>
                 </form>
               </div>
-            </div>
-          </main>
-          </body>
-          `);
+          `;
+
+export const authModal: Function = (): Element => {
+  TEMPLATE_EL.addEventListener('submit', onFormSubmit);
+
+  return getElement();
+
+  /**
+   * Sign in to the website.
+   * @param event Clicking on btn.
+   */
+  async function onFormSubmit(event: Event): Promise<void> {
+    event.preventDefault();
+    if (event.target !== null) {
+      const authForm: Element = (<Element> TEMPLATE_EL.querySelector('.auth-form'));
+
+      // @ts-ignore
+      const { emailElement, passwordElement } = (<HTMLFormElement> authForm).elements;
+      await signIn(emailElement.value, passwordElement.value).then(() => render());
+    }
+  }
+
+  /**
+   * Return Auth modal element.
+   */
+  function getElement(): Element {
+    return TEMPLATE_EL;
+  }
+
 };
