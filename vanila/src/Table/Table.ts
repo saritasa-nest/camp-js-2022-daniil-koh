@@ -68,7 +68,7 @@ function setFilmsInTable(films: FilmInterface[]): void {
  * Set titles for columns.
  */
 function setColumnsNamesInTable(): void {
-  const columnsTitles: Element = tableElement.getElementsByClassName('columns-titles')[0];
+  const columnsTitles: Element = <Element> tableElement.querySelector('.columns-titles');
   columnsTitles.innerHTML = '';
 
   // eslint-disable-next-line no-unused-vars
@@ -94,6 +94,8 @@ export const table = (): HTMLTableElement => {
    * Init table.
    */
   function initializeTable(): void {
+
+
     if (getAuthStatus()) {
       formateCollectionData('films').then(data => {
         const films = <FilmInterface[]>data;

@@ -1,19 +1,22 @@
 import { signIn } from '../firestore';
+import {render} from '../index'
 
-export const authForm: Function = () => {
-  const authFormElement: Element = document.getElementsByClassName('auth')[0];
-  authFormElement.addEventListener('submit', authFormAuthetication);
+export const authModal: Function = () => {
+  const authContainerElement: Element = <Element> document.querySelector('.auth');
+  authContainerElement.addEventListener('submit', onFormSubmit);
 
   /**
    * Sign in to the website.
    * @param event Clicking on btn.
    */
-  async function authFormAuthetication(event: Event): Promise<void> {
+  async function onFormSubmit(event: Event): Promise<void> {
     event.preventDefault();
     if (event.target !== null) {
-      const email = (<HTMLInputElement>(<Element>event.target).querySelector('#email')).value;
-      const password: string = (<HTMLInputElement>(<Element>event.target).querySelector('#password')).value;
-      await signIn(email, password);
+      const authForm: Element = (<Element> authContainerElement.querySelector('.auth-form'));
+
+      // @ts-ignore
+      const { emailElement, passwordElement } = (<HTMLFormElement> authForm).elements;
+      await signIn(emailElement.value, passwordElement.value).then(()=> render());
     }
   }
 
@@ -21,12 +24,8 @@ export const authForm: Function = () => {
           <body>
           <main>
             <div class="container">
-              <h5 class="indigo-text">Please, login into your account</h5>
-            </div>
-            <div class="container">
-              <div class="z-depth-1 grey lighten-4 row"
-                   style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
-                <form class="col s12" method="post">
+              <div class="z-depth-1 grey lighten-4 row auth-box">
+                <form class="col s12 auth-form" method="post" >
                   <div class='row'>
                     <div class='col s12'>
                     </div>
@@ -39,7 +38,7 @@ export const authForm: Function = () => {
                     </div>
                   </div>
 
-                  <div class='row'>
+                  <div class="row">
                     <div class='input-field col s12'>
                       <input class='validate' type='password' name='password' id='password'/>
                       <label for='password'>Enter your password</label>
@@ -54,16 +53,7 @@ export const authForm: Function = () => {
                 </form>
               </div>
             </div>
-            <a href="#!">Create account</a>
-
-            <div class="section"></div>
-            <div class="section"></div>
           </main>
-
-          <script type="text/javascript"
-                  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
-          <script type="text/javascript"
-                  src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
           </body>
           `);
 };

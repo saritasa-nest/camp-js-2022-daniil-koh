@@ -1,8 +1,7 @@
 import { collection, DocumentData, getDocs, getFirestore, QuerySnapshot, query, orderBy } from 'firebase/firestore';
-import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword} from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
 
-import { changeAuthStatus } from './index';
 
 export const firebaseApp = initializeApp({
   apiKey: 'AIzaSyBKPLNeEY4yJUg0eA60u8nKg30q08zGaSM',
@@ -14,7 +13,7 @@ export const firebaseApp = initializeApp({
 });
 
 const db = getFirestore(firebaseApp);
-const auth = getAuth();
+export const auth = getAuth();
 
 // Methods--------------------------------------------------------------------------------------------------------------------
 
@@ -30,16 +29,4 @@ export const signIn = async(email: string, password: string): Promise<void> => {
     .catch(error => {
       throw new Error(error);
     });
-  await monitorAuthState();
-};
-
-const monitorAuthState = async(): Promise<void> => {
-
-  await onAuthStateChanged(auth, user => {
-    if (user) {
-      changeAuthStatus(true);
-    } else {
-      changeAuthStatus(false);
-    }
-  });
 };
