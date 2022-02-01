@@ -4,7 +4,7 @@
 export interface StarshipDTO {
 
   /**
-   *MLGT.
+   *Megalight.
    */
   MLGT: string;
 

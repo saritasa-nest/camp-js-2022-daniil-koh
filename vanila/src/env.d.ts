@@ -3,7 +3,7 @@
 /// <reference types="vite/client" />
 
 /**
- * This interface discribes types for the env variables.
+ * This interface describes types for the env variables.
  */
 interface ImportMetaEnv {
 
