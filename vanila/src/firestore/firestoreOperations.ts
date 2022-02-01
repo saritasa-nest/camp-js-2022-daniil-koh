@@ -3,8 +3,6 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 
 import { db, auth } from './init';
 
-// Methods--------------------------------------------------------------------------------------------------------------------
-
 /**
  * Getting data from db with pathname.
  * @param pathCollection Collection pathname.

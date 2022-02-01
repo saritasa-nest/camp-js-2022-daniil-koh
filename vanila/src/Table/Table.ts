@@ -71,8 +71,7 @@ function setColumnsNamesInTable(): void {
   const columnsTitles: Element = <Element>tableElement.querySelector('.columns-titles');
   columnsTitles.innerHTML = '';
 
-  // eslint-disable-next-line no-unused-vars
-  for (const [, title] of titlesForColumns.entries()) {
+  for (const title of titlesForColumns) {
     const colNameEl: HTMLTableCellElement = document.createElement('th');
     colNameEl.innerHTML = title;
 
