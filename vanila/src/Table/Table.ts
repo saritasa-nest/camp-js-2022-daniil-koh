@@ -14,7 +14,7 @@ tableElement.innerHTML = (`
 
 const titlesForColumns = ['Title', 'Director', 'Producer', 'Release'];
 
-//  TODO sortTable(idx)
+//  TODO sortTable(idx) to realize with backend
 // const sortingKeys = ["title", "director", "producer", 'release_date'];
 
 // function sortTable(sortColumnName: string) {
