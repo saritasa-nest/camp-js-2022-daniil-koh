@@ -1,6 +1,6 @@
-import { getFormattedCollectionData } from '../middlewares/getFormattedCollectionData';
-import { FilmDTO } from '../DTO/filmDTO';
-import { CollectionDTO } from '../DTO/collectionDTO';
+import { getFormattedCollectionData } from '../../middlewares/getFormattedCollectionData';
+import { FilmDTO } from '../../DTO/filmDTO';
+import { CollectionDTO } from '../../DTO/collectionDTO';
 
 const tableElement = document.createElement('table');
 tableElement.className = 'data';
@@ -14,22 +14,21 @@ tableElement.innerHTML = (`
 
 const titlesForColumns = ['Title', 'Director', 'Producer', 'Release'];
 
-//  TODO sortTable(idx) to realize with backend
-// const sortingKeys = ["title", "director", "producer", 'release_date'];
+/**
+ * Make a request to db to sort data.
+ * @param sortKey Column name to sort by.
+ */
+export function sortTable(sortKey: string): void {
+  getFormattedCollectionData('films', sortKey).then(data => {
+    const films = <CollectionDTO<FilmDTO>[]> data;
+    if (films.length !== 0) {
+      setFilmsInTable(films);
+    } else {
+      tableElement.innerHTML = 'No films';
+    }
+  });
 
-// function sortTable(sortColumnName: string) {
-//   const idxOfSortingKey = titlesForColumns.indexOf(sortColumnName)
-//   const sortKey = sortingKeys[idxOfSortingKey]
-//   formatCollectionData('films', sortKey).then(data => {
-//     const films = <FilmInterface[]>data;
-//     if (films.length !== 0) {
-//       setFilmsInTable(films);
-//     } else {
-//       tableElement.innerHTML = 'No films';
-//     }
-//   })
-//
-// }
+}
 
 /**
  * Set films in table.
@@ -74,9 +73,6 @@ function setColumnsNamesInTable(): void {
   for (const title of titlesForColumns) {
     const colNameEl: HTMLTableCellElement = document.createElement('th');
     colNameEl.innerHTML = title;
-
-    // TODO colNameEl.onclick = () => sortTable(idx);
-
     columnsTitles.appendChild(colNameEl);
   }
 }

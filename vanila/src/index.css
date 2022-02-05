@@ -1,7 +1,10 @@
 h1 {
   color: gray;
 }
-.auth-box{
-  padding: 10% 0;
-  border: 1px solid #EEEEEE;
+.modal-content{
+  min-height: 400px;
+  min-width: 100px;
+}
+.navbar .container-fluid{
+  margin: 0 30px;
 }
