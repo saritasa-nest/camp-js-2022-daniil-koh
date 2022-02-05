@@ -6,65 +6,65 @@ export interface SpeciesDTO {
   /**
    * Species average height.
    */
-  averageHeight: string;
+  readonly average_height: string;
 
   /**
    * Average lifespan of species.
    */
-  averageLifespan: string;
+  readonly average_lifespan: string;
 
   /**
    * Classification of species.
    */
-  classification: string;
+  readonly classification: string;
 
   /**
    * Date of creation.
    */
-  created: string;
+  readonly created: string;
 
   /**
    *Species designation.
    */
-  designation: string;
+  readonly designation: string;
 
   /**
    * Date of edition.
    */
-  edited: string;
+  readonly edited: string;
 
   /**
    * Eye colors.
    */
-  eyeColors: string;
+  readonly eye_colors: string;
 
   /**
    * Hair color.
    */
-  hairColors: string;
+  readonly hair_colors: string;
 
   /**
    * Primary key of homeland planet.
    */
-  homeWorld: number;
+  readonly home_world: number;
 
   /**
    * Language of species.
    */
-  language: string;
+  readonly language: string;
 
   /**
    * Name of species.
    */
-  name: string;
+  readonly name: string;
 
   /**
    * Array of primary keys of people.
    */
-  people: number[];
+  readonly people: number[];
 
   /**
    * Skin color.
    */
-  skinColors: string;
+  readonly skin_colors: string;
 }

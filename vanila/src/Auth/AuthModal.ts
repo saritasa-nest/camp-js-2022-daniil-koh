@@ -1,8 +1,9 @@
 import { signIn } from '../firestore/firestoreOperations';
 import { render } from '../index';
+import { authFormElements } from '../Interfaces/authFormElements';
 
 const TEMPLATE_EL = document.createElement('div');
-TEMPLATE_EL.className = 'container';
+TEMPLATE_EL.classList.add('container');
 TEMPLATE_EL.innerHTML = `
               <div class="z-depth-1 grey lighten-4 row auth-box">
                 <form class="col s12 auth-form" method="post" >
@@ -34,31 +35,25 @@ TEMPLATE_EL.innerHTML = `
               </div>
           `;
 
-export const authModal: Function = (): Element => {
-  TEMPLATE_EL.addEventListener('submit', onFormSubmit);
+/**
+ * Sign in to the website.
+ * @param event Clicking on btn.
+ */
+function onFormSubmit(event: Event): void {
+  event.preventDefault();
+  if (event.target !== null) {
+    const authForm = TEMPLATE_EL.querySelector<HTMLFormElement>('.auth-form');
 
-  return getElement();
-
-  /**
-   * Sign in to the website.
-   * @param event Clicking on btn.
-   */
-  async function onFormSubmit(event: Event): Promise<void> {
-    event.preventDefault();
-    if (event.target !== null) {
-      const authForm: Element = (<Element> TEMPLATE_EL.querySelector('.auth-form'));
-
-      // @ts-ignore
-      const { emailElement, passwordElement } = (<HTMLFormElement> authForm).elements;
-      await signIn(emailElement.value, passwordElement.value).then(() => render());
+    if (authForm !== null) {
+      const { emailElement, passwordElement } = <authFormElements>authForm.elements;
+      signIn(emailElement.value, passwordElement.value).then(() => render());
     }
   }
+}
 
-  /**
-   * Return Auth modal element.
-   */
-  function getElement(): Element {
-    return TEMPLATE_EL;
-  }
+export const authModal = (): HTMLDivElement => {
+  TEMPLATE_EL.addEventListener('submit', onFormSubmit);
+
+  return TEMPLATE_EL;
 
 };

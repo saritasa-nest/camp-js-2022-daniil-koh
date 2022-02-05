@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 /**
  * Planet characteristics.
  */
@@ -6,55 +7,55 @@ export interface PlanetDTO {
   /**
    *Planet Climate.
    */
-  climate: string;
+  readonly climate: string;
 
   /**
    * Date of creation.
    */
-  created: string;
+  readonly created: string;
 
   /**
    * Diameter of planet.
    */
-  diameter: string;
+  readonly diameter: string;
 
   /**
    *Date of edition.
    */
-  edited: string;
+  readonly edited: string;
 
   /**
    * Gravity type.
    */
-  gravity: string;
+  readonly gravity: string;
 
   /**
    * Planet name.
    */
-  name: string;
+  readonly name: string;
 
   /**
    * Orbital period.
    */
-  orbitalPeriod: string;
+  readonly orbital_period: string;
 
   /**
    * Planet population.
    */
-  population: string;
+  readonly population: string;
 
   /**
    * Rotation period .
    */
-  rotationPeriod: string;
+  readonly rotation_period: string;
 
   /**
    *Type of water surface.
    */
-  surfaceWater: string;
+  readonly surface_water: string;
 
   /**
    * Types of terrains.
    */
-  terrain: string;
+  readonly terrain: string;
 }

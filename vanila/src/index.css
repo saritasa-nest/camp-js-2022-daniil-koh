@@ -1,7 +1,10 @@
-h1 {
-  color: gray;
+:root{
+  --auth-border-color: #eeeeee;
 }
 .auth-box{
   padding: 10% 0;
-  border: 1px solid #EEEEEE;
+  border: 1px solid var(--auth-border-color);
+}
+.navbar .container-fluid{
+  margin: 0 30px;
 }

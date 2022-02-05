@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 /**
  * Characteristics of people.
  */
@@ -6,55 +7,55 @@ export interface PeopleDTO {
   /**
    * Birthday year.
    */
-  birthYear: string;
+  readonly birth_year: string;
 
   /**
    *Date of creation.
    */
-  created: string;
+  readonly created: string;
 
   /**
    * Date of edition.
    */
-  edited: string;
+  readonly edited: string;
 
   /**
    * Color of eyes.
    */
-  eyeColor: string;
+  readonly eye_color: string;
 
   /**
    * Gender.
    */
-  gender: string;
+  readonly gender: string;
 
   /**
    * Color of Hair.
    */
-  hairColor: string;
+  readonly hair_color: string;
 
   /**
    * Height in sm.
    */
-  height: string;
+  readonly height: string;
 
   /**
    * Primary key of homeland planet.
    */
-  homeWorld: number;
+  readonly homeworld: number;
 
   /**
    * Mass of people.
    */
-  mass: string;
+  readonly mass: string;
 
   /**
    * Name op people.
    */
-  name: string;
+  readonly name: string;
 
   /**
    * Color of skin.
    */
-  skinColor: string;
+  readonly skin_color: string;
 }

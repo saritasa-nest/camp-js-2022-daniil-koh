@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 /**
  * Film characteristics.
  */
@@ -6,60 +7,60 @@ export interface FilmDTO {
   /**
    * Array of primary keys of characters.
    */
-  characters: number[];
+  readonly characters: number[];
 
   /**
    * Date when film was created.
    */
-  created: string;
+  readonly created: string;
 
   /**
    * Director of the film.
    */
-  director: string;
+  readonly director: string;
 
   /**
    *It is primary key of this episod.
    */
-  episode_id: number;
+  readonly episode_id: number;
 
   /**
    * Description text in the film beginning.
    */
-  opening_crawl: string;
+  readonly opening_crawl: string;
 
   /**
    * Array of primary keys of planets.
    */
-  planets: number[];
+  readonly planets: number[];
 
   /**
    * String of producers(separated by ",") or producer.
    */
-  producer: string;
+  readonly producer: string;
 
   /**
    * Date of release.
    */
-  release_date: string;
+  readonly release_date: string;
 
   /**
    *Array of primary keys .
    */
-  species: number[];
+  readonly species: number[];
 
   /**
    *Array of primary keys of starships in film.
    */
-  starships: number[];
+  readonly starships: number[];
 
   /**
    *Title of film.
    */
-  title: string;
+  readonly title: string;
 
   /**
    * Array of primary keys of starships in film.
    */
-  vehicles: number[];
+  readonly vehicles: number[];
 }

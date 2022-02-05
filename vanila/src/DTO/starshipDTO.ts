@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 /**
  * Starships characteristics.
  */
@@ -6,15 +7,15 @@ export interface StarshipDTO {
   /**
    *Megalight.
    */
-  MLGT: string;
+  readonly MLGT: string;
 
   /**
    * Hyperdrive rating.
    */
-  hyperdriveRating: string;
+  readonly hyperdrive_rating: string;
 
   /**
    * Class of starship.
    */
-  starhipClass: string;
+  readonly starhip_class: string;
 }

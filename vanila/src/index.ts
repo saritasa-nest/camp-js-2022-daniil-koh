@@ -9,18 +9,20 @@ import { auth } from './firestore/init';
  * Render page, if something updated.
  */
 export async function render(): Promise<void> {
-  const mainDiv: Element = document.getElementsByClassName('main')[0];
-  const authFormEl: Element = document.getElementsByClassName('auth')[0];
-  await onAuthStateChanged(auth, user => {
-    if (user) {
-      mainDiv.appendChild(navbar());
-      mainDiv.appendChild(table());
-      authFormEl.innerHTML = '';
-    } else {
-      authFormEl.appendChild(authModal());
-      mainDiv.innerHTML = '';
-    }
-  });
+  const mainDiv = document.querySelector<HTMLDivElement>('.main');
+  const authFormEl = document.querySelector<HTMLDivElement>('.auth');
+  if (mainDiv !== null && authFormEl !== null) {
+    await onAuthStateChanged(auth, user => {
+      if (user) {
+        mainDiv.appendChild(navbar());
+        mainDiv.appendChild(table());
+        authFormEl.innerHTML = '';
+      } else {
+        authFormEl.appendChild(authModal());
+        mainDiv.innerHTML = '';
+      }
+    });
+  }
 }
 
 render();

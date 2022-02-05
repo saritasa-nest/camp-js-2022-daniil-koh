@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 /**
  * Transport characteristics.
  */
@@ -6,60 +7,60 @@ export interface TransportDTO {
   /**
    * Cargo capacity.
    */
-  cargoCapacity: string;
+  readonly cargo_capacity: string;
 
   /**
    * Consumables.
    */
-  consumables: string;
+  readonly consumables: string;
 
   /**
    * Price in credits.
    */
-  costInCredits: string;
+  readonly cost_in_credits: string;
 
   /**
    * Date of creation.
    */
-  created: string;
+  readonly created: string;
 
   /**
    *Crew id.
    */
-  crew: string;
+  readonly crew: string;
 
   /**
    * Edited date.
    */
-  edited: string;
+  readonly edited: string;
 
   /**
    * Length of transport.
    */
-  length: string;
+  readonly length: string;
 
   /**
    * Name of manufacturer.
    */
-  manufacturer: string;
+  readonly manufacturer: string;
 
   /**
    * Max atmospheric speed.
    */
-  maxAtmospheringSpeed: string;
+  readonly max_atmosphering_speed: string;
 
   /**
    * Transport model.
    */
-  model: string;
+  readonly model: string;
 
   /**
    * Transport name.
    */
-  name: string;
+  readonly name: string;
 
   /**
    *Quality of passengers.
    */
-  passengers: string;
+  readonly passengers: string;
 }
