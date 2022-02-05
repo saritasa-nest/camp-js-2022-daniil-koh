@@ -1,3 +1,6 @@
+/**
+ * Form interface for auth input elements.
+ */
 export interface authFormElements extends HTMLCollection {
 
   /**
