@@ -1,28 +1,27 @@
 import { onAuthStateChanged } from 'firebase/auth';
 
-import { authModal } from './Auth/AuthModal';
-import { table } from './Table/Table';
-import { navbar } from './Navbar/Navbar';
+import { authModal } from './components/Auth/AuthModal';
+import { table } from './components/Table/Table';
+import { navbar } from './components/Navbar/Navbar';
 import { auth } from './firestore/init';
+import { searchSpace } from './components/SearchAndSortSection/SearchSpace';
 
 /**
  * Render page, if something updated.
  */
 export async function render(): Promise<void> {
-  const mainDiv = document.querySelector<HTMLDivElement>('.main');
-  const authFormEl = document.querySelector<HTMLDivElement>('.auth');
-  if (mainDiv !== null && authFormEl !== null) {
-    await onAuthStateChanged(auth, user => {
-      if (user) {
-        mainDiv.appendChild(navbar());
-        mainDiv.appendChild(table());
-        authFormEl.innerHTML = '';
-      } else {
-        authFormEl.appendChild(authModal());
-        mainDiv.innerHTML = '';
-      }
-    });
-  }
+  const mainDiv: Element = document.getElementsByClassName('main')[0];
+  await onAuthStateChanged(auth, user => {
+    const navbarElement: Element = navbar();
+    const tableElement: HTMLTableElement = table();
+    const searchSpaceElement: HTMLDivElement = searchSpace();
+      mainDiv.append(navbarElement, searchSpaceElement, tableElement);
+    if (user) {
+      mainDiv.append(authModal());
+    } else {
+      mainDiv.innerHTML = '';
+    }
+  });
 }
 
 render();

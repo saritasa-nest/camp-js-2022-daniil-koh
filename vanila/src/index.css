@@ -1,9 +1,9 @@
-:root{
-  --auth-border-color: #eeeeee;
+h1 {
+  color: gray;
 }
-.auth-box{
-  padding: 10% 0;
-  border: 1px solid var(--auth-border-color);
+.modal-content{
+  min-height: 400px;
+  min-width: 100px;
 }
 .navbar .container-fluid{
   margin: 0 30px;
