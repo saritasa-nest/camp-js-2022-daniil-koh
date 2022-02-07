@@ -73,7 +73,7 @@ function setColumnsNamesInTable(): void {
  */
 function initializeTable(): void {
   getFormattedCollectionData<FilmDTO>('films').then(data => {
-    const films = <CollectionDTO<FilmDTO>[]>data;
+    const films = data;
     if (films.length !== 0) {
       setColumnsNamesInTable();
       setFilmsInTable(films);

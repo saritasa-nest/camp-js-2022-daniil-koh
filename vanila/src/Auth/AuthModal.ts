@@ -1,6 +1,6 @@
 import { signIn } from '../firestore/firestoreOperations';
 import { render } from '../index';
-import { authFormElements } from '../Interfaces/authFormElements';
+import { AuthFormElements } from '../Interfaces/authFormElements';
 
 const TEMPLATE_EL = document.createElement('div');
 TEMPLATE_EL.classList.add('container');
@@ -45,8 +45,8 @@ function onFormSubmit(event: Event): void {
     const authForm = TEMPLATE_EL.querySelector<HTMLFormElement>('.auth-form');
 
     if (authForm !== null) {
-      const { emailElement, passwordElement } = <authFormElements>authForm.elements;
-      signIn(emailElement.value, passwordElement.value).then(() => render());
+      const { email, passwordElement } = <AuthFormElements>authForm.elements;
+      signIn(email.value, passwordElement.value).then(() => render());
     }
   }
 }

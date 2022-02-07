@@ -7,7 +7,7 @@ export interface FilmDTO {
   /**
    * Array of primary keys of characters.
    */
-  readonly characters: number[];
+  readonly characters: ReadonlyArray<number>;
 
   /**
    * Date when film was created.
@@ -32,7 +32,7 @@ export interface FilmDTO {
   /**
    * Array of primary keys of planets.
    */
-  readonly planets: number[];
+  readonly planets: ReadonlyArray<number>;
 
   /**
    * String of producers(separated by ",") or producer.
@@ -47,12 +47,12 @@ export interface FilmDTO {
   /**
    *Array of primary keys .
    */
-  readonly species: number[];
+  readonly species: ReadonlyArray<number>;
 
   /**
    *Array of primary keys of starships in film.
    */
-  readonly starships: number[];
+  readonly starships: ReadonlyArray<number>;
 
   /**
    *Title of film.
@@ -62,5 +62,5 @@ export interface FilmDTO {
   /**
    * Array of primary keys of starships in film.
    */
-  readonly vehicles: number[];
+  readonly vehicles: ReadonlyArray<number>;
 }

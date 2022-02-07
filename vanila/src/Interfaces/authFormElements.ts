@@ -1,15 +1,15 @@
 /**
  * Form interface for auth input elements.
  */
-export interface authFormElements extends HTMLCollection {
+export interface AuthFormElements extends HTMLCollection {
 
   /**
    * Email input element.
    */
-  emailElement: HTMLInputElement;
+  readonly email: HTMLInputElement;
 
   /**
    * Password input element.
    */
-  passwordElement: HTMLInputElement;
+  readonly password: HTMLInputElement;
 }
