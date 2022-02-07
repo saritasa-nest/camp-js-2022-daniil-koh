@@ -13,6 +13,7 @@ export default defineConfig({
     rollupOptions: {
       input: [
         resolve(root, 'index.html'),
+        resolve(root, 'detail', 'index.html')
       ]
     }
   }
