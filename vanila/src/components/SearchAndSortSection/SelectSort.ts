@@ -1,10 +1,10 @@
-// import { sortTable } from '../Table/Table';
+import { sortTable } from '../Table/Table';
 
 const SELECT_DIV_ELEMENT = document.createElement('div');
-SELECT_DIV_ELEMENT.className = 'input-field col s12';
+SELECT_DIV_ELEMENT.classList.add('input-field', 'col', 's4');
 SELECT_DIV_ELEMENT.innerHTML =
-  `<select>
-    <option value="" disabled selected>Choose your option</option>
+  `<select class="select-sort-key">
+    <option value="" disabled selected>Sort by</option>
     <option value="title">Title</option>
     <option value="director">Director</option>
     <option value="producer">Producer</option>
@@ -13,7 +13,6 @@ SELECT_DIV_ELEMENT.innerHTML =
     `;
 
 export const selectSort = (): HTMLDivElement => {
-  // SELECT_DIV_ELEMENT.addEventListener('select', event => sortTable((<HTMLTextAreaElement>event.target).value));
   initStyles();
   return getElement();
 
@@ -31,6 +30,7 @@ export const selectSort = (): HTMLDivElement => {
   function initStyles(): void {
     setTimeout(() => {
       M.FormSelect.init(<HTMLSelectElement>SELECT_DIV_ELEMENT.querySelector('select'));
+      SELECT_DIV_ELEMENT.addEventListener('change', event => sortTable((<HTMLTextAreaElement>event.target).value));
     });
   }
 };

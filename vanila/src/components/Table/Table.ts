@@ -2,8 +2,10 @@ import { getFormattedCollectionData } from '../../middlewares/getFormattedCollec
 import { FilmDTO } from '../../DTO/filmDTO';
 import { CollectionDTO } from '../../DTO/collectionDTO';
 
+import { changePage, initPagination } from './Pagination';
+
 const tableElement = document.createElement('table');
-tableElement.className = 'data';
+tableElement.classList.add('data');
 tableElement.innerHTML = (`
         <thead>
           <tr class="columns-titles">
@@ -22,7 +24,8 @@ export function sortTable(sortKey: string): void {
   getFormattedCollectionData('films', sortKey).then(data => {
     const films = <CollectionDTO<FilmDTO>[]> data;
     if (films.length !== 0) {
-      setFilmsInTable(films);
+      initPagination(films);
+      setFilmsInTable(changePage(1));
     } else {
       tableElement.innerHTML = 'No films';
     }
@@ -34,32 +37,34 @@ export function sortTable(sortKey: string): void {
  * Set films in table.
  * @param films Film collection from firestore.
  */
-function setFilmsInTable(films: CollectionDTO<FilmDTO>[]): void {
-  const tableBody: Element = tableElement.getElementsByClassName('elements')[0];
-  tableBody.innerHTML = '';
-  for (const [idx, film] of films.entries()) {
-    const row: HTMLTableRowElement = document.createElement('tr');
-    row.id = String(idx);
+export function setFilmsInTable(films: CollectionDTO<FilmDTO>[]): void {
+  const tableBody = tableElement.querySelector<HTMLTableElement>('.elements');
+  if (tableBody !== null) {
+    tableBody.innerHTML = '';
+    for (const [idx, film] of films.entries()) {
+      const row: HTMLTableRowElement = document.createElement('tr');
+      row.id = String(idx);
 
-    // fields to show
-    const { director, release_date, producer, title } = film.fields;
-    const directorEl: HTMLTableCellElement = document.createElement('td');
-    const releaseDateEl: HTMLTableCellElement = document.createElement('td');
-    const producerEl: HTMLTableCellElement = document.createElement('td');
-    const titleEL: HTMLTableCellElement = document.createElement('td');
+      // fields to show
+      const { director, release_date, producer, title } = film.fields;
+      const directorEl: HTMLTableCellElement = document.createElement('td');
+      const releaseDateEl: HTMLTableCellElement = document.createElement('td');
+      const producerEl: HTMLTableCellElement = document.createElement('td');
+      const titleEL: HTMLTableCellElement = document.createElement('td');
 
-    directorEl.className = 'director';
-    releaseDateEl.className = 'release-date';
-    producerEl.className = 'producer';
-    titleEL.className = 'title';
+      directorEl.className = 'director';
+      releaseDateEl.className = 'release-date';
+      producerEl.className = 'producer';
+      titleEL.className = 'title';
 
-    directorEl.innerHTML = director;
-    releaseDateEl.innerHTML = release_date;
-    producerEl.innerHTML = producer;
-    titleEL.innerHTML = title;
+      directorEl.innerHTML = director;
+      releaseDateEl.innerHTML = release_date;
+      producerEl.innerHTML = producer;
+      titleEL.innerHTML = title;
 
-    row.append(titleEL, directorEl, producerEl, releaseDateEl);
-    tableBody.appendChild(row);
+      row.append(titleEL, directorEl, producerEl, releaseDateEl);
+      tableBody.appendChild(row);
+    }
   }
 }
 
@@ -78,35 +83,36 @@ function setColumnsNamesInTable(): void {
 }
 
 /**
+ * Init table.
+ */
+function initializeTable(): void {
+  getFormattedCollectionData<FilmDTO>('films').then(data => {
+    const films = <CollectionDTO<FilmDTO>[]>data;
+    if (films.length !== 0) {
+      setColumnsNamesInTable();
+      initPagination(films);
+      setFilmsInTable(changePage(1));
+    } else {
+      tableElement.innerHTML = 'No films';
+    }
+  })
+    .catch(er => {
+      throw new Error(er);
+    });
+}
+
+/**
+ * Return Table element.
+ */
+function getElement(): HTMLTableElement {
+  return tableElement;
+}
+
+/**
  * Return a table and render it during life cycle of element.
  */
 export const table = (): HTMLTableElement => {
   initializeTable();
   return getElement();
-
-  /**
-   * Init table.
-   */
-  function initializeTable(): void {
-    getFormattedCollectionData<FilmDTO>('films').then(data => {
-      const films = <CollectionDTO<FilmDTO>[]>data;
-      if (films.length !== 0) {
-        setColumnsNamesInTable();
-        setFilmsInTable(films);
-      } else {
-        tableElement.innerHTML = 'No films';
-      }
-    })
-      .catch(er => {
-        throw new Error(er);
-      });
-  }
-
-  /**
-   * Return Table element.
-   */
-  function getElement(): HTMLTableElement {
-    return tableElement;
-  }
 
 };

@@ -1,8 +1,9 @@
-import { signIn } from '../../firestore/firestoreOperations';
+import { logIn } from '../../firestore/firestoreOperations';
 import { render } from '../../index';
+import { authFormElements } from '../../Interfaces/authFormElements';
 
 const TEMPLATE_EL = document.createElement('div');
-TEMPLATE_EL.className = 'modal';
+TEMPLATE_EL.classList.add('modal');
 TEMPLATE_EL.id = 'modal-auth';
 TEMPLATE_EL.innerHTML =
   `<div class="modal-content">
@@ -31,34 +32,23 @@ TEMPLATE_EL.innerHTML =
       </form>
     </div>`;
 
-export const authModal: Function = (): Element => {
-  TEMPLATE_EL.addEventListener('submit', onFormSubmit);
-  initStyles();
-  return getElement();
+/**
+ * Sign in to the website.
+ * @param event Clicking on btn.
+ */
+function onFormSubmit(event: Event): void {
+  event.preventDefault();
+  if (event.target !== null) {
+    const authForm = TEMPLATE_EL.querySelector<HTMLFormElement>('.auth-form');
 
-  /**
-   * Sign in to the website.
-   * @param event Clicking on btn.
-   */
-  async function onFormSubmit(event: Event): Promise<void> {
-    event.preventDefault();
-    if (event.target !== null) {
-      const authForm: Element = (<Element> TEMPLATE_EL.querySelector('.auth-form'));
+    if (authForm !== null) {
+      const { email, password } = <authFormElements>authForm.elements;
 
-        // @ts-ignore
-        const { emailElement, passwordElement } = (<HTMLFormElement> authForm).elements;
-          await signIn(emailElement.value, passwordElement.value).then(() => render());
-          }
-          }
-
-          /**
-           * Return Auth modal element.
-           */
-          function getElement(): Element {
-            return TEMPLATE_EL;
-          }
-
-          };
+      // TODO get error if user not auth.
+      logIn(email.value, password.value).then(() => render());
+    }
+  }
+}
 
 /**
  * Init materialize css for modal.
@@ -66,3 +56,9 @@ export const authModal: Function = (): Element => {
 function initStyles(): void {
   M.Modal.init(TEMPLATE_EL);
 }
+
+export const authModal = (): HTMLDivElement => {
+  TEMPLATE_EL.addEventListener('submit', onFormSubmit);
+  initStyles();
+  return TEMPLATE_EL;
+};

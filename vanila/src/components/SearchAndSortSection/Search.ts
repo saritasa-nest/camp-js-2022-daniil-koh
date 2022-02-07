@@ -1,6 +1,6 @@
 const SEARCH_ELEMENT: HTMLInputElement = document.createElement('input');
 SEARCH_ELEMENT.id = 'search';
-SEARCH_ELEMENT.className = 'search col s8';
+SEARCH_ELEMENT.classList.add('search', 'col', 's8');
 SEARCH_ELEMENT.placeholder = 'Search';
 
 export const search = (): HTMLInputElement => {

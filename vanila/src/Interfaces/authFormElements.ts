@@ -6,10 +6,10 @@ export interface authFormElements extends HTMLCollection {
   /**
    * Email input element.
    */
-  emailElement: HTMLInputElement;
+  email: HTMLInputElement;
 
   /**
    * Password input element.
    */
-  passwordElement: HTMLInputElement;
+  password: HTMLInputElement;
 }
