@@ -1,0 +1,22 @@
+{
+  "root": true,
+  "ignorePatterns": ["dist/**", "vite.config.js"],
+  "overrides": [
+    {
+      "files": ["*DTO.ts"],
+      "rules": {
+        "@typescript-eslint/naming-convention": "off"
+      }
+    },
+    {
+      "files": ["*.ts"],
+      "parserOptions": {
+        "project": ["tsconfig.json"],
+        "createDefaultProgram": true
+      },
+      "extends": [
+        "@chernodub/eslint-config"
+      ]
+    }
+  ]
+}
