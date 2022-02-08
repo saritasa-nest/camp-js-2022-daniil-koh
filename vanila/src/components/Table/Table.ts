@@ -4,6 +4,19 @@ import { CollectionDTO } from '../../DTO/collectionDTO';
 
 import { changePage, initPagination } from './Pagination';
 
+// Create auth variable to induct how show table for user.
+// @ts-ignore
+let isAuthedTable = false;
+
+/**
+ * Change auth status.
+ * @param flag Value of status.
+ */
+export const changeAuthTableStatus = (flag: boolean): void => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  isAuthedTable = flag;
+};
+
 const tableElement = document.createElement('table');
 tableElement.classList.add('data');
 tableElement.innerHTML = (`
@@ -63,6 +76,13 @@ export function setFilmsInTable(films: CollectionDTO<FilmDTO>[]): void {
       titleEL.innerHTML = title;
 
       row.append(titleEL, directorEl, producerEl, releaseDateEl);
+
+      // if (isAuthedTable) {
+      //   row.addEventListener('click', () => {
+      //
+      //   });
+      //   row.classList.add('waves-effect');
+      // }
       tableBody.appendChild(row);
     }
   }
