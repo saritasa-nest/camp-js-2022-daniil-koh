@@ -12,6 +12,7 @@ export default defineConfig({
     emptyOutDir: true,
     rollupOptions: {
       input: [
+        resolve(root, 'detail','index.html'),
         resolve(root, 'index.html'),
       ]
     }

@@ -1,18 +1,19 @@
-import { CollectionDTO } from '../../DTO/collectionDTO';
 import { FilmDTO } from '../../DTO/filmDTO';
+
+import { CollectionDocument } from '../../Interfaces/collectionDocument';
 
 import { setFilmsInTable } from './Table';
 
 const PAGINATION_ELEMENT = document.createElement('ul');
 PAGINATION_ELEMENT.classList.add('pagination');
 PAGINATION_ELEMENT.innerHTML = `
-<li class="disabled btn_prev"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+<li class="disabled btn_prev"><a><i class="material-icons">chevron_left</i></a></li>
 <section class="pages"></section>
-<li class="waves-effect btn_next"><a href="#!"><i class="material-icons">chevron_right</i></a></li>`;
+<li class="waves-effect btn_next"><a><i class="material-icons">chevron_right</i></a></li>`;
 let current_page = 1;
 const records_per_page = 3;
 
-let films: CollectionDTO<FilmDTO>[] = [];
+let filmsDocs: CollectionDocument<FilmDTO>[] = [];
 
 /**
  * Change page.
@@ -27,7 +28,7 @@ function pageHandler(pageNum: number): void {
 /**
  * Go to prev page.
  */
-function prevPage(): CollectionDTO<FilmDTO>[] {
+function prevPage(): CollectionDocument<FilmDTO>[] {
   if (current_page > 1) {
     return changePage(current_page - 1);
   }
@@ -38,7 +39,7 @@ function prevPage(): CollectionDTO<FilmDTO>[] {
 /**
  * Go to next page.
  */
-function nextPage(): CollectionDTO<FilmDTO>[] {
+function nextPage(): CollectionDocument<FilmDTO>[] {
   if (current_page < numPages()) {
     return changePage(current_page + 1);
   }
@@ -50,11 +51,11 @@ function nextPage(): CollectionDTO<FilmDTO>[] {
  * Change page number.
  * @param page Num of page.
  */
-export function changePage(page: number): CollectionDTO<FilmDTO>[] {
+export function changePage(page: number): CollectionDocument<FilmDTO>[] {
   if (numPages() !== 0) {
     const btnNext = <HTMLLIElement>PAGINATION_ELEMENT.querySelector('.btn_next');
     const btnPrev = <HTMLLIElement>PAGINATION_ELEMENT.querySelector('.btn_prev');
-    const data: CollectionDTO<FilmDTO>[] = [];
+    const data: CollectionDocument<FilmDTO>[] = [];
     let selectedPage: number;
 
     // Validate page
@@ -67,7 +68,7 @@ export function changePage(page: number): CollectionDTO<FilmDTO>[] {
     }
 
     for (let i = (selectedPage - 1) * records_per_page; i < (selectedPage * records_per_page); i++) {
-      data.push(films[i]);
+      data.push(filmsDocs[i]);
     }
 
     const previousLi = <HTMLLIElement>PAGINATION_ELEMENT.querySelector(`#\\3${current_page}`);
@@ -98,20 +99,21 @@ export function changePage(page: number): CollectionDTO<FilmDTO>[] {
  * Return quantity of pages.
  */
 function numPages(): number {
-  return Math.ceil(films.length / records_per_page);
+  return Math.ceil(filmsDocs.length / records_per_page);
 }
 
 /**
  * Init data and generate digits for pages.
  * @param data Films in order.
  */
-export function initPagination(data: CollectionDTO<FilmDTO>[]): void {
+export function initPagination(data: CollectionDocument<FilmDTO>[]): void {
   const pages = <HTMLTableSectionElement>PAGINATION_ELEMENT.querySelector('.pages');
   const btnNext = <HTMLLIElement>PAGINATION_ELEMENT.querySelector('.btn_next');
   const btnPrev = <HTMLLIElement>PAGINATION_ELEMENT.querySelector('.btn_prev');
 
-  films = data;
+  filmsDocs = data;
   pages.innerHTML = '';
+
   for (let i = 0; i < numPages(); i++) {
     const li = document.createElement('li');
     li.classList.add('waves-effect');

@@ -31,6 +31,6 @@ export const selectSort = (): HTMLDivElement => {
     setTimeout(() => {
       M.FormSelect.init(<HTMLSelectElement>SELECT_DIV_ELEMENT.querySelector('select'));
       SELECT_DIV_ELEMENT.addEventListener('change', event => sortTable((<HTMLTextAreaElement>event.target).value));
-    });
+    }, 1000);
   }
 };

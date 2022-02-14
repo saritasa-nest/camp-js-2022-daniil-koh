@@ -1,11 +1,13 @@
-import { getFormattedCollectionData } from '../../middlewares/getFormattedCollectionData';
+import {
+  getFormattedCollectionDataWithId,
+} from '../../middlewares/getFormattedCollectionDataWithId';
 import { FilmDTO } from '../../DTO/filmDTO';
-import { CollectionDTO } from '../../DTO/collectionDTO';
+
+import { CollectionDocument } from '../../Interfaces/collectionDocument';
 
 import { changePage, initPagination } from './Pagination';
 
 // Create auth variable to induct how show table for user.
-// @ts-ignore
 let isAuthedTable = false;
 
 /**
@@ -34,10 +36,9 @@ const titlesForColumns = ['Title', 'Director', 'Producer', 'Release'];
  * @param sortKey Column name to sort by.
  */
 export function sortTable(sortKey: string): void {
-  getFormattedCollectionData('films', sortKey).then(data => {
-    const films = <CollectionDTO<FilmDTO>[]> data;
-    if (films.length !== 0) {
-      initPagination(films);
+  getFormattedCollectionDataWithId<FilmDTO>('films', sortKey).then(filmsDocs => {
+    if (filmsDocs.length !== 0) {
+      initPagination(filmsDocs);
       setFilmsInTable(changePage(1));
     } else {
       tableElement.innerHTML = 'No films';
@@ -48,18 +49,19 @@ export function sortTable(sortKey: string): void {
 
 /**
  * Set films in table.
- * @param films Film collection from firestore.
+ * @param filmsDocs Film collection from firestore.
  */
-export function setFilmsInTable(films: CollectionDTO<FilmDTO>[]): void {
+export function setFilmsInTable(filmsDocs: CollectionDocument<FilmDTO>[]): void {
   const tableBody = tableElement.querySelector<HTMLTableElement>('.elements');
   if (tableBody !== null) {
     tableBody.innerHTML = '';
-    for (const [idx, film] of films.entries()) {
+    for (const filmDoc of filmsDocs) {
+      const { id, dataDTO } = filmDoc;
       const row: HTMLTableRowElement = document.createElement('tr');
-      row.id = String(idx);
+      row.id = String(id);
 
       // fields to show
-      const { director, release_date, producer, title } = film.fields;
+      const { director, release_date, producer, title } = dataDTO.fields;
       const directorEl: HTMLTableCellElement = document.createElement('td');
       const releaseDateEl: HTMLTableCellElement = document.createElement('td');
       const producerEl: HTMLTableCellElement = document.createElement('td');
@@ -77,12 +79,12 @@ export function setFilmsInTable(films: CollectionDTO<FilmDTO>[]): void {
 
       row.append(titleEL, directorEl, producerEl, releaseDateEl);
 
-      // if (isAuthedTable) {
-      //   row.addEventListener('click', () => {
-      //
-      //   });
-      //   row.classList.add('waves-effect');
-      // }
+      if (isAuthedTable) {
+        // eslint-disable-next-line no-loop-func
+        row.addEventListener('click', () => {
+          window.location.href = `detail?id=${id}`;
+        });
+      }
       tableBody.appendChild(row);
     }
   }
@@ -106,11 +108,10 @@ function setColumnsNamesInTable(): void {
  * Init table.
  */
 function initializeTable(): void {
-  getFormattedCollectionData<FilmDTO>('films').then(data => {
-    const films = <CollectionDTO<FilmDTO>[]>data;
-    if (films.length !== 0) {
+  getFormattedCollectionDataWithId<FilmDTO>('films').then(filmsDocs => {
+    if (filmsDocs.length !== 0) {
       setColumnsNamesInTable();
-      initPagination(films);
+      initPagination(filmsDocs);
       setFilmsInTable(changePage(1));
     } else {
       tableElement.innerHTML = 'No films';
