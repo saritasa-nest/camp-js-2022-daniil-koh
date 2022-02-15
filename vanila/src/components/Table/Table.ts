@@ -123,17 +123,9 @@ function initializeTable(): void {
 }
 
 /**
- * Return Table element.
+ * Init table, return it after initialization.
  */
-function getElement(): HTMLTableElement {
-  return tableElement;
-}
-
-/**
- * Return a table and render it during life cycle of element.
- */
-export const table = (): HTMLTableElement => {
+export const getTable = (): HTMLTableElement => {
   initializeTable();
-  return getElement();
-
+  return tableElement;
 };

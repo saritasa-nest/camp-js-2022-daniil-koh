@@ -4,13 +4,22 @@ import { CollectionDocument } from '../../Interfaces/collectionDocument';
 
 import { setFilmsInTable } from './Table';
 
-const PAGINATION_ELEMENT = document.createElement('ul');
-PAGINATION_ELEMENT.classList.add('pagination');
-PAGINATION_ELEMENT.innerHTML = `
-<li class="disabled btn_prev"><a><i class="material-icons">chevron_left</i></a></li>
+const paginationElement = document.createElement('ul');
+paginationElement.classList.add('pagination');
+paginationElement.innerHTML = `
+<li class="disabled btn_prev">
+  <a>
+    <i class="material-icons">chevron_left</i>
+  </a>
+</li>
 <section class="pages"></section>
-<li class="waves-effect btn_next"><a><i class="material-icons">chevron_right</i></a></li>`;
-let current_page = 1;
+<li class="waves-effect btn_next">
+  <a>
+    <i class="material-icons">chevron_right</i>
+  </a>
+</li>
+`;
+let currentPage = 1;
 const records_per_page = 3;
 
 let filmsDocs: CollectionDocument<FilmDTO>[] = [];
@@ -20,7 +29,7 @@ let filmsDocs: CollectionDocument<FilmDTO>[] = [];
  * @param pageNum Number page.
  */
 function pageHandler(pageNum: number): void {
-  if (current_page !== pageNum) {
+  if (currentPage !== pageNum) {
     setFilmsInTable(changePage(pageNum));
   }
 }
@@ -28,9 +37,9 @@ function pageHandler(pageNum: number): void {
 /**
  * Go to prev page.
  */
-function prevPage(): CollectionDocument<FilmDTO>[] {
-  if (current_page > 1) {
-    return changePage(current_page - 1);
+function goPrevPage(): CollectionDocument<FilmDTO>[] {
+  if (currentPage > 1) {
+    return changePage(currentPage - 1);
   }
   return [];
 
@@ -39,9 +48,9 @@ function prevPage(): CollectionDocument<FilmDTO>[] {
 /**
  * Go to next page.
  */
-function nextPage(): CollectionDocument<FilmDTO>[] {
-  if (current_page < numPages()) {
-    return changePage(current_page + 1);
+function goNextPage(): CollectionDocument<FilmDTO>[] {
+  if (currentPage < getNumPages()) {
+    return changePage(currentPage + 1);
   }
   return [];
 
@@ -52,17 +61,17 @@ function nextPage(): CollectionDocument<FilmDTO>[] {
  * @param page Num of page.
  */
 export function changePage(page: number): CollectionDocument<FilmDTO>[] {
-  if (numPages() !== 0) {
-    const btnNext = <HTMLLIElement>PAGINATION_ELEMENT.querySelector('.btn_next');
-    const btnPrev = <HTMLLIElement>PAGINATION_ELEMENT.querySelector('.btn_prev');
+  if (getNumPages() !== 0) {
+    const btnNext = <HTMLLIElement>paginationElement.querySelector('.btn_next');
+    const btnPrev = <HTMLLIElement>paginationElement.querySelector('.btn_prev');
     const data: CollectionDocument<FilmDTO>[] = [];
     let selectedPage: number;
 
     // Validate page
     if (page < 1) {
       selectedPage = 1;
-    } else if (page > numPages()) {
-      selectedPage = numPages();
+    } else if (page > getNumPages()) {
+      selectedPage = getNumPages();
     } else {
       selectedPage = page;
     }
@@ -71,11 +80,11 @@ export function changePage(page: number): CollectionDocument<FilmDTO>[] {
       data.push(filmsDocs[i]);
     }
 
-    const previousLi = <HTMLLIElement>PAGINATION_ELEMENT.querySelector(`#\\3${current_page}`);
+    const previousLi = <HTMLLIElement>paginationElement.querySelector(`#\\3${currentPage}`);
     previousLi.className = 'waves-effect';
-    const selectedLi = <HTMLLIElement>PAGINATION_ELEMENT.querySelector(`#\\3${selectedPage}`);
+    const selectedLi = <HTMLLIElement>paginationElement.querySelector(`#\\3${selectedPage}`);
     selectedLi.className = 'active blue-grey lighten-1';
-    current_page = selectedPage;
+    currentPage = selectedPage;
 
     if (selectedPage === 1) {
       btnPrev.className = 'disabled btn_prev';
@@ -83,7 +92,7 @@ export function changePage(page: number): CollectionDocument<FilmDTO>[] {
       btnPrev.className = 'waves-effect btn_prev';
     }
 
-    if (selectedPage === numPages()) {
+    if (selectedPage === getNumPages()) {
       btnNext.className = 'disabled btn_next';
     } else {
       btnNext.className = 'waves-effect btn_next';
@@ -98,7 +107,7 @@ export function changePage(page: number): CollectionDocument<FilmDTO>[] {
 /**
  * Return quantity of pages.
  */
-function numPages(): number {
+function getNumPages(): number {
   return Math.ceil(filmsDocs.length / records_per_page);
 }
 
@@ -107,14 +116,14 @@ function numPages(): number {
  * @param data Films in order.
  */
 export function initPagination(data: CollectionDocument<FilmDTO>[]): void {
-  const pages = <HTMLTableSectionElement>PAGINATION_ELEMENT.querySelector('.pages');
-  const btnNext = <HTMLLIElement>PAGINATION_ELEMENT.querySelector('.btn_next');
-  const btnPrev = <HTMLLIElement>PAGINATION_ELEMENT.querySelector('.btn_prev');
+  const pages = <HTMLTableSectionElement>paginationElement.querySelector('.pages');
+  const btnNext = <HTMLLIElement>paginationElement.querySelector('.btn_next');
+  const btnPrev = <HTMLLIElement>paginationElement.querySelector('.btn_prev');
 
   filmsDocs = data;
   pages.innerHTML = '';
 
-  for (let i = 0; i < numPages(); i++) {
+  for (let i = 0; i < getNumPages(); i++) {
     const li = document.createElement('li');
     li.classList.add('waves-effect');
     li.addEventListener('click', () => pageHandler(i + 1));
@@ -125,7 +134,7 @@ export function initPagination(data: CollectionDocument<FilmDTO>[]): void {
     li.append(a);
     pages.append(li);
   }
-  if (numPages() === 0) {
+  if (getNumPages() === 0) {
     btnNext.style.visibility = 'hidden';
     btnPrev.style.visibility = 'hidden';
   } else {
@@ -134,18 +143,18 @@ export function initPagination(data: CollectionDocument<FilmDTO>[]): void {
   }
 }
 
-PAGINATION_ELEMENT.querySelector('.btn_next')?.addEventListener('click', () => {
-  if (current_page !== numPages() && numPages() !== 0) {
-    setFilmsInTable(nextPage());
-  }
-});
-PAGINATION_ELEMENT.querySelector('.btn_prev')?.addEventListener('click', () => {
-  if (current_page !== 1) {
-    setFilmsInTable(prevPage());
-  }
-});
+paginationElement.querySelector('.btn_next')?.addEventListener('click', () => {
+                if (currentPage !== getNumPages() && getNumPages() !== 0) {
+                setFilmsInTable(goNextPage());
+              }
+              });
+paginationElement.querySelector('.btn_prev')?.addEventListener('click', () => {
+                if (currentPage !== 1) {
+                setFilmsInTable(goPrevPage());
+              }
+              });
 
-export const pagination = (): HTMLUListElement => PAGINATION_ELEMENT;
+export const pagination = (): HTMLUListElement => paginationElement;
 
 // Init to first time.
 initPagination([]);

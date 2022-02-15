@@ -1,16 +1,9 @@
-const SEARCH_ELEMENT: HTMLInputElement = document.createElement('input');
-SEARCH_ELEMENT.id = 'search';
-SEARCH_ELEMENT.classList.add('search', 'col', 's8');
-SEARCH_ELEMENT.placeholder = 'Search';
+const searchElement: HTMLInputElement = document.createElement('input');
+searchElement.id = 'search';
+searchElement.classList.add('search', 'col', 's8');
+searchElement.placeholder = 'Search';
 
-export const search = (): HTMLInputElement => {
-
-  return getElement();
-
-  /**
-   * Get search element.
-   */
-  function getElement(): HTMLInputElement {
-    return SEARCH_ELEMENT;
-  }
-};
+/**
+ * Return search field element.
+ */
+export const getSearchField = (): HTMLInputElement => searchElement;

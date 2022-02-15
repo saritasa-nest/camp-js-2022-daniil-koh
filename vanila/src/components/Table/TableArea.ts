@@ -1,9 +1,9 @@
-import { table } from './Table';
+import { getTable } from './Table';
 import { pagination } from './Pagination';
 
 const TABLE_AREA_EL = document.createElement('div');
 TABLE_AREA_EL.classList.add('table-area');
-const tableElement: HTMLTableElement = table();
+const tableElement: HTMLTableElement = getTable();
 const paginationElement: HTMLUListElement = pagination();
 paginationElement.classList.add('col-md-12', 'center', 'text-center');
 const row = document.createElement('div');
