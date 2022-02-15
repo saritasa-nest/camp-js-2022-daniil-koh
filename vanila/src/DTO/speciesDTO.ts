@@ -61,7 +61,7 @@ export interface SpeciesDTO {
   /**
    * Array of primary keys of people.
    */
-  readonly people: string[];
+  readonly people: ReadonlyArray<String>;
 
   /**
    * Skin color.

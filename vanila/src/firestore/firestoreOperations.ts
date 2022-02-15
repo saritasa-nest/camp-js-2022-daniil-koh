@@ -12,8 +12,7 @@ export const getData = (pathCollection: string): Promise<QuerySnapshot<DocumentD
 /**
  * Getting sorted data from db with pathname.
  * @param pathCollection Collection pathname.
- * @param sortKey F
- * ields to sort by.
+ * @param sortKey Fields to sort by.
  */
 export const getSortedDataByKey = (pathCollection: string, sortKey: string): Promise<QuerySnapshot<DocumentData>> => {
   const queryWithSorting = query(collection(db, pathCollection), orderBy(`fields.${sortKey}`));
