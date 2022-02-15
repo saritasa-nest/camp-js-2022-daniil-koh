@@ -82,7 +82,7 @@ export function setFilmsInTable(filmsDocs: CollectionDocument<FilmDTO>[]): void 
       if (isAuthedTable) {
         // eslint-disable-next-line no-loop-func
         row.addEventListener('click', () => {
-          window.location.href = `detail?id=${id}`;
+          window.location.href = `/detail/?id=${id}`;
         });
       }
       tableBody.appendChild(row);

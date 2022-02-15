@@ -1,4 +1,6 @@
 import { sortTable } from '../Table/Table';
+import M from 'materialize-css';
+
 
 const SELECT_DIV_ELEMENT = document.createElement('div');
 SELECT_DIV_ELEMENT.classList.add('input-field', 'col', 's4');
@@ -28,9 +30,9 @@ export const selectSort = (): HTMLDivElement => {
    * Materialize css is so dumb, and you need to use setTimeout to avoid error.
    */
   function initStyles(): void {
-    setTimeout(() => {
+    setTimeout(()=> {
       M.FormSelect.init(<HTMLSelectElement>SELECT_DIV_ELEMENT.querySelector('select'));
       SELECT_DIV_ELEMENT.addEventListener('change', event => sortTable((<HTMLTextAreaElement>event.target).value));
-    }, 1000);
+    }, 1000)
   }
 };
