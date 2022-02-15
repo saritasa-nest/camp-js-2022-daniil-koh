@@ -62,15 +62,12 @@ async function getDetails(): Promise<FilmDetails> {
   const DTOFormVehicles = await getDocsByIds<VehicleDTO>('vehicles', DTOFormFilm.fields.vehicles);
   const DTOFormCharacters = await getDocsByIds<PeopleDTO>('people', DTOFormFilm.fields.characters);
 
-  console.log('starships', DTOFormStarships);
-
   // Get titles from DTOs.
   const planetsNames = DTOFormPlanets.map(planetDTO => planetDTO.fields.name);
   const speciesNames = DTOFormSpecies.map(speciesDTO => speciesDTO.fields.name);
-  const starshipsClasses = DTOFormStarships.map(starshipDTO => starshipDTO.fields.starhip_class);
+  const starshipsClasses = DTOFormStarships.map(starshipDTO => starshipDTO.fields.starship_class);
   const vehiclesClasses = DTOFormVehicles.map(vehicleDTO => vehicleDTO.fields.vehicle_class);
   const charactersNames = DTOFormCharacters.map(vehicleDTO => vehicleDTO.fields.name);
-  console.log('starships', starshipsClasses);
 
   const { director, created, producer, release_date: releaseDate, opening_crawl: openingCrawl } = DTOFormFilm.fields;
 
@@ -119,7 +116,6 @@ export async function setDetails(): Promise<void> {
   const releaseElement = document.querySelector('.release-input') as HTMLDivElement;
   const openingCrawlElement = document.querySelector('.opening-crawl-input') as HTMLDivElement;
 
-  console.log('Does it work?');
   titleElement.innerText = filmTitle ;
   directorElement.innerText = director;
   producerElement.innerText = producer;
