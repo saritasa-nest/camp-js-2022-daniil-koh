@@ -1,3 +1,10 @@
 import { setDetails } from './fillingDetails';
-
-setDetails();
+import {initButtonListener} from "../edit/initButtonListener";
+/**
+ * Init HTML components.
+ */
+async function init(): Promise<void> {
+  initButtonListener();
+  await setDetails();
+}
+init();
