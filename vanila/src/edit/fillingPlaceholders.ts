@@ -41,4 +41,4 @@ export async function fillingPlaceholders(): Promise<void> {
   releaseElement.value = releaseDate;
   openingCrawlElement.value = openingCrawl;
 
-};
+}

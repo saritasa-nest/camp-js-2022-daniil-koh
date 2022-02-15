@@ -1,5 +1,7 @@
+import { initButtonListener } from '../edit/initButtonListener';
+
 import { setDetails } from './fillingDetails';
-import {initButtonListener} from "../edit/initButtonListener";
+
 /**
  * Init HTML components.
  */
