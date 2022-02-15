@@ -62,8 +62,8 @@ function goNextPage(): CollectionDocument<FilmDTO>[] {
  */
 export function changePage(page: number): CollectionDocument<FilmDTO>[] {
   if (getNumPages() !== 0) {
-    const btnNext = <HTMLLIElement>paginationElement.querySelector('.btn_next');
-    const btnPrev = <HTMLLIElement>paginationElement.querySelector('.btn_prev');
+    const buttonNext = <HTMLLIElement>paginationElement.querySelector('.btn_next');
+    const buttonPrev = <HTMLLIElement>paginationElement.querySelector('.btn_prev');
     const data: CollectionDocument<FilmDTO>[] = [];
     let selectedPage: number;
 
@@ -87,15 +87,15 @@ export function changePage(page: number): CollectionDocument<FilmDTO>[] {
     currentPage = selectedPage;
 
     if (selectedPage === 1) {
-      btnPrev.className = 'disabled btn_prev';
+      buttonPrev.className = 'disabled btn_prev';
     } else {
-      btnPrev.className = 'waves-effect btn_prev';
+      buttonPrev.className = 'waves-effect btn_prev';
     }
 
     if (selectedPage === getNumPages()) {
-      btnNext.className = 'disabled btn_next';
+      buttonNext.className = 'disabled btn_next';
     } else {
-      btnNext.className = 'waves-effect btn_next';
+      buttonNext.className = 'waves-effect btn_next';
     }
 
     return data;
@@ -117,8 +117,8 @@ function getNumPages(): number {
  */
 export function initPagination(data: CollectionDocument<FilmDTO>[]): void {
   const pages = <HTMLTableSectionElement>paginationElement.querySelector('.pages');
-  const btnNext = <HTMLLIElement>paginationElement.querySelector('.btn_next');
-  const btnPrev = <HTMLLIElement>paginationElement.querySelector('.btn_prev');
+  const buttonNext = <HTMLLIElement>paginationElement.querySelector('.btn_next');
+  const buttonPrev = <HTMLLIElement>paginationElement.querySelector('.btn_prev');
 
   filmsDocs = data;
   pages.innerHTML = '';
@@ -135,11 +135,11 @@ export function initPagination(data: CollectionDocument<FilmDTO>[]): void {
     pages.append(li);
   }
   if (getNumPages() === 0) {
-    btnNext.style.visibility = 'hidden';
-    btnPrev.style.visibility = 'hidden';
+    buttonNext.style.visibility = 'hidden';
+    buttonPrev.style.visibility = 'hidden';
   } else {
-    btnNext.style.visibility = 'visible';
-    btnPrev.style.visibility = 'visible';
+    buttonNext.style.visibility = 'visible';
+    buttonPrev.style.visibility = 'visible';
   }
 }
 
