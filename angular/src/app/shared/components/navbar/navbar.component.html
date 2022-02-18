@@ -1,17 +1,19 @@
-<nav class="blue-grey lighten-1">
-  <div class="nav-wrapper">
-    <div class="container-fluid">
-      <ul class="right hide-on-med-and-down auth-buttons">
-        <div class="authed" *ngIf="isAuth else notAuthed">
-          <li><a href="#" class="modal-trigger">Logout</a></li>
-        </div>
-        <ng-template #notAuthed>
-          <div class="not-authed">
-            <li><a href="#" class="modal-trigger">Login</a></li>
-            <li><a href="#" class="modal-trigger">Register</a></li>
-          </div>
-        </ng-template>
-      </ul>
-    </div>
+<mat-toolbar>
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span class="example-spacer"></span>
+  <div *ngIf="isAuth;else notAuthed">
+    <button (click)="isAuth = false" mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+      <mat-icon>logout</mat-icon>
+    </button>
   </div>
-</nav>
+  <ng-template #notAuthed>
+    <button mat-icon-button>
+      <mat-icon>login</mat-icon>
+    </button>
+    <button mat-icon-button>
+      <mat-icon>app_registration</mat-icon>
+    </button>
+  </ng-template>
+</mat-toolbar>
