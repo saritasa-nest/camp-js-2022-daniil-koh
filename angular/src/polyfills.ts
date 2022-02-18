@@ -1,5 +1,6 @@
+/* eslint-disable */
 /**
- * This file includes polyfills needed by Angular and is loaded before the app.
+ * This file includes polyfills needed by angular and is loaded before the app.
  * You can add your own extra polyfills to this file.
  *
  * This file is divided into 2 sections:
@@ -43,9 +44,9 @@
  */
 
 /***************************************************************************************************
- * Zone JS is required by default for Angular itself.
+ * Zone JS is required by default for angular itself.
  */
-import 'zone.js';  // Included with Angular CLI.
+import 'zone.js';  // Included with angular CLI.
 
 
 /***************************************************************************************************

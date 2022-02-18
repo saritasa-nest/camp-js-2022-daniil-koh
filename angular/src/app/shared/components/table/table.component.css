@@ -1,0 +1,10 @@
+:host {
+  display: block;
+}
+:root{
+  --table-border-color: #000000;
+}
+
+.container{
+border: solid var(--table-border-color) ;
+}

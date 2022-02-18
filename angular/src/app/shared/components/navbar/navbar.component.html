@@ -1,0 +1,17 @@
+<nav class="blue-grey lighten-1">
+  <div class="nav-wrapper">
+    <div class="container-fluid">
+      <ul class="right hide-on-med-and-down auth-buttons">
+        <div class="authed" *ngIf="isAuth else notAuthed">
+          <li><a href="#" class="modal-trigger">Logout</a></li>
+        </div>
+        <ng-template #notAuthed>
+          <div class="not-authed">
+            <li><a href="#" class="modal-trigger">Login</a></li>
+            <li><a href="#" class="modal-trigger">Register</a></li>
+          </div>
+        </ng-template>
+      </ul>
+    </div>
+  </div>
+</nav>
