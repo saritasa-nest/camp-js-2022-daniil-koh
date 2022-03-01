@@ -16,7 +16,7 @@ const titlesForColumns = ['Title', 'Director', 'Producer', 'Release'];
 
 /**
  * Set films in table.
- * @param films Film collection from firestore.
+ * @param films FilmModel collection from firestore.
  */
 function setFilmsInTable(films: CollectionDTO<FilmDTO>[]): void {
   const tableBody = tableElement.querySelector<HTMLTableSectionElement>('.elements');

@@ -20,7 +20,7 @@ export interface FilmDTO {
   readonly director: string;
 
   /**
-   *It is primary key of this episod.
+   *It is primary key of this episode.
    */
   readonly episode_id: number;
 

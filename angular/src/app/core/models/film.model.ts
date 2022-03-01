@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 /**
  * FilmModel characteristics.
  */
-export interface FilmDTO {
+export interface FilmModel {
 
   /**
    * Array of primary keys of characters.
@@ -20,14 +19,14 @@ export interface FilmDTO {
   readonly director: string;
 
   /**
-   *It is primary key of this episod.
+   *It is primary key of this episode.
    */
-  readonly episode_id: number;
+  readonly episodeId: number;
 
   /**
    * Description text in the film beginning.
    */
-  readonly opening_crawl: string;
+  readonly openingCrawl: string;
 
   /**
    * Array of primary keys of planets.
@@ -42,7 +41,7 @@ export interface FilmDTO {
   /**
    * Date of release.
    */
-  readonly release_date: string;
+  readonly releaseDate: string;
 
   /**
    *Array of primary keys .

@@ -130,3 +130,4 @@ dist
 node_modules
 ../.idea
 dist
+.idea
