@@ -17,16 +17,23 @@ import { AngularFireModule } from '@angular/fire/compat';
 
 import { MatInputModule } from '@angular/material/input';
 
+import { MatCardModule } from '@angular/material/card';
+
+import { FormsModule } from '@angular/forms';
+
+import { MatDialogModule } from '@angular/material/dialog';
+
 import { environment } from '../environments/environment.prod';
 
 import { TableComponent } from './shared/components/table/table.component';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { ModalAuthComponent } from './shared/components/modal-auth/modal-auth.component';
 
 /** Root module. */
 @NgModule({
-  declarations: [AppComponent, NavbarComponent, TableComponent],
+  declarations: [AppComponent, NavbarComponent, TableComponent, ModalAuthComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -40,6 +47,9 @@ import { AppRoutingModule } from './app-routing.module';
     MatPaginatorModule,
     MatProgressSpinnerModule,
     MatInputModule,
+    MatCardModule,
+    FormsModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
