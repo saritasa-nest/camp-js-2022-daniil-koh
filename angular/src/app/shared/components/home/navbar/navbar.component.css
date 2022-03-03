@@ -1,9 +1,6 @@
-:host {
-  display: block;
-}
 .auth-buttons>div:last-child {
   padding-right: 10px;
 }
-.example-spacer {
+.toolbar-spacer {
   flex: 1 1 auto;
 }

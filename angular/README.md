@@ -34,7 +34,7 @@ project
     │   │   │       └── dto
     │   │   └── utils
     │   └── shared
-    │       ├── common-shared.module.ts
+    │       ├── common-sharedhome.module.ts
     │       ├── components
     │       ├── directives
     │       ├── animations

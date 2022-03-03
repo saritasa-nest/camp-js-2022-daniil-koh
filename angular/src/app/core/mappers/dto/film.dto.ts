@@ -1,7 +1,7 @@
 /**
- * FilmModel characteristics.
+ * Data of film that stored in database.
  */
-export interface FilmModel {
+export interface FilmDto {
 
   /**
    * Array of primary keys of characters.
@@ -19,14 +19,16 @@ export interface FilmModel {
   readonly director: string;
 
   /**
-   *It is primary key of this episode.
+   * It is primary key of this episode.
    */
-  readonly episodeId: number;
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  readonly episode_id: number;
 
   /**
    * Description text in the film beginning.
    */
-  readonly openingCrawl: string;
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  readonly opening_crawl: string;
 
   /**
    * Array of primary keys of planets.
@@ -41,20 +43,21 @@ export interface FilmModel {
   /**
    * Date of release.
    */
-  readonly releaseDate: string;
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  readonly release_date: string;
 
   /**
-   *Array of primary keys .
+   * Array of primary keys .
    */
   readonly species: ReadonlyArray<number>;
 
   /**
-   *Array of primary keys of starships in film.
+   * Array of primary keys of starships in film.
    */
   readonly starships: ReadonlyArray<number>;
 
   /**
-   *Title of film.
+   * Title of film.
    */
   readonly title: string;
 

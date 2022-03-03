@@ -1,16 +1,16 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 /**
- * Characteristics of people.
+ * Character data that store in database.
  */
-export interface PeopleDTO {
+export interface CharacterDto {
 
   /**
    * Birthday year.
    */
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   readonly birth_year: string;
 
   /**
-   *Date of creation.
+   * Date of creation.
    */
   readonly created: string;
 
@@ -22,6 +22,7 @@ export interface PeopleDTO {
   /**
    * Color of eyes.
    */
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   readonly eye_color: string;
 
   /**
@@ -30,12 +31,13 @@ export interface PeopleDTO {
   readonly gender: string;
 
   /**
-   * Color of Hair.
+   * Color of hair.
    */
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   readonly hair_color: string;
 
   /**
-   * Height in sm.
+   * Height in cm.
    */
   readonly height: string;
 
@@ -50,12 +52,13 @@ export interface PeopleDTO {
   readonly mass: string;
 
   /**
-   * Name op people.
+   * Name of people.
    */
   readonly name: string;
 
   /**
    * Color of skin.
    */
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   readonly skin_color: string;
 }

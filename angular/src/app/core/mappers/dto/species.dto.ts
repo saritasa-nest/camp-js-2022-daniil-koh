@@ -1,16 +1,18 @@
 /**
- * Planet characteristics.
+ * Data of species that store in database.
  */
-export interface SpeciesDTO {
+export interface SpeciesDto {
 
   /**
    * Species average height.
    */
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   readonly average_height: string;
 
   /**
    * Average lifespan of species.
    */
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   readonly average_lifespan: string;
 
   /**
@@ -24,7 +26,7 @@ export interface SpeciesDTO {
   readonly created: string;
 
   /**
-   *Species designation.
+   * Species designation.
    */
   readonly designation: string;
 
@@ -34,18 +36,21 @@ export interface SpeciesDTO {
   readonly edited: string;
 
   /**
-   * Eye colors.
+   * Eye colors separated by ','.
    */
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   readonly eye_colors: string;
 
   /**
-   * Hair color.
+   * Hair colors separated by ','.
    */
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   readonly hair_colors: string;
 
   /**
    * Primary key of homeland planet.
    */
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   readonly home_world: number;
 
   /**
@@ -64,7 +69,8 @@ export interface SpeciesDTO {
   readonly people: ReadonlyArray<number>;
 
   /**
-   * Skin color.
+   * Skin colors separated by ','.
    */
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   readonly skin_colors: string;
 }

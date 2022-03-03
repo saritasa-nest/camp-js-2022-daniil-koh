@@ -1,11 +1,10 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 /**
- * Planet characteristics.
+ * Data of planet that store in database.
  */
-export interface PlanetDTO {
+export interface PlanetDto {
 
   /**
-   *Planet Climate.
+   * Planet climate.
    */
   readonly climate: string;
 
@@ -20,7 +19,7 @@ export interface PlanetDTO {
   readonly diameter: string;
 
   /**
-   *Date of edition.
+   * Date of edition.
    */
   readonly edited: string;
 
@@ -37,6 +36,7 @@ export interface PlanetDTO {
   /**
    * Orbital period.
    */
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   readonly orbital_period: string;
 
   /**
@@ -45,13 +45,15 @@ export interface PlanetDTO {
   readonly population: string;
 
   /**
-   * Rotation period .
+   * Rotation period.
    */
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   readonly rotation_period: string;
 
   /**
-   *Type of water surface.
+   * Type of water surface.
    */
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   readonly surface_water: string;
 
   /**

@@ -1,12 +1,12 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 /**
- * Transport characteristics.
+ * Transport data that store in database.
  */
-export interface TransportDTO {
+export interface TransportDto {
 
   /**
    * Cargo capacity.
    */
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   readonly cargo_capacity: string;
 
   /**
@@ -17,6 +17,7 @@ export interface TransportDTO {
   /**
    * Price in credits.
    */
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   readonly cost_in_credits: string;
 
   /**
@@ -25,7 +26,7 @@ export interface TransportDTO {
   readonly created: string;
 
   /**
-   *Crew id.
+   * Crew id.
    */
   readonly crew: string;
 
@@ -47,6 +48,7 @@ export interface TransportDTO {
   /**
    * Max atmospheric speed.
    */
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   readonly max_atmosphering_speed: string;
 
   /**
@@ -60,7 +62,7 @@ export interface TransportDTO {
   readonly name: string;
 
   /**
-   *Quality of passengers.
+   * The number of passengers.
    */
   readonly passengers: string;
 }

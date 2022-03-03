@@ -1,0 +1,24 @@
+<mat-toolbar class="toolbar">
+  <button mat-icon-button class="menu-icon" type="button">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span class="toolbar-spacer"></span>
+  <div *ngIf="isAuth; else notAuthed" class="auth-buttons">
+    <button
+      (click)="isAuth = false"
+      mat-icon-button
+      class="logout-icon"
+      type="button"
+    >
+      <mat-icon>logout</mat-icon>
+    </button>
+  </div>
+  <ng-template #notAuthed class="auth-buttons">
+    <button mat-icon-button type="button">
+      <mat-icon>login</mat-icon>
+    </button>
+    <button mat-icon-button type="button">
+      <mat-icon>app_registration</mat-icon>
+    </button>
+  </ng-template>
+</mat-toolbar>

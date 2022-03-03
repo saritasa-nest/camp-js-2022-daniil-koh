@@ -12,9 +12,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent {
-  public constructor() { }
-
   /** Auth state. (In progress). */
   public isAuth = true;
-
 }

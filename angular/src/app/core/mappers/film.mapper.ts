@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 
-import { FilmModel } from '../models/film.model';
+import { Film } from '../models/film';
 
-import { FilmDTO } from './dto/filmDTO';
-import { CollectionDTO } from './dto/collectionDTO';
+import { FilmDto } from './dto/film.dto';
+import { CollectionDto } from './dto/collection.dto';
 
 /** Class to transform dto to model. */
 @Injectable({
@@ -15,12 +15,20 @@ export class FilmMapper {
    * Transform dto to model.
    * @param dto Dto data.
    */
-  public getFromDto(dto: CollectionDTO<FilmDTO>): FilmModel {
+  public getFromDto(dto: CollectionDto<FilmDto>): Film {
     return {
       episodeId: dto.fields.episode_id,
       openingCrawl: dto.fields.opening_crawl,
-      releaseDate: dto.fields.release_date,
-      ...dto.fields,
+      releaseDate: new Date(dto.fields.release_date),
+      characters: dto.fields.characters,
+      created: new Date(dto.fields.created),
+      director: dto.fields.director,
+      planets: dto.fields.planets,
+      producer: dto.fields.producer.split(',').map(producer => producer.trim()),
+      species: dto.fields.species,
+      starships: dto.fields.starships,
+      title: dto.fields.title,
+      vehicles: dto.fields.vehicles,
     };
   }
 }

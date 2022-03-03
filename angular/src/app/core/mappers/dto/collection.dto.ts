@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 /**
  * Parent interface for db collections.
  */
-export interface CollectionDTO<T> {
+export interface CollectionDto<T> {
 
   /**
    * Id of item.
@@ -10,7 +9,7 @@ export interface CollectionDTO<T> {
   readonly pk: number;
 
   /**
-   *Model of item.
+   * Model of item.
    */
   readonly model: string;
 
