@@ -1,6 +1,6 @@
-.auth-buttons>div:last-child {
-  padding-right: 10px;
+.toolbar{
+  display: flex;
 }
-.toolbar-spacer {
-  flex: 1 1 auto;
+.auth-buttons{
+  margin-left: auto;
 }
