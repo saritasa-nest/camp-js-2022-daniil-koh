@@ -6,7 +6,6 @@ export interface TransportDto {
   /**
    * Cargo capacity.
    */
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   readonly cargo_capacity: string;
 
   /**
@@ -17,7 +16,6 @@ export interface TransportDto {
   /**
    * Price in credits.
    */
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   readonly cost_in_credits: string;
 
   /**
@@ -48,7 +46,6 @@ export interface TransportDto {
   /**
    * Max atmospheric speed.
    */
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   readonly max_atmosphering_speed: string;
 
   /**

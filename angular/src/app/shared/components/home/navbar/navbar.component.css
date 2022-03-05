@@ -1,6 +1,7 @@
-.toolbar{
+.toolbar {
   display: flex;
 }
-.auth-buttons{
+
+.auth-buttons {
   margin-left: auto;
 }

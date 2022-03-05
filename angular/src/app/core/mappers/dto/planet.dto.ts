@@ -36,7 +36,6 @@ export interface PlanetDto {
   /**
    * Orbital period.
    */
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   readonly orbital_period: string;
 
   /**
@@ -47,13 +46,11 @@ export interface PlanetDto {
   /**
    * Rotation period.
    */
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   readonly rotation_period: string;
 
   /**
    * Type of water surface.
    */
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   readonly surface_water: string;
 
   /**

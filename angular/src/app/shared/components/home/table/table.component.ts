@@ -9,9 +9,19 @@ import {
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 
-import { debounceTime, distinctUntilChanged, fromEvent, map, merge, Observable, startWith, switchMap, tap } from 'rxjs';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  fromEvent,
+  map,
+  merge,
+  Observable,
+  startWith,
+  switchMap,
+  tap,
+} from 'rxjs';
 
-import { TableFilms, TableFilmsParameters } from '../../../../core/services/table-films';
+import { FilmsService, TableFilmsParameters } from '../../../../core/services/films.service';
 import { Film } from '../../../../core/models/film';
 import { FilmDto } from '../../../../core/mappers/dto/film.dto';
 
@@ -26,7 +36,7 @@ import { FilmDto } from '../../../../core/mappers/dto/film.dto';
 })
 export class TableComponent implements AfterViewInit {
 
-  public constructor(private readonly database: TableFilms) {
+  public constructor(private readonly filmsService: FilmsService) {
   }
 
   /** Columns to show. */
@@ -53,7 +63,6 @@ export class TableComponent implements AfterViewInit {
   @ViewChild(MatPaginator, { static: false })
 
   /**
-   * @inheritDoc
    * Reference on Paginator.
    */
   private paginator!: MatPaginator;
@@ -61,51 +70,48 @@ export class TableComponent implements AfterViewInit {
   @ViewChild(MatSort)
 
   /**
-   * @inheritDoc
    * Reference on sort table.
    */
   private sort!: MatSort;
 
   /**
-   * @inheritDoc
    * Reference on input, field.
    */
   @ViewChild('input') private input!: ElementRef<HTMLInputElement>;
+
+  /**
+   * Reset page index when search string is changed.
+   */
+  private resetPagination = (): void => {
+    this.paginator.pageIndex = 0;
+  };
+
+  /**
+   * Set default value for sort field when search string is changed.
+   */
+  private changeFieldSortToDefault = (): void => {
+    this.sort.active = 'title';
+  };
 
   /**
    * Init table after init.
    */
   public ngAfterViewInit(): void {
 
-    /**
-     * Reset page index when search string is changed.
-     */
-    const resetPagination = (): void => {
-      this.paginator.pageIndex = 0;
-    };
-
-    /**
-     * Set default value for sort field when search string is changed.
-     */
-    const changeFieldSortToDefault = (): void => {
-      this.sort.active = 'title';
-    };
-
-    /** Server-side search. */
     const inputChange$ = fromEvent<InputEvent>(this.input.nativeElement, 'keyup')
       .pipe(
         debounceTime(1000),
         distinctUntilChanged(),
         tap(() => {
-          resetPagination();
-          changeFieldSortToDefault();
+          this.resetPagination();
+          this.changeFieldSortToDefault();
         }),
       );
 
     // If the user changes the sort order, reset back to the first page.
     this.sort.sortChange.subscribe(() => {
       this.input.nativeElement.value = '';
-      resetPagination();
+      this.resetPagination();
     });
     this.films$ = merge(this.sort.sortChange, this.paginator.page, inputChange$)
       .pipe(
@@ -125,23 +131,23 @@ export class TableComponent implements AfterViewInit {
           };
 
           if (this.paginator.pageIndex === 0) {
-            return this.database?.getFilms(filmsParameters).pipe(
+            return this.filmsService?.getFilms(filmsParameters).pipe(
 
               // Only refresh the result length if there is new data. In case of rate
               // limit errors, we do not want to reset the paginator to zero, as that
               // would prevent users from re-triggering requests.
               tap(data => {
-                resetPagination();
+                this.resetPagination();
                 this.resultsLength = data.length;
               }),
               map(data => data.slice(0, this.pageSize)),
             );
           } else if (this.paginator.pageIndex > this.previousPage) {
             this.previousPage = this.paginator.pageIndex;
-            return this.database?.getNextPage(filmsParameters);
+            return this.filmsService?.getNextPage(filmsParameters);
           }
           this.previousPage = this.paginator.pageIndex;
-          return this.database?.getPreviousPage(filmsParameters);
+          return this.filmsService?.getPreviousPage(filmsParameters);
 
         }),
         map(data => {

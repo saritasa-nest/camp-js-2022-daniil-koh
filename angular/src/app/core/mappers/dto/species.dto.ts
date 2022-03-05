@@ -6,13 +6,11 @@ export interface SpeciesDto {
   /**
    * Species average height.
    */
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   readonly average_height: string;
 
   /**
    * Average lifespan of species.
    */
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   readonly average_lifespan: string;
 
   /**
@@ -38,19 +36,16 @@ export interface SpeciesDto {
   /**
    * Eye colors separated by ','.
    */
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   readonly eye_colors: string;
 
   /**
    * Hair colors separated by ','.
    */
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   readonly hair_colors: string;
 
   /**
    * Primary key of homeland planet.
    */
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   readonly home_world: number;
 
   /**
@@ -71,6 +66,5 @@ export interface SpeciesDto {
   /**
    * Skin colors separated by ','.
    */
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   readonly skin_colors: string;
 }

@@ -11,7 +11,7 @@
       class="film-table"
       aria-label="StarWars films."
       mat-table
-      [dataSource]="films$"
+      [dataSource]="(films$ | async)!"
       matSort
       matSortActive="title"
       matSortDisableClear

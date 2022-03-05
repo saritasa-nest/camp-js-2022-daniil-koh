@@ -21,13 +21,11 @@ export interface FilmDto {
   /**
    * It is primary key of this episode.
    */
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   readonly episode_id: number;
 
   /**
    * Description text in the film beginning.
    */
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   readonly opening_crawl: string;
 
   /**
@@ -43,7 +41,6 @@ export interface FilmDto {
   /**
    * Date of release.
    */
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   readonly release_date: string;
 
   /**
