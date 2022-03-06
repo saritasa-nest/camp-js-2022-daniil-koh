@@ -14,7 +14,7 @@
     </button>
   </div>
   <ng-template #notAuthed class="auth-buttons">
-    <button mat-icon-button type="button">
+    <button mat-icon-button type="button" (click)="openAuthDialog()">
       <mat-icon>login</mat-icon>
     </button>
     <button mat-icon-button type="button">
