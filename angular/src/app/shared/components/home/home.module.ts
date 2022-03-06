@@ -16,11 +16,13 @@ import { TableComponent } from './table/table.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
+import { ModalAuthComponent } from './modal-auth/modal-auth.component';
 
 const EXPORTED_DECLARATIONS = [
   NavbarComponent,
   TableComponent,
   HomeComponent,
+  ModalAuthComponent,
 ];
 const MAT_MODULES = [
   MatFormFieldModule,
