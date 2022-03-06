@@ -6,7 +6,6 @@ export interface CharacterDto {
   /**
    * Birthday year.
    */
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   readonly birth_year: string;
 
   /**
@@ -22,7 +21,6 @@ export interface CharacterDto {
   /**
    * Color of eyes.
    */
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   readonly eye_color: string;
 
   /**
@@ -33,7 +31,6 @@ export interface CharacterDto {
   /**
    * Color of hair.
    */
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   readonly hair_color: string;
 
   /**
@@ -59,6 +56,5 @@ export interface CharacterDto {
   /**
    * Color of skin.
    */
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   readonly skin_color: string;
 }
