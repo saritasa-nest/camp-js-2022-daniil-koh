@@ -55,7 +55,7 @@ export class TableComponent implements AfterViewInit {
   public pageSize = 2;
 
   /** Index of previous page.*/
-  public previousPage!: number;
+  public previousPage = 0;
 
   /** Films for table. */
   public films$!: Observable<Film[]>;
@@ -129,15 +129,14 @@ export class TableComponent implements AfterViewInit {
             sortKey: this.sort.direction,
             searchString: this.input.nativeElement.value,
           };
-
           if (this.paginator.pageIndex === 0) {
+            this.previousPage = this.paginator.pageIndex;
             return this.filmsService?.getFilms(filmsParameters).pipe(
 
               // Only refresh the result length if there is new data. In case of rate
               // limit errors, we do not want to reset the paginator to zero, as that
               // would prevent users from re-triggering requests.
               tap(data => {
-                this.resetPagination();
                 this.resultsLength = data.length;
               }),
               map(data => data.slice(0, this.pageSize)),

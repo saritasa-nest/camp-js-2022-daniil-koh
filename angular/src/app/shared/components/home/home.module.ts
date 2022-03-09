@@ -14,16 +14,12 @@ import { MatInputModule } from '@angular/material/input';
 
 import { FormsModule } from '@angular/forms';
 
-import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-
 import { TableComponent } from './table/table.component';
-import { NavbarComponent } from './navbar/navbar.component';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 import { ModalAuthComponent } from './modal-auth/modal-auth.component';
 
 const EXPORTED_DECLARATIONS = [
-  NavbarComponent,
   TableComponent,
   HomeComponent,
   ModalAuthComponent,
@@ -38,19 +34,12 @@ const MAT_MODULES = [
   MatIconModule,
   MatButtonModule,
   MatInputModule,
-  MatDialogModule,
 ];
 
 /** Home module. */
 @NgModule({
   declarations: [...EXPORTED_DECLARATIONS],
   imports: [CommonModule, MAT_MODULES, HomeRoutingModule, FormsModule],
-  providers: [
-    {
-      provide: MatDialogRef,
-      useValue: {},
-    },
-  ],
 })
 export class HomeModule {
 }

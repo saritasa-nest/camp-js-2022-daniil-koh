@@ -37,14 +37,14 @@ export interface TableFilmsParameters {
 })
 export class FilmsService {
 
+  public constructor(private readonly firestore: AngularFirestore, private readonly filmMapper: FilmMapper) {
+  }
+
   /** Default path collection.*/
   private pathCollection = 'films';
 
   /** Default sort to field by.*/
   private defaultSortField = 'title';
-
-  public constructor(private readonly firestore: AngularFirestore, private readonly filmMapper: FilmMapper) {
-  }
 
   /** Last visible doc as cursor to paginate data. */
   private lastVisibleDocPaginator: QueryDocumentSnapshot<FilmDto> | null = null;

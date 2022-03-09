@@ -1,13 +1,15 @@
 import {
   Component,
   ChangeDetectionStrategy,
-  OnDestroy,
-  AfterViewInit,
   ViewChild,
-  ElementRef,
+  ElementRef, AfterViewInit,
 } from '@angular/core';
 
-import { Subject, takeUntil } from 'rxjs';
+import { Subject } from 'rxjs';
+
+import { MatSnackBar } from '@angular/material/snack-bar';
+
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
 import { MatDialogRef } from '@angular/material/dialog';
 
@@ -16,18 +18,23 @@ import { AuthService } from '../../../../core/services/auth.service';
 /**
  * Auth dialog.
  */
+@UntilDestroy()
 @Component({
   selector: 'sw-modal-auth',
   templateUrl: './modal-auth.component.html',
   styleUrls: ['./modal-auth.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ModalAuthComponent implements AfterViewInit, OnDestroy {
+export class ModalAuthComponent implements AfterViewInit {
 
-  public constructor(public authService: AuthService, public dialogRef: MatDialogRef<ModalAuthComponent>) { }
+  public constructor(
+    private readonly dialogRef: MatDialogRef<ModalAuthComponent>,
+    private readonly authService: AuthService,
+    private readonly snackBar: MatSnackBar,
+  ) {}
 
   /** Flag to valid login fields.*/
-  public loginValid = true;
+  public loginValid = false;
 
   /** Value of username field.*/
   public username = '';
@@ -43,21 +50,44 @@ export class ModalAuthComponent implements AfterViewInit, OnDestroy {
   @ViewChild('passwordInput') private passwordInput!: ElementRef<HTMLInputElement>;
 
   /**
-   * Login to system.
+   * If get authentication error, show error snackbar.
+   * @param message Message to show on snackbar.
+   */
+  public showMessageAuthSnackBar(message: string): void {
+    const horizontalPosition = 'right';
+    const verticalPosition = 'bottom';
+    const duration = 4000;
+    const closeTitle = 'Close';
+
+    this.snackBar.open(message, closeTitle, {
+      horizontalPosition,
+      verticalPosition,
+      duration,
+    });
+  }
+
+  /**
+   * Login to system with email and password.
    */
   public login(): void {
     const email = this.emailInput.nativeElement.value;
     const password = this.passwordInput.nativeElement.value;
-    this.authService.loginWithEmailAndPassword(email, password);
+    this.authService.loginWithEmailAndPassword(email, password).subscribe(
+      {
+        error: error => this.showMessageAuthSnackBar(error),
+      },
+    );
   }
 
   /**
-   *
+   * Sign up to system with email and password.
    */
-  public register(): void {
+  public signUp(): void {
     const email = this.emailInput.nativeElement.value;
     const password = this.passwordInput.nativeElement.value;
-    this.authService.registerWithEmailAndPassword(email, password);
+    this.authService.registerWithEmailAndPassword(email, password).subscribe({
+      error: error => this.showMessageAuthSnackBar(error),
+    });
   }
 
   /**
@@ -65,20 +95,15 @@ export class ModalAuthComponent implements AfterViewInit, OnDestroy {
    */
   public ngAfterViewInit(): void {
     this.authService.getStateChange()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(data => {
-        // eslint-disable-next-line no-empty
-        if (data !== null) {
-
+      .pipe(
+        untilDestroyed(this),
+      )
+      .subscribe(isAuth => {
+      const loggedInMessage = 'You are successfully logged in.';
+        if (isAuth) {
+          this.showMessageAuthSnackBar(loggedInMessage);
+          this.dialogRef.close();
         }
       });
   }
-
-  /**
-   * @inheritDoc
-   */
-  public ngOnDestroy(): void {
-    this.destroy$.next();
-  }
-
 }

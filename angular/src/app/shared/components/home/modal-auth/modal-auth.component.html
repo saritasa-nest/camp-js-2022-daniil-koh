@@ -1,10 +1,8 @@
 <form #loginForm="ngForm">
   <h2>Log In</h2>
-  <mat-error *ngIf="!loginValid">
-    The username and password were not recognized
-  </mat-error>
-  <mat-form-field>
+  <mat-form-field class="modal-auth-form">
     <input
+      class="modal-auth-email-input"
       matInput
       placeholder="Email"
       [(ngModel)]="username"
@@ -12,10 +10,11 @@
       #emailInput
       required
     />
-    <mat-error> Please provide a valid email address </mat-error>
+    <mat-error> Please provide a valid email address</mat-error>
   </mat-form-field>
-  <mat-form-field>
+  <mat-form-field class="modal-auth-form">
     <input
+      class="modal-auth-password-input"
       matInput
       type="password"
       placeholder="Password"
@@ -24,22 +23,26 @@
       name="password"
       required
     />
-    <mat-error> Please provide a valid password </mat-error>
+    <mat-error> Please provide a valid password</mat-error>
   </mat-form-field>
-  <button
-    mat-raised-button
-    color="primary"
-    [disabled]="!loginForm.form.valid"
-    (click)="login()"
-  >
-    Login
-  </button>
-  <button
-    mat-raised-button
-    color="primary"
-    [disabled]="!loginForm.form.valid"
-    (click)="register()"
-  >
-    Register
-  </button>
+  <div class="modal-auth-buttons">
+    <button
+      class="login-button"
+      mat-raised-button
+      color="primary"
+      [disabled]="!loginForm.form.valid"
+      (click)="login()"
+    >
+      Login
+    </button>
+    <button
+      class="register-button"
+      mat-raised-button
+      color="primary"
+      [disabled]="!loginForm.form.valid"
+      (click)="signUp()"
+    >
+      Register
+    </button>
+  </div>
 </form>

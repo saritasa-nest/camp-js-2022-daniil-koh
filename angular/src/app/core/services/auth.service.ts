@@ -1,8 +1,10 @@
+
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { catchError, from, mapTo, Observable, throwError } from 'rxjs';
+import { catchError, defer, map, mapTo, Observable, throwError } from 'rxjs';
 import { FirebaseError } from '@angular/fire/app/firebase';
-import firebase from 'firebase/compat';
+
+import { FirebaseErrorMapper } from '../mappers/firebase-error.mapper';
 
 /** Service to auth user.*/
 @Injectable({
@@ -10,16 +12,18 @@ import firebase from 'firebase/compat';
 })
 export class AuthService {
 
-  public constructor(public auth: AngularFireAuth) {
-  }
-
-  // public authSubject = new BehaviorSubject<boolean>(authState());
+  public constructor(
+    private readonly auth: AngularFireAuth,
+    private readonly firebaseErrorMapper: FirebaseErrorMapper,
+  ) {}
 
   /**
    * Return stream to detect auth state changes.
    */
-  public getStateChange(): Observable<firebase.User | null> {
-    return this.auth.authState;
+  public getStateChange(): Observable<boolean> {
+    return this.auth.authState.pipe(
+      map(user => !!user),
+    );
   }
 
   /**
@@ -28,10 +32,12 @@ export class AuthService {
    * @param password User's password.
    */
   public loginWithEmailAndPassword(email: string, password: string): Observable<void> {
-    return from(this.auth.signInWithEmailAndPassword(email, password)).pipe(
-      catchError((err: FirebaseError) => throwError(() => err)),
-      mapTo(void 0),
-    );
+    return defer(() => this.auth.signInWithEmailAndPassword(email, password))
+      .pipe(
+        catchError((err: FirebaseError) => throwError(() => this.firebaseErrorMapper.map(err))),
+        mapTo(void 0),
+
+      );
   }
 
   /**
@@ -40,8 +46,8 @@ export class AuthService {
    * @param password New user's password.
    */
   public registerWithEmailAndPassword(email: string, password: string): Observable<void> {
-    return from(this.auth.createUserWithEmailAndPassword(email, password)).pipe(
-      catchError((err: FirebaseError) => throwError(() => err)),
+    return defer(() => this.auth.createUserWithEmailAndPassword(email, password)).pipe(
+      catchError((err: FirebaseError) => throwError(() => this.firebaseErrorMapper.map(err))),
       mapTo(void 0),
     );
   }
@@ -50,7 +56,10 @@ export class AuthService {
    * Log out.
    */
   public logout(): Observable<void> {
-    return from(this.auth.signOut());
+    return defer(() => this.auth.signOut()).pipe(
+      catchError((err: FirebaseError) => throwError(() => err)),
+      mapTo(void 0),
+    );
   }
 
 }

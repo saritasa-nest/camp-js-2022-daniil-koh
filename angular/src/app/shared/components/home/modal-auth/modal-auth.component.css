@@ -1,3 +1,16 @@
 :host {
   display: block;
 }
+
+.modal-auth-buttons button {
+  margin-right: 0.5rem;
+}
+
+.modal-auth-buttons {
+  float: right;
+}
+
+.modal-auth-form {
+  width: 100%;
+  display: inline-block;
+}

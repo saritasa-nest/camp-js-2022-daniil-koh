@@ -1,11 +1,10 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
-import { ModalAuthComponent } from '../modal-auth/modal-auth.component';
-import { AuthService } from '../../../../core/services/auth.service';
+import { throwError } from 'rxjs';
 
-// TODO This component in progress!!!
-// TODO Connect auth state Subscriber Template with Rx.
+import { ModalAuthComponent } from '../home/modal-auth/modal-auth.component';
+import { AuthService } from '../../../core/services/auth.service';
 
 /**
  * Top navbar.
@@ -16,17 +15,17 @@ import { AuthService } from '../../../../core/services/auth.service';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements AfterViewInit {
-  public constructor(public authService: AuthService, public dialog: MatDialog) { }
+  public constructor(private readonly authService: AuthService, private readonly dialog: MatDialog) { }
 
-  /** Auth state. (In progress). */
-  public isAuth = true;
+  /** Auth state.*/
+  public isAuth = false;
 
   /**
    * Open auth dialog.
    */
   public openAuthDialog(): void {
     this.dialog.open(ModalAuthComponent, {
-      width: '250px',
+      width: '450px',
     });
 
   }
@@ -35,7 +34,9 @@ export class NavbarComponent implements AfterViewInit {
    * Open auth dialog.
    */
   public logout(): void {
-    this.authService.logout();
+    this.authService.logout().subscribe({
+      error: err => throwError(() => err),
+    });
   }
 
   /**
@@ -43,12 +44,7 @@ export class NavbarComponent implements AfterViewInit {
    */
   public ngAfterViewInit(): void {
     this.authService.getStateChange().subscribe(user => {
-      if (user) {
-        this.isAuth = true;
-      } else {
-        this.isAuth = false;
-      }
+      this.isAuth = user;
     });
   }
-
 }

@@ -6,6 +6,9 @@ const routes: Routes = [
     path: '',
     loadChildren: () => import('./shared/components/home/home.module').then(m => m.HomeModule),
   },
+  {
+    path: '**', redirectTo: '',
+  },
 ];
 
 /** App routing module. */
