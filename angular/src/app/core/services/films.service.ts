@@ -12,6 +12,15 @@ export type SortDirection = 'desc' | 'asc';
 export type PageDirection = 'previous' | 'next';
 
 /**
+ * Film model with id.
+ */
+interface FilmWithId extends Film {
+
+  /** Id of film. */
+  id: string;
+}
+
+/**
  * Parameters from table to get films fo it.
  */
 export interface TableFilmsParameters {
@@ -37,8 +46,10 @@ export interface TableFilmsParameters {
 })
 export class FilmsService {
 
-  public constructor(private readonly firestore: AngularFirestore, private readonly filmMapper: FilmMapper) {
-  }
+  public constructor(
+    private readonly firestore: AngularFirestore,
+    private readonly filmMapper: FilmMapper,
+  ) {}
 
   /** Default path collection.*/
   private pathCollection = 'films';
@@ -56,7 +67,7 @@ export class FilmsService {
    * Getting films from firestore for table.
    * @param tableFilmsParameters Parameters to get films from database to table.
    */
-  public getFilms(tableFilmsParameters: TableFilmsParameters): Observable<Film[]> {
+  public getFilms(tableFilmsParameters: TableFilmsParameters): Observable<FilmWithId[]> {
     const { limitFilms, sortField, sortKey, searchString } = tableFilmsParameters;
     let collectionRef;
     if (searchString.trim().length !== 0) {
@@ -76,7 +87,7 @@ export class FilmsService {
    * Get films with given parameters for next page.
    * @param tableFilmsParameters Parameters to get films from database to table.
    */
-  public getNextPage(tableFilmsParameters: TableFilmsParameters): Observable<Film[]> {
+  public getNextPage(tableFilmsParameters: TableFilmsParameters): Observable<FilmWithId[]> {
     const { limitFilms } = tableFilmsParameters;
 
     const collectionRef = this.getPaginationReference(tableFilmsParameters, 'next');
@@ -88,7 +99,7 @@ export class FilmsService {
    * Get films with given parameters for previous page.
    * @param tableFilmsParameters Parameters to get films from database to table.
    */
-  public getPreviousPage(tableFilmsParameters: TableFilmsParameters): Observable<Film[]> {
+  public getPreviousPage(tableFilmsParameters: TableFilmsParameters): Observable<FilmWithId[]> {
     const { limitFilms, sortField, sortKey, searchString } = tableFilmsParameters;
 
     // It need to make pagination, we should reverse sort key to take previous page,and limit films,
@@ -110,7 +121,7 @@ export class FilmsService {
    * @param shouldReverse Should get reversed films.
    */
   private getFilmSnapshotChanges(collectionRef: AngularFirestoreCollection<unknown>,
-    limitData: number, shouldReverse = false): Observable<Film[]> {
+    limitData: number, shouldReverse = false): Observable<FilmWithId[]> {
     return collectionRef.snapshotChanges().pipe(
       tap(data => {
         if (data.length !== 0) {
@@ -124,8 +135,14 @@ export class FilmsService {
           this.firstVisibleDocPaginator = data[0].payload.doc as QueryDocumentSnapshot<FilmDto>;
         }
       }),
-      map(data => data.map(docChange => docChange.payload.doc.data())),
-      map(data => data.map(filmDoc => this.filmMapper.getFromDto(filmDoc as CollectionDto<FilmDto>))),
+      map(data => data.map(docChange => ({
+        data: docChange.payload.doc.data(),
+          id: docChange.payload.doc.id,
+      }))),
+      map(data => data.map(filmDoc => ({
+        id: filmDoc.id,
+        ...this.filmMapper.getFromDto(filmDoc.data as CollectionDto<FilmDto>),
+      } as FilmWithId))),
       map(films => shouldReverse ? films.reverse() : films),
     );
   }

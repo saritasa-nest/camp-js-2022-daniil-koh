@@ -15,6 +15,8 @@ import { MatIconModule } from '@angular/material/icon';
 
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 
+import { RouterModule } from '@angular/router';
+
 import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
@@ -33,6 +35,7 @@ const NAVBAR_MAT_MODULES = [
 @NgModule({
   declarations: [AppComponent, NavbarComponent],
   imports: [
+    RouterModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,

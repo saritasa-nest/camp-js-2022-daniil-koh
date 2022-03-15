@@ -16,5 +16,5 @@ export interface StarshipDto {
   /**
    * Class of starship.
    */
-  readonly starhip_class: string;
+  readonly starship_class: string;
 }

@@ -7,6 +7,10 @@ const routes: Routes = [
     loadChildren: () => import('./shared/components/home/home.module').then(m => m.HomeModule),
   },
   {
+    path: 'details',
+    loadChildren: () => import('./shared/components/film-detail-page/film-detail.module').then(m => m.FilmDetailModule),
+  },
+  {
     path: '**', redirectTo: '',
   },
 ];

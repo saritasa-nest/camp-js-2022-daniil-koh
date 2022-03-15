@@ -6,6 +6,7 @@ import {
   ElementRef,
 } from '@angular/core';
 
+import { Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 
@@ -36,7 +37,10 @@ import { FilmDto } from '../../../../core/mappers/dto/film.dto';
 })
 export class TableComponent implements AfterViewInit {
 
-  public constructor(private readonly filmsService: FilmsService) {
+  public constructor(
+    private readonly filmsService: FilmsService,
+    private readonly router: Router,
+  ) {
   }
 
   /** Columns to show. */
@@ -85,6 +89,14 @@ export class TableComponent implements AfterViewInit {
   private resetPagination = (): void => {
     this.paginator.pageIndex = 0;
   };
+
+  /**
+   * Navigate to detail page by film id.
+   * @param filmId Film id.
+   */
+  public goToDetailPage(filmId: string): void {
+    this.router.navigate([`/details`], { queryParams: { id: filmId } });
+  }
 
   /**
    * Set default value for sort field when search string is changed.

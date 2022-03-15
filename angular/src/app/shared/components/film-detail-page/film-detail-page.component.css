@@ -1,0 +1,26 @@
+.film-details {
+  margin-top: 10px;
+}
+
+.details-container {
+  margin: 10px 10% 0;
+}
+
+.detail-table td {
+  font-size: 1rem;
+  padding-bottom: 1rem;
+}
+
+.detail-loader {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+}
+
+.detail-page-buttons {
+  float: right;
+}
+
+.detail-page-buttons button{
+  margin-left: 1rem;
+}

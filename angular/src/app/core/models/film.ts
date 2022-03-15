@@ -6,7 +6,7 @@ export interface Film {
   /**
    * Array of primary keys of characters.
    */
-  readonly characters: readonly number[];
+  readonly characters: readonly string[];
 
   /**
    * Date when film was created.
@@ -31,7 +31,7 @@ export interface Film {
   /**
    * Array of primary keys of planets.
    */
-  readonly planets: readonly number[];
+  readonly planets: readonly string[];
 
   /**
    * String of producers(separated by ",") or producer.
@@ -44,14 +44,14 @@ export interface Film {
   readonly releaseDate: Date;
 
   /**
-   * Array of primary keys .
+   * Array of primary keys of species in film.
    */
-  readonly species: readonly number[];
+  readonly species: readonly string[];
 
   /**
    *Array of primary keys of starships in film.
    */
-  readonly starships: readonly number[];
+  readonly starships: readonly string[];
 
   /**
    * Title of film.
@@ -61,5 +61,5 @@ export interface Film {
   /**
    * Array of primary keys of starships in film.
    */
-  readonly vehicles: readonly number[];
+  readonly vehicles: readonly string[];
 }
