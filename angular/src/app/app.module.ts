@@ -17,6 +17,12 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 
 import { RouterModule } from '@angular/router';
 
+import { MatDatepickerModule } from '@angular/material/datepicker';
+
+import { MatNativeDateModule } from '@angular/material/core';
+
+import { ReactiveFormsModule } from '@angular/forms';
+
 import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
@@ -29,6 +35,7 @@ const NAVBAR_MAT_MODULES = [
   MatButtonModule,
   MatIconModule,
   MatDialogModule,
+  MatNativeDateModule,
 ];
 
 /** Root module. */
@@ -39,6 +46,7 @@ const NAVBAR_MAT_MODULES = [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     ...NAVBAR_MAT_MODULES,
   ],
@@ -47,6 +55,8 @@ const NAVBAR_MAT_MODULES = [
       provide: MatDialogRef,
       useValue: {},
     },
+    MatDatepickerModule,
+
   ],
   bootstrap: [AppComponent],
 })

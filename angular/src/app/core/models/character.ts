@@ -1,28 +1,27 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 /**
- * Character data that store in database.
+ * Character data.
  */
-export interface CharacterDto {
+export interface Character {
 
   /**
    * Birthday year.
    */
-  readonly birth_year: string;
+  readonly birthYear: Date;
 
   /**
    * Date of creation.
    */
-  readonly created: string;
+  readonly created: Date;
 
   /**
    * Date of edition.
    */
-  readonly edited: string;
+  readonly edited: Date;
 
   /**
    * Color of eyes.
    */
-  readonly eye_color: string;
+  readonly eyeColor: string;
 
   /**
    * Gender.
@@ -32,22 +31,22 @@ export interface CharacterDto {
   /**
    * Color of hair.
    */
-  readonly hair_color: string;
+  readonly hairColor: string;
 
   /**
    * Height in cm.
    */
-  readonly height: string;
+  readonly height: number;
 
   /**
    * Primary key of homeland planet.
    */
-  readonly homeworld: string;
+  readonly homeWorld: string;
 
   /**
    * Mass of people.
    */
-  readonly mass: string;
+  readonly mass: number;
 
   /**
    * Name of people.
@@ -57,5 +56,5 @@ export interface CharacterDto {
   /**
    * Color of skin.
    */
-  readonly skin_color: string;
+  readonly skinColor: string;
 }

@@ -1,4 +1,5 @@
 /**
+ * @see {isFilm} Ts-auto-guard:type-guard
  * Film data.
  */
 export interface Film {
@@ -36,7 +37,7 @@ export interface Film {
   /**
    * String of producers(separated by ",") or producer.
    */
-  readonly producer: readonly string[];
+  readonly producer: string;
 
   /**
    * Date of release.

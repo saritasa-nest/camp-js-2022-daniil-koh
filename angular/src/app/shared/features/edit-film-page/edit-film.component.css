@@ -1,0 +1,27 @@
+:host {
+  display: block;
+}
+
+.edit-container {
+  margin: 10px 10% 0;
+}
+
+.edit-table {
+  width: 100%;
+}
+.edit-table tr{
+  text-align: center;
+}
+.edit-table td > *{
+  width: 40%;
+}
+
+.edit-page-buttons {
+  float: right;
+}
+
+.edit-loader {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+}

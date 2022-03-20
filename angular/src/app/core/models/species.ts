@@ -1,18 +1,17 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 /**
  * Data of species that store in database.
  */
-export interface SpeciesDto {
+export interface Species {
 
   /**
    * Species average height.
    */
-  readonly average_height: string;
+  readonly averageHeight: number;
 
   /**
    * Average lifespan of species.
    */
-  readonly average_lifespan: string;
+  readonly averageLifespan: number;
 
   /**
    * Classification of species.
@@ -22,7 +21,7 @@ export interface SpeciesDto {
   /**
    * Date of creation.
    */
-  readonly created: string;
+  readonly created: Date;
 
   /**
    * Species designation.
@@ -32,22 +31,22 @@ export interface SpeciesDto {
   /**
    * Date of edition.
    */
-  readonly edited: string;
+  readonly edited: Date;
 
   /**
    * Eye colors separated by ','.
    */
-  readonly eye_colors: string;
+  readonly eyeColors: string;
 
   /**
    * Hair colors separated by ','.
    */
-  readonly hair_colors: string;
+  readonly hairColors: string;
 
   /**
    * Primary key of homeland planet.
    */
-  readonly home_world: string;
+  readonly homeWorld: string;
 
   /**
    * Language of species.
@@ -67,5 +66,5 @@ export interface SpeciesDto {
   /**
    * Skin colors separated by ','.
    */
-  readonly skin_colors: string;
+  readonly skinColors: string;
 }

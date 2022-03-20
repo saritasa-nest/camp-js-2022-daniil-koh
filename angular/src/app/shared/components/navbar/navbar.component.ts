@@ -3,7 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { throwError } from 'rxjs';
 
-import { ModalAuthComponent } from '../home/modal-auth/modal-auth.component';
+import { Router } from '@angular/router';
+
+import { ModalAuthComponent } from '../modal-auth/modal-auth.component';
 import { AuthService } from '../../../core/services/auth.service';
 
 /**
@@ -15,7 +17,11 @@ import { AuthService } from '../../../core/services/auth.service';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements AfterViewInit {
-  public constructor(private readonly authService: AuthService, private readonly dialog: MatDialog) { }
+  public constructor(
+    private readonly authService: AuthService,
+    private readonly dialog: MatDialog,
+    private readonly router: Router,
+  ) {}
 
   /** Auth state.*/
   public isAuth = false;
@@ -28,6 +34,15 @@ export class NavbarComponent implements AfterViewInit {
       width: '450px',
     });
 
+  }
+
+  /**
+   * Navigate to home page.
+   */
+  public goHomePage(): void {
+    if (this.router.url !== '/') {
+      this.router.navigate(['/']);
+    }
   }
 
   /**

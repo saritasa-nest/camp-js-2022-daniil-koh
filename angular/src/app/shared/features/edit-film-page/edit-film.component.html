@@ -1,0 +1,150 @@
+<div class="edit-loader" *ngIf="isLoading$ | async; else film_details_block">
+  <mat-spinner></mat-spinner>
+</div>
+<ng-template #film_details_block>
+  <div class="edit-container" *ngIf="allDetails$ | async as allDetails">
+    <table class="edit-table">
+      <tbody>
+        <tr>
+          <td class="edit-page-title-input">
+            <mat-form-field class="title-input" appearance="fill">
+              <mat-label>Title</mat-label>
+              <input matInput [formControl]="titleInput" />
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td class="edit-page-director-input">
+            <mat-form-field class="director-input" appearance="fill">
+              <mat-label>Director</mat-label>
+              <input matInput [formControl]="directorInput" />
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td class="edit-page-producer-input">
+            <mat-form-field class="producer-input" appearance="fill">
+              <mat-label>Producer</mat-label>
+              <input matInput [formControl]="producerInput" />
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td class="edit-page-created-input">
+            <mat-form-field class="created-input" appearance="fill">
+              <mat-label>Created</mat-label>
+              <input
+                matInput
+                [matDatepicker]="created_picker"
+                [formControl]="createdDatePicker"
+                [max]="maxDate"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="created_picker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #created_picker></mat-datepicker>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td class="edit-page-release-date-input">
+            <mat-form-field class="released-input" appearance="fill">
+              <mat-label>Released</mat-label>
+              <input
+                matInput
+                [matDatepicker]="released_picker"
+                [formControl]="releasedDatePicker"
+                [max]="maxDate"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="released_picker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #released_picker></mat-datepicker>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td class="edit-page-characters-input">
+            <mat-form-field appearance="fill">
+              <mat-label>Characters</mat-label>
+              <mat-select [formControl]="charactersMultiSelect" multiple>
+                <mat-option
+                  *ngFor="let character of allDetails?.characters"
+                  [value]="character.id"
+                  >{{ character.data.name }}</mat-option
+                >
+              </mat-select>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td class="edit-page-planets-input">
+            <mat-form-field appearance="fill">
+              <mat-label>Planets</mat-label>
+              <mat-select [formControl]="planetsMultiSelect" multiple>
+                <mat-option
+                  *ngFor="let planet of allDetails?.planets"
+                  [value]="planet.id"
+                  >{{ planet.data.name }}</mat-option
+                >
+              </mat-select>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td class="edit-page-species-input">
+            <mat-form-field appearance="fill">
+              <mat-label>Species</mat-label>
+              <mat-select [formControl]="speciesMultiSelect" multiple>
+                <mat-option
+                  *ngFor="let race of allDetails?.species"
+                  [value]="race.id"
+                  >{{ race.data.name }}</mat-option
+                >
+              </mat-select>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td class="edit-page-starships-input">
+            <mat-form-field appearance="fill">
+              <mat-label>Starships</mat-label>
+              <mat-select [formControl]="starShipMultiSelect" multiple>
+                <mat-option
+                  *ngFor="let starship of allDetails?.starships"
+                  [value]="starship.id"
+                >
+                  {{ starship.data.starshipClass }}, MGLT
+                  {{ starship.data.megaLight || "Unknown" }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td class="edit-page-opening-crawl-input">
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Opening crawl</mat-label>
+              <textarea matInput [formControl]="openingCrawlInput"> </textarea>
+            </mat-form-field>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="edit-page-buttons">
+      <button mat-stroked-button type="button" (click)="updateFilm()">
+        Update
+      </button>
+      <button
+        mat-stroked-button
+        color="warn"
+        type="button"
+        (click)="deleteFilm()"
+      >
+        Delete
+      </button>
+    </div>
+  </div>
+</ng-template>

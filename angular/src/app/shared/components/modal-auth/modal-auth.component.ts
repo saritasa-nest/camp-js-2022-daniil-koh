@@ -13,7 +13,7 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
 import { MatDialogRef } from '@angular/material/dialog';
 
-import { AuthService } from '../../../../core/services/auth.service';
+import { AuthService } from '../../../core/services/auth.service';
 
 /**
  * Auth dialog.
@@ -53,7 +53,7 @@ export class ModalAuthComponent implements AfterViewInit {
    * If get authentication error, show error snackbar.
    * @param message Message to show on snackbar.
    */
-  public showMessageAuthSnackBar(message: string): void {
+  private showMessageAuthSnackBar(message: string): void {
     const horizontalPosition = 'right';
     const verticalPosition = 'bottom';
     const duration = 4000;

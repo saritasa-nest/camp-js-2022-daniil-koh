@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 /**
  * Data of planet that store in database.
  */
-export interface PlanetDto {
+export interface Planet {
 
   /**
    * Planet climate.
@@ -12,22 +11,22 @@ export interface PlanetDto {
   /**
    * Date of creation.
    */
-  readonly created: string;
+  readonly created: Date;
 
   /**
    * Diameter of planet.
    */
-  readonly diameter: string;
+  readonly diameter: number;
 
   /**
    * Date of edition.
    */
-  readonly edited: string;
+  readonly edited: Date;
 
   /**
    * Gravity type.
    */
-  readonly gravity: string;
+  readonly gravity: number;
 
   /**
    * Planet name.
@@ -37,22 +36,22 @@ export interface PlanetDto {
   /**
    * Orbital period.
    */
-  readonly orbital_period: string;
+  readonly orbitalPeriod: number;
 
   /**
    * Planet population.
    */
-  readonly population: string;
+  readonly population: number;
 
   /**
    * Rotation period.
    */
-  readonly rotation_period: string;
+  readonly rotationPeriod: number;
 
   /**
    * Type of water surface.
    */
-  readonly surface_water: string;
+  readonly surfaceWater: number;
 
   /**
    * Types of terrains.

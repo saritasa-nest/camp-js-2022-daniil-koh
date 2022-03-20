@@ -5,7 +5,7 @@ import { Film } from '../models/film';
 import { FilmDto } from './dto/film.dto';
 import { CollectionDto } from './dto/collection.dto';
 
-/** Class to transform dto to model. */
+/** Mapper to transform dto to model. */
 @Injectable({
   providedIn: 'root',
 })
@@ -24,7 +24,7 @@ export class FilmMapper {
       created: new Date(dto.fields.created),
       director: dto.fields.director,
       planets: dto.fields.planets,
-      producer: dto.fields.producer.split(',').map(producer => producer.trim()),
+      producer: dto.fields.producer,
       species: dto.fields.species,
       starships: dto.fields.starships,
       title: dto.fields.title,

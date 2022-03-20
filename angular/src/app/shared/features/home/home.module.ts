@@ -14,10 +14,14 @@ import { MatInputModule } from '@angular/material/input';
 
 import { FormsModule } from '@angular/forms';
 
-import { TableComponent } from './table/table.component';
+import { TableComponent } from '../../components/table/table.component';
+
+import { ModalAuthComponent } from '../../components/modal-auth/modal-auth.component';
+
+import { PipesModule } from '../../pipes/pipes.module';
+
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
-import { ModalAuthComponent } from './modal-auth/modal-auth.component';
 
 const EXPORTED_DECLARATIONS = [
   TableComponent,
@@ -39,7 +43,7 @@ const MAT_MODULES = [
 /** Home module. */
 @NgModule({
   declarations: [...EXPORTED_DECLARATIONS],
-  imports: [CommonModule, MAT_MODULES, HomeRoutingModule, FormsModule],
+  imports: [CommonModule, MAT_MODULES, HomeRoutingModule, FormsModule, PipesModule],
 })
 export class HomeModule {
 }

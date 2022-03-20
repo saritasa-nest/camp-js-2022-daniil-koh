@@ -1,0 +1,94 @@
+<div class="detail-loader" *ngIf="isLoading$ | async; else filmDetailsBlock">
+  <mat-spinner></mat-spinner>
+</div>
+<ng-template #filmDetailsBlock>
+  <div class="details-container">
+    <table class="detail-table">
+      <tbody *ngIf="filmDetails$ | async as filmDetails">
+        <tr>
+          <td class="detail-page-title detail-page-field-name">Title</td>
+          <td class="detail-page-title-input">
+            {{ filmDetails.title }}
+          </td>
+        </tr>
+        <tr>
+          <td class="detail-page-director detail-page-field-name">Director</td>
+          <td class="detail-page-director-input">
+            {{ filmDetails.director }}
+          </td>
+        </tr>
+        <tr>
+          <td class="detail-page-producer detail-page-field-name">Producer</td>
+          <td class="detail-page-producer-input">
+            {{ filmDetails.producer }}
+          </td>
+        </tr>
+        <tr>
+          <td class="detail-page-created detail-page-field-name">
+            Date of production
+          </td>
+          <td class="detail-page-created-input">
+            {{
+              filmDetails.created ? (filmDetails.created | dateFormatter) : ""
+            }}
+          </td>
+        </tr>
+        <tr>
+          <td class="detail-page-title detail-page-field-name">
+            Date of release
+          </td>
+          <td class="detail-page-release-date-input">
+            {{ filmDetails.releaseDate | dateFormatter }}
+          </td>
+        </tr>
+        <tr>
+          <td class="detail-page-characters detail-page-field-name">
+            Characters
+          </td>
+          <td class="detail-page-characters-input">
+            {{ filmDetails.characters.join(", ") }}
+          </td>
+        </tr>
+        <tr>
+          <td class="detail-page-planets detail-page-field-name">Planets</td>
+          <td class="detail-page-planets-input">
+            {{ filmDetails.planets.join(", ") }}
+          </td>
+        </tr>
+        <tr>
+          <td class="detail-page-species detail-page-field-name">Species</td>
+          <td class="detail-page-species-input">
+            {{ filmDetails.species.join(", ") }}
+          </td>
+        </tr>
+        <tr>
+          <td class="detail-page-starships detail-page-field-name">
+            Starships
+          </td>
+          <td class="detail-page-starships-input">
+            {{ filmDetails.starships.join(", ") }}
+          </td>
+        </tr>
+        <tr>
+          <td class="detail-page-vehicles detail-page-field-name">Vehicles</td>
+          <td class="detail-page-vehicles-input">
+            {{ filmDetails.vehicles.join(", ") }}
+          </td>
+        </tr>
+        <tr>
+          <td class="detail-page-opening-crawl detail-page-field-name">
+            Opening crawl
+          </td>
+          <td class="detail-page-opening-crawl-input">
+            {{ filmDetails.openingCrawl }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="detail-page-buttons">
+      <button mat-stroked-button type="button" (click)="goToEditPage()">
+        Edit
+      </button>
+    </div>
+  </div>
+</ng-template>

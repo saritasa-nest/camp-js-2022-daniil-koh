@@ -7,8 +7,18 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { MatButtonModule } from '@angular/material/button';
 
+import { MatNativeDateModule } from '@angular/material/core';
+
+import { PipesModule } from '../../pipes/pipes.module';
+
 import { FilmDetailRoutingModule } from './film-detail-routing.module';
 import { FilmDetailPageComponent } from './film-detail-page.component';
+
+const MAT_MODULES = [
+  MatProgressSpinnerModule,
+  MatButtonModule,
+  MatNativeDateModule,
+];
 
 /** Detail page module.*/
 @NgModule({
@@ -17,8 +27,8 @@ import { FilmDetailPageComponent } from './film-detail-page.component';
     CommonModule,
     FilmDetailRoutingModule,
     FlexLayoutModule,
-    MatProgressSpinnerModule,
-    MatButtonModule,
+    PipesModule,
+    ...MAT_MODULES,
   ],
 })
 export class FilmDetailModule { }

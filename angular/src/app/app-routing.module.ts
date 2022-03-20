@@ -4,11 +4,15 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./shared/components/home/home.module').then(m => m.HomeModule),
+    loadChildren: () => import('./shared/features/home/home.module').then(m => m.HomeModule),
   },
   {
     path: 'details',
-    loadChildren: () => import('./shared/components/film-detail-page/film-detail.module').then(m => m.FilmDetailModule),
+    loadChildren: () => import('./shared/features/film-detail-page/film-detail.module').then(m => m.FilmDetailModule),
+  },
+  {
+    path: 'edit',
+    loadChildren: () => import('./shared/features/edit-film-page/edit-film.module').then(m => m.EditFilmModule),
   },
   {
     path: '**', redirectTo: '',
