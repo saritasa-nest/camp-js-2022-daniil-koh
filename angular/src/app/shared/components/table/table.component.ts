@@ -6,6 +6,7 @@ import {
   ElementRef,
 } from '@angular/core';
 
+import { Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 
@@ -21,9 +22,11 @@ import {
   tap,
 } from 'rxjs';
 
-import { FilmsService, TableFilmsParameters } from '../../../../core/services/films.service';
-import { Film } from '../../../../core/models/film';
-import { FilmDto } from '../../../../core/mappers/dto/film.dto';
+import { FilmsService, SortedColumns, TableFilmsParameters } from '../../../core/services/films.service';
+import { Film } from '../../../core/models/film';
+import { arrayOfAll } from '../../../core/models/array-of-all';
+
+const arrayOfAllShowedColumns = arrayOfAll<SortedColumns>();
 
 /**
  * Table component.
@@ -36,11 +39,13 @@ import { FilmDto } from '../../../../core/mappers/dto/film.dto';
 })
 export class TableComponent implements AfterViewInit {
 
-  public constructor(private readonly filmsService: FilmsService) {
-  }
+  public constructor(
+    private readonly filmsService: FilmsService,
+    private readonly router: Router,
+  ) {}
 
   /** Columns to show. */
-  public readonly displayedColumns: readonly string[] = ['title', 'director', 'producer', 'created'];
+  public readonly displayedColumns = arrayOfAllShowedColumns(['title', 'director', 'producer', 'created']);
 
   /** Length of films for table with chosen parameters.*/
   public resultsLength = 0;
@@ -55,36 +60,43 @@ export class TableComponent implements AfterViewInit {
   public pageSize = 2;
 
   /** Index of previous page.*/
-  public previousPage!: number;
+  public previousPage = 0;
 
   /** Films for table. */
   public films$!: Observable<Film[]>;
 
-  @ViewChild(MatPaginator, { static: false })
-
   /**
    * Reference on Paginator.
    */
+  @ViewChild(MatPaginator, { static: false })
   private paginator!: MatPaginator;
-
-  @ViewChild(MatSort)
 
   /**
    * Reference on sort table.
    */
+  @ViewChild(MatSort, { static: false })
   private sort!: MatSort;
 
   /**
    * Reference on input, field.
    */
-  @ViewChild('input') private input!: ElementRef<HTMLInputElement>;
+  @ViewChild('input', { static: false })
+  private input!: ElementRef<HTMLInputElement>;
 
   /**
    * Reset page index when search string is changed.
    */
-  private resetPagination = (): void => {
+  private resetPagination(): void {
     this.paginator.pageIndex = 0;
-  };
+  }
+
+  /**
+   * Navigate to detail page by film id.
+   * @param filmId Film id.
+   */
+  public goToDetailPage(filmId: string): void {
+    this.router.navigate([`/details`], { queryParams: { id: filmId } });
+  }
 
   /**
    * Set default value for sort field when search string is changed.
@@ -98,6 +110,8 @@ export class TableComponent implements AfterViewInit {
    */
   public ngAfterViewInit(): void {
 
+    // Init stream here, because we use input native element, and it always init in afterViewInit block.
+    // Before this lifecycle step  this.input.nativeElement is undefined.
     const inputChange$ = fromEvent<InputEvent>(this.input.nativeElement, 'keyup')
       .pipe(
         debounceTime(1000),
@@ -125,19 +139,18 @@ export class TableComponent implements AfterViewInit {
           }
           const filmsParameters: TableFilmsParameters = {
             limitFilms: this.pageSize,
-            sortField: this.sort.active as keyof FilmDto,
+            sortField: this.sort.active as SortedColumns,
             sortKey: this.sort.direction,
             searchString: this.input.nativeElement.value,
           };
-
           if (this.paginator.pageIndex === 0) {
+            this.previousPage = this.paginator.pageIndex;
             return this.filmsService?.getFilms(filmsParameters).pipe(
 
               // Only refresh the result length if there is new data. In case of rate
               // limit errors, we do not want to reset the paginator to zero, as that
               // would prevent users from re-triggering requests.
               tap(data => {
-                this.resetPagination();
                 this.resultsLength = data.length;
               }),
               map(data => data.slice(0, this.pageSize)),
@@ -151,11 +164,9 @@ export class TableComponent implements AfterViewInit {
 
         }),
         map(data => {
-
           // Flip flag to show that loading has finished.
           this.isLoadingResults = false;
           this.isRateLimitReached = data === null;
-
           if (data === null) {
             return [];
           }

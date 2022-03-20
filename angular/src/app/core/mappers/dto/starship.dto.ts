@@ -1,12 +1,13 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 /**
  * Starship data that store in database.
  */
 export interface StarshipDto {
 
   /**
-   * Megalight.
+   * Megalights per hour.
    */
-  readonly MLGT: string;
+  readonly MGLT: string;
 
   /**
    * Hyperdrive rating.
@@ -16,5 +17,5 @@ export interface StarshipDto {
   /**
    * Class of starship.
    */
-  readonly starhip_class: string;
+  readonly starship_class: string;
 }

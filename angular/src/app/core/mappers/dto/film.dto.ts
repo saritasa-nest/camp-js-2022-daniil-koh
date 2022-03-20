@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 /**
  * Data of film that stored in database.
  */
@@ -6,7 +7,7 @@ export interface FilmDto {
   /**
    * Array of primary keys of characters.
    */
-  readonly characters: ReadonlyArray<number>;
+  readonly characters: readonly string[];
 
   /**
    * Date when film was created.
@@ -31,7 +32,7 @@ export interface FilmDto {
   /**
    * Array of primary keys of planets.
    */
-  readonly planets: ReadonlyArray<number>;
+  readonly planets: readonly string[];
 
   /**
    * String of producers(separated by ",") or producer.
@@ -46,12 +47,12 @@ export interface FilmDto {
   /**
    * Array of primary keys .
    */
-  readonly species: ReadonlyArray<number>;
+  readonly species: readonly string[];
 
   /**
    * Array of primary keys of starships in film.
    */
-  readonly starships: ReadonlyArray<number>;
+  readonly starships: readonly string[];
 
   /**
    * Title of film.
@@ -61,5 +62,5 @@ export interface FilmDto {
   /**
    * Array of primary keys of starships in film.
    */
-  readonly vehicles: ReadonlyArray<number>;
+  readonly vehicles: readonly string[];
 }
