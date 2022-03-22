@@ -224,11 +224,11 @@ export class EditFilmComponent implements OnInit, AfterViewInit {
       .subscribe(filmDetails => {
         this.titleInput.setValue(filmDetails.title);
         this.directorInput.setValue(filmDetails.director);
-        this.producerInput.setValue(filmDetails.producer);
+        this.producerInput.setValue(filmDetails.producer.join(', '));
         this.createdDatePicker.setValue(filmDetails.created);
         this.releasedDatePicker.setValue(filmDetails.releaseDate);
         this.openingCrawlInput.setValue(filmDetails.openingCrawl);
-        this.charactersMultiSelect.setValue(filmDetails.characters);
+        this.charactersMultiSelect.setValue(filmDetails.charactersIds);
         this.planetsMultiSelect.setValue(filmDetails.planets);
         this.starShipMultiSelect.setValue(filmDetails.starships);
         this.speciesMultiSelect.setValue(filmDetails.species);

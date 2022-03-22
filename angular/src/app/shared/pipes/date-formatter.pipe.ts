@@ -11,9 +11,9 @@ export class DateFormatterPipe implements PipeTransform {
    * @param date Date value.
    * @param format String form to show by.
    */
-  public transform(date: Date, format = 'yyyy-MM-dd'): string | null {
+  public transform(date: Date, format = 'yyyy-MM-dd'): string {
     if (!isNaN(date.getTime())) {
-      return new DatePipe('en-US').transform(date, format);
+      return new DatePipe('en-US').transform(date, format) ?? '';
     }
     return '';
   }

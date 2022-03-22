@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+
 import {
   debounceTime,
   distinctUntilChanged,
@@ -25,12 +27,14 @@ import {
 import { FilmsService, SortedColumns, TableFilmsParameters } from '../../../core/services/films.service';
 import { Film } from '../../../core/models/film';
 import { arrayOfAll } from '../../../core/models/array-of-all';
+import { DateFormatterPipe } from '../../pipes/date-formatter.pipe';
 
 const arrayOfAllShowedColumns = arrayOfAll<SortedColumns>();
 
 /**
  * Table component.
  */
+@UntilDestroy()
 @Component({
   selector: 'sw-table',
   templateUrl: './table.component.html',
@@ -42,7 +46,12 @@ export class TableComponent implements AfterViewInit {
   public constructor(
     private readonly filmsService: FilmsService,
     private readonly router: Router,
-  ) {}
+  ) {
+    this.dateFormatterPipe = new DateFormatterPipe();
+  }
+
+  /** Date pipe.*/
+  public readonly dateFormatterPipe;
 
   /** Columns to show. */
   public readonly displayedColumns = arrayOfAllShowedColumns(['title', 'director', 'producer', 'created']);
@@ -52,9 +61,6 @@ export class TableComponent implements AfterViewInit {
 
   /** Flag is data loading.*/
   public isLoadingResults = true;
-
-  /** Flag is rate limit is reached.*/
-  public isRateLimitReached = false;
 
   /** Elements on page.*/
   public pageSize = 2;
@@ -120,10 +126,15 @@ export class TableComponent implements AfterViewInit {
           this.resetPagination();
           this.changeFieldSortToDefault();
         }),
+        untilDestroyed(this),
       );
 
     // If the user changes the sort order, reset back to the first page.
-    this.sort.sortChange.subscribe(() => {
+    this.sort.sortChange
+      .pipe(
+        untilDestroyed(this),
+      )
+      .subscribe(() => {
       this.input.nativeElement.value = '';
       this.resetPagination();
     });
@@ -166,7 +177,6 @@ export class TableComponent implements AfterViewInit {
         map(data => {
           // Flip flag to show that loading has finished.
           this.isLoadingResults = false;
-          this.isRateLimitReached = data === null;
           if (data === null) {
             return [];
           }

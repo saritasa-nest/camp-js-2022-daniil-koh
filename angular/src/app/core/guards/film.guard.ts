@@ -10,8 +10,8 @@ export function isFilm(obj: any, _argumentName?: string): obj is Film {
     (obj !== null &&
             typeof obj === 'object' ||
             typeof obj === 'function') &&
-        Array.isArray(obj.characters) &&
-        obj.characters.every((e: any) =>
+        Array.isArray(obj.charactersIds) &&
+        obj.charactersIds.every((e: any) =>
           typeof e === 'string') &&
         obj.created instanceof Date &&
         typeof obj.director === 'string' &&
@@ -20,7 +20,9 @@ export function isFilm(obj: any, _argumentName?: string): obj is Film {
         Array.isArray(obj.planets) &&
         obj.planets.every((e: any) =>
           typeof e === 'string') &&
-        typeof obj.producer === 'string' &&
+        Array.isArray(obj.producer) &&
+        obj.producer.every((e: any) =>
+          typeof e === 'string') &&
         obj.releaseDate instanceof Date &&
         Array.isArray(obj.species) &&
         obj.species.every((e: any) =>
