@@ -20,15 +20,15 @@ export class FilmMapper {
       episodeId: dto.fields.episode_id,
       openingCrawl: dto.fields.opening_crawl,
       releaseDate: new Date(dto.fields.release_date),
-      characters: dto.fields.characters,
+      charactersIds: dto.fields.characters,
       created: new Date(dto.fields.created),
       director: dto.fields.director,
-      planets: dto.fields.planets,
-      producer: dto.fields.producer,
-      species: dto.fields.species,
-      starships: dto.fields.starships,
+      planetsIds: dto.fields.planets,
+      producer: dto.fields.producer.split(',').map(producer => producer.trim()),
+      speciesIds: dto.fields.species,
+      starshipsIds: dto.fields.starships,
       title: dto.fields.title,
-      vehicles: dto.fields.vehicles,
+      vehiclesIds: dto.fields.vehicles,
     };
   }
 }

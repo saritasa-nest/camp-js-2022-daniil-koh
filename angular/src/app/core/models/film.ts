@@ -1,5 +1,5 @@
 /**
- * @see {isFilm} Ts-auto-guard:type-guard
+ * @see {isFilm} Ts-auto-guard:type-guard.
  * Film data.
  */
 export interface Film {
@@ -7,7 +7,7 @@ export interface Film {
   /**
    * Array of primary keys of characters.
    */
-  readonly characters: readonly string[];
+  readonly charactersIds: readonly string[];
 
   /**
    * Date when film was created.
@@ -32,12 +32,12 @@ export interface Film {
   /**
    * Array of primary keys of planets.
    */
-  readonly planets: readonly string[];
+  readonly planetsIds: readonly string[];
 
   /**
-   * String of producers(separated by ",") or producer.
+   * Array of producers.
    */
-  readonly producer: string;
+  readonly producer: readonly string[];
 
   /**
    * Date of release.
@@ -47,12 +47,12 @@ export interface Film {
   /**
    * Array of primary keys of species in film.
    */
-  readonly species: readonly string[];
+  readonly speciesIds: readonly string[];
 
   /**
    *Array of primary keys of starships in film.
    */
-  readonly starships: readonly string[];
+  readonly starshipsIds: readonly string[];
 
   /**
    * Title of film.
@@ -62,5 +62,5 @@ export interface Film {
   /**
    * Array of primary keys of starships in film.
    */
-  readonly vehicles: readonly string[];
+  readonly vehiclesIds: readonly string[];
 }

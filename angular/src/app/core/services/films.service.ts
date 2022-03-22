@@ -24,7 +24,7 @@ export type SortedColumns =
 interface FilmWithId extends Film {
 
   /** Id of film. */
-  id: string;
+  readonly id: string;
 }
 
 /**
