@@ -17,22 +17,22 @@ export function isFilm(obj: any, _argumentName?: string): obj is Film {
         typeof obj.director === 'string' &&
         typeof obj.episodeId === 'number' &&
         typeof obj.openingCrawl === 'string' &&
-        Array.isArray(obj.planets) &&
-        obj.planets.every((e: any) =>
+        Array.isArray(obj.planetsIds) &&
+        obj.planetsIds.every((e: any) =>
           typeof e === 'string') &&
         Array.isArray(obj.producer) &&
         obj.producer.every((e: any) =>
           typeof e === 'string') &&
         obj.releaseDate instanceof Date &&
-        Array.isArray(obj.species) &&
-        obj.species.every((e: any) =>
+        Array.isArray(obj.speciesIds) &&
+        obj.speciesIds.every((e: any) =>
           typeof e === 'string') &&
-        Array.isArray(obj.starships) &&
-        obj.starships.every((e: any) =>
+        Array.isArray(obj.starshipsIds) &&
+        obj.starshipsIds.every((e: any) =>
           typeof e === 'string') &&
         typeof obj.title === 'string' &&
-        Array.isArray(obj.vehicles) &&
-        obj.vehicles.every((e: any) =>
+        Array.isArray(obj.vehiclesIds) &&
+        obj.vehiclesIds.every((e: any) =>
           typeof e === 'string')
   );
 }

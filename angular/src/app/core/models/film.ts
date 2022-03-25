@@ -32,7 +32,7 @@ export interface Film {
   /**
    * Array of primary keys of planets.
    */
-  readonly planets: readonly string[];
+  readonly planetsIds: readonly string[];
 
   /**
    * Array of producers.
@@ -47,12 +47,12 @@ export interface Film {
   /**
    * Array of primary keys of species in film.
    */
-  readonly species: readonly string[];
+  readonly speciesIds: readonly string[];
 
   /**
    *Array of primary keys of starships in film.
    */
-  readonly starships: readonly string[];
+  readonly starshipsIds: readonly string[];
 
   /**
    * Title of film.
@@ -62,5 +62,5 @@ export interface Film {
   /**
    * Array of primary keys of starships in film.
    */
-  readonly vehicles: readonly string[];
+  readonly vehiclesIds: readonly string[];
 }

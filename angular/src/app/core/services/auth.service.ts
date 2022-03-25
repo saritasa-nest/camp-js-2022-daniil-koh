@@ -36,7 +36,6 @@ export class AuthService {
       .pipe(
         catchError((err: FirebaseError) => throwError(() => this.firebaseErrorMapper.map(err))),
         mapTo(void 0),
-
       );
   }
 

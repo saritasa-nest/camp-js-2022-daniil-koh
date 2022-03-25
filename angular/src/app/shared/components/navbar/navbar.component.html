@@ -5,23 +5,23 @@
     type="button"
     (click)="goHomePage()"
   >
-    <mat-icon> home </mat-icon>
+    <mat-icon> home</mat-icon>
   </button>
-  <div *ngIf="isAuth; else not_authorized" class="auth-buttons">
-    <button
-      (click)="logout()"
-      mat-icon-button
-      class="logout-icon"
-      type="button"
-    >
-      <mat-icon>logout</mat-icon>
-    </button>
-  </div>
-  <ng-template #not_authorized>
-    <div class="auth-buttons">
-      <button mat-icon-button type="button" (click)="openAuthDialog()">
-        <mat-icon>login</mat-icon>
+  <div class="auth-buttons">
+    <div *ngIf="isAuth; else not_authorized">
+      <button
+        (click)="logout()"
+        mat-icon-button
+        class="logout-icon"
+        type="button"
+      >
+        <mat-icon>logout</mat-icon>
       </button>
     </div>
+  </div>
+  <ng-template #not_authorized>
+    <button mat-icon-button type="button" (click)="openAuthDialog()">
+      <mat-icon>login</mat-icon>
+    </button>
   </ng-template>
 </mat-toolbar>

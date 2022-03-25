@@ -23,12 +23,12 @@ export class FilmMapper {
       charactersIds: dto.fields.characters,
       created: new Date(dto.fields.created),
       director: dto.fields.director,
-      planets: dto.fields.planets,
+      planetsIds: dto.fields.planets,
       producer: dto.fields.producer.split(',').map(producer => producer.trim()),
-      species: dto.fields.species,
-      starships: dto.fields.starships,
+      speciesIds: dto.fields.species,
+      starshipsIds: dto.fields.starships,
       title: dto.fields.title,
-      vehicles: dto.fields.vehicles,
+      vehiclesIds: dto.fields.vehicles,
     };
   }
 }

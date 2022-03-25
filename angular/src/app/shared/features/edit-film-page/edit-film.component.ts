@@ -229,9 +229,9 @@ export class EditFilmComponent implements OnInit, AfterViewInit {
         this.releasedDatePicker.setValue(filmDetails.releaseDate);
         this.openingCrawlInput.setValue(filmDetails.openingCrawl);
         this.charactersMultiSelect.setValue(filmDetails.charactersIds);
-        this.planetsMultiSelect.setValue(filmDetails.planets);
-        this.starShipMultiSelect.setValue(filmDetails.starships);
-        this.speciesMultiSelect.setValue(filmDetails.species);
+        this.planetsMultiSelect.setValue(filmDetails.planetsIds);
+        this.starShipMultiSelect.setValue(filmDetails.starshipsIds);
+        this.speciesMultiSelect.setValue(filmDetails.speciesIds);
         this.isLoadedFilm$.next(true);
       });
   }

@@ -5,8 +5,6 @@ import {
   ElementRef, AfterViewInit,
 } from '@angular/core';
 
-import { Subject } from 'rxjs';
-
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
@@ -42,9 +40,6 @@ export class ModalAuthComponent implements AfterViewInit {
   /** Values of password field.*/
   public password = '';
 
-  /** Subject to destroy stream when life cycle of component is close to end.*/
-  public destroy$ = new Subject<void>();
-
   @ViewChild('emailInput') private emailInput!: ElementRef<HTMLInputElement>;
 
   @ViewChild('passwordInput') private passwordInput!: ElementRef<HTMLInputElement>;
@@ -72,11 +67,15 @@ export class ModalAuthComponent implements AfterViewInit {
   public login(): void {
     const email = this.emailInput.nativeElement.value;
     const password = this.passwordInput.nativeElement.value;
-    this.authService.loginWithEmailAndPassword(email, password).subscribe(
-      {
-        error: error => this.showMessageAuthSnackBar(error),
-      },
-    );
+    this.authService.loginWithEmailAndPassword(email, password)
+      .pipe(
+        untilDestroyed(this),
+      )
+      .subscribe(
+        {
+          error: error => this.showMessageAuthSnackBar(error),
+        },
+      );
   }
 
   /**
@@ -85,9 +84,13 @@ export class ModalAuthComponent implements AfterViewInit {
   public signUp(): void {
     const email = this.emailInput.nativeElement.value;
     const password = this.passwordInput.nativeElement.value;
-    this.authService.registerWithEmailAndPassword(email, password).subscribe({
-      error: error => this.showMessageAuthSnackBar(error),
-    });
+    this.authService.registerWithEmailAndPassword(email, password)
+      .pipe(
+        untilDestroyed(this),
+      )
+      .subscribe({
+        error: error => this.showMessageAuthSnackBar(error),
+      });
   }
 
   /**
