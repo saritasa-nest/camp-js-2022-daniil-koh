@@ -1,0 +1,32 @@
+:root {
+  --auth-container-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+  --auth-container-border-color:  rgba(40, 60, 80, 0.3);
+}
+.auth-container {
+  border: solid 1px rgba(40, 60, 80, 0.3);
+  margin: 10% auto;
+  background-color: var(--main-background-color);
+  max-height: 300px;
+  min-height: 200px;
+  min-width: 400px;
+  max-width: 600px;
+  box-shadow: var(--auth-container-box-shadow);
+  padding: 1rem;
+}
+
+.auth-title {
+  color: var(--main-text-color);
+  width: 4rem;
+  margin: 0 auto;
+}
+
+.sign-up-button-container {
+  text-align: center;
+  margin-top: 10%;
+}
+
+.sign-up-button {
+  display: flex;
+  margin: 0 auto;
+}
+

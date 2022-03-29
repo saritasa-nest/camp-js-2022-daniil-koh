@@ -1,0 +1,7 @@
+.navbar {
+  background: var(--main-background-color);
+}
+
+.navbar-button {
+  margin-left: auto;
+}
