@@ -7,6 +7,17 @@
   width: 100%;
 }
 
-.loading-shade {
-  margin-left: 50%;
+.film-table-container {
+  position: relative;
+}
+
+.films-loading {
+  position: absolute;
+  top: 70%;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

@@ -24,12 +24,13 @@ import {
   tap,
 } from 'rxjs';
 
-import { FilmsService, SortedColumns, TableFilmsParameters } from '../../../core/services/films.service';
+import { FilmsService, SortColumns, TableFilmsParameters } from '../../../core/services/films.service';
 import { Film } from '../../../core/models/film';
 import { arrayOfAll } from '../../../core/models/array-of-all';
-import { DateFormatterPipe } from '../../pipes/date-formatter.pipe';
+import { SwDatePipe } from '../../pipes/date-formatter.pipe';
 
-const arrayOfAllShowedColumns = arrayOfAll<SortedColumns>();
+const arrayOfAllShowedColumns = arrayOfAll<SortColumns>();
+const timeToWaitBeforeFetch = 1000;
 
 /**
  * Table component.
@@ -47,25 +48,25 @@ export class TableComponent implements AfterViewInit {
     private readonly filmsService: FilmsService,
     private readonly router: Router,
   ) {
-    this.dateFormatterPipe = new DateFormatterPipe();
+    this.dateFormatterPipe = new SwDatePipe();
   }
 
-  /** Date pipe.*/
+  /** Date pipe. */
   public readonly dateFormatterPipe;
 
   /** Columns to show. */
   public readonly displayedColumns = arrayOfAllShowedColumns(['title', 'director', 'producer', 'created']);
 
-  /** Length of films for table with chosen parameters.*/
+  /** Length of films for table with chosen parameters. */
   public resultsLength = 0;
 
-  /** Flag is data loading.*/
+  /** Flag is data loading. */
   public isLoadingResults = true;
 
-  /** Elements on page.*/
+  /** Elements on page. */
   public pageSize = 2;
 
-  /** Index of previous page.*/
+  /** Index of previous page. */
   public previousPage = 0;
 
   /** Films for table. */
@@ -74,19 +75,19 @@ export class TableComponent implements AfterViewInit {
   /**
    * Reference on Paginator.
    */
-  @ViewChild(MatPaginator, { static: false })
+  @ViewChild(MatPaginator)
   private paginator!: MatPaginator;
 
   /**
    * Reference on sort table.
    */
-  @ViewChild(MatSort, { static: false })
+  @ViewChild(MatSort)
   private sort!: MatSort;
 
   /**
    * Reference on input, field.
    */
-  @ViewChild('input', { static: false })
+  @ViewChild('input')
   private input!: ElementRef<HTMLInputElement>;
 
   /**
@@ -107,9 +108,9 @@ export class TableComponent implements AfterViewInit {
   /**
    * Set default value for sort field when search string is changed.
    */
-  private changeFieldSortToDefault = (): void => {
+  private changeFieldSortToDefault(): void {
     this.sort.active = 'title';
-  };
+  }
 
   /**
    * Init table after init.
@@ -120,7 +121,7 @@ export class TableComponent implements AfterViewInit {
     // Before this lifecycle step  this.input.nativeElement is undefined.
     const inputChange$ = fromEvent<InputEvent>(this.input.nativeElement, 'keyup')
       .pipe(
-        debounceTime(1000),
+        debounceTime(timeToWaitBeforeFetch),
         distinctUntilChanged(),
         tap(() => {
           this.resetPagination();
@@ -150,7 +151,7 @@ export class TableComponent implements AfterViewInit {
           }
           const filmsParameters: TableFilmsParameters = {
             limitFilms: this.pageSize,
-            sortField: this.sort.active as SortedColumns,
+            sortField: this.sort.active as SortColumns,
             sortKey: this.sort.direction,
             searchString: this.input.nativeElement.value,
           };

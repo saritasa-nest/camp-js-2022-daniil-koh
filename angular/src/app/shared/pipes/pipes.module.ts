@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { DateFormatterPipe } from './date-formatter.pipe';
+import { SwDatePipe } from './date-formatter.pipe';
 
 /** Module to share all pipes.*/
 @NgModule({
-  declarations: [DateFormatterPipe],
+  declarations: [SwDatePipe],
   imports: [CommonModule],
-  exports: [DateFormatterPipe],
+  exports: [SwDatePipe],
 })
 export class PipesModule { }

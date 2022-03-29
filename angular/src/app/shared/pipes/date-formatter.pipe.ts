@@ -3,9 +3,9 @@ import { DatePipe } from '@angular/common';
 
 /** Check date, then transform it.*/
 @Pipe({
-  name: 'dateFormatter',
+  name: 'swDate',
 })
-export class DateFormatterPipe implements PipeTransform {
+export class SwDatePipe implements PipeTransform {
   /**
    * @inheritDoc
    * @param date Date value.

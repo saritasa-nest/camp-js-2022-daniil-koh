@@ -7,21 +7,18 @@ import { FilmMapper } from '../mappers/film.mapper';
 import { Film } from '../models/film';
 import { CollectionDto } from '../mappers/dto/collection.dto';
 import { FilmDto } from '../mappers/dto/film.dto';
+import { FilmWithIdMapperMapper } from '../mappers/film-with-id.mapper';
 
 export type SortDirection = 'desc' | 'asc';
 export type PageDirection = 'previous' | 'next';
 
 /** Field to sort by.*/
-export type SortedColumns =
-  | 'title'
-  | 'director'
-  | 'producer'
-  | 'created';
+export type SortColumns = keyof Pick<Film, 'title' | 'director' | 'producer' | 'created'>;
 
 /**
  * Film model with id.
  */
-interface FilmWithId extends Film {
+export interface FilmWithId extends Film {
 
   /** Id of film. */
   readonly id: string;
@@ -36,7 +33,7 @@ export interface TableFilmsParameters {
   readonly limitFilms: number;
 
   /** Filed to sort by. */
-  readonly sortField: SortedColumns;
+  readonly sortField: SortColumns;
 
   /** Direction of sort. */
   readonly sortKey: SortDirection;
@@ -46,7 +43,15 @@ export interface TableFilmsParameters {
 }
 
 type FieldDtoMapper = {
-  [n in SortedColumns ]: string;
+  [n in SortColumns ]: string;
+};
+
+/** Convert sorted columns names into collection name.*/
+const fieldDtoMapper: FieldDtoMapper = {
+  title: 'title',
+  director: 'director',
+  producer: 'producer',
+  created: 'created',
 };
 
 /**
@@ -60,30 +65,24 @@ export class FilmsService {
   public constructor(
     private readonly firestore: AngularFirestore,
     private readonly filmMapper: FilmMapper,
-  ) {}
+    private readonly filmWithIdMapperMapper: FilmWithIdMapperMapper,
 
-  /** Disable rule because not all fields don't have collections to convert in.*/
-  private readonly fieldDtoMapper: FieldDtoMapper = {
-    title: 'title',
-    director: 'director',
-    producer: 'producer',
-    created: 'created',
-  };
+  ) {}
 
   /** Default path collection.*/
   private readonly pathCollection: string = 'films';
 
   /** Default sort to field by.*/
-  private readonly defaultSortField: string = 'title';
+  private readonly defaultSortField: keyof Film = 'title';
 
   /** Last visible doc as cursor to paginate data. */
-  private lastVisibleDocPaginator: QueryDocumentSnapshot<FilmDto> | null = null;
+  private lastVisibleDocCursor: QueryDocumentSnapshot<CollectionDto<FilmDto>> | null = null;
 
   /** First visible doc as cursor to paginate data. */
-  private firstVisibleDocPaginator: QueryDocumentSnapshot<FilmDto> | null = null;
+  private firstVisibleDocCursor: QueryDocumentSnapshot<CollectionDto<FilmDto>> | null = null;
 
   /**
-   * Getting films from firestore for table.
+   * Getting films.
    * @param tableFilmsParameters Parameters to get films from database to table.
    */
   public getFilms(tableFilmsParameters: TableFilmsParameters): Observable<FilmWithId[]> {
@@ -119,7 +118,7 @@ export class FilmsService {
       'previous',
     );
 
-    // Get reverses data because we reverse earlier.
+    // Reverse data, if we reversed it earlier.
     return this.getFilmSnapshotChanges(collectionRef, limitFilms, true);
   }
 
@@ -140,18 +139,14 @@ export class FilmsService {
           } else {
             lastDocIdx = limitData - 1;
           }
-          this.lastVisibleDocPaginator = data[lastDocIdx].payload.doc as QueryDocumentSnapshot<FilmDto>;
-          this.firstVisibleDocPaginator = data[0].payload.doc as QueryDocumentSnapshot<FilmDto>;
+          this.lastVisibleDocCursor = data[lastDocIdx].payload.doc as QueryDocumentSnapshot<CollectionDto<FilmDto>>;
+          this.firstVisibleDocCursor = data[0].payload.doc as QueryDocumentSnapshot<CollectionDto<FilmDto>>;
         }
       }),
-      map(data => data.map(docChange => ({
-        data: docChange.payload.doc.data(),
-        id: docChange.payload.doc.id,
-      }))),
-      map(data => data.map(filmDoc => ({
-        id: filmDoc.id,
-        ...this.filmMapper.getFromDto(filmDoc.data as CollectionDto<FilmDto>),
-      } as FilmWithId))),
+      map(data => data.map(docChange => this.filmWithIdMapperMapper.getFromDto(
+          docChange.payload.doc.data() as CollectionDto<FilmDto>,
+          docChange.payload.doc.id,
+      ))),
       map(films => shouldReverse ? films.reverse() : films),
     );
   }
@@ -167,11 +162,11 @@ export class FilmsService {
   ): AngularFirestoreCollection<unknown> {
     const { limitFilms, sortField, sortKey, searchString } = tableFilmsParameters;
     let collectionRef;
-    let cursor: QueryDocumentSnapshot<FilmDto> | null;
+    let cursor: QueryDocumentSnapshot<CollectionDto<FilmDto>> | null;
     if (pageDirection === 'previous') {
-      cursor = this.firstVisibleDocPaginator;
+      cursor = this.firstVisibleDocCursor;
     } else if (pageDirection === 'next') {
-      cursor = this.lastVisibleDocPaginator;
+      cursor = this.lastVisibleDocCursor;
     } else {
       cursor = null;
     }
@@ -192,12 +187,12 @@ export class FilmsService {
         .orderBy(`fields.${this.defaultSortField}`, sortKey));
     } else if (searchString.trim().length === 0 && cursor) {
       collectionRef = this.firestore.collection(this.pathCollection, ref => ref
-        .orderBy(`fields.${this.fieldDtoMapper[sortField]}`, sortKey)
+        .orderBy(`fields.${fieldDtoMapper[sortField]}`, sortKey)
         .startAfter(cursor)
         .limit(limitFilms));
     } else {
       collectionRef = this.firestore.collection(this.pathCollection, ref => ref
-        .orderBy(`fields.${this.fieldDtoMapper[sortField]}`, sortKey));
+        .orderBy(`fields.${fieldDtoMapper[sortField]}`, sortKey));
     }
     return collectionRef;
   }

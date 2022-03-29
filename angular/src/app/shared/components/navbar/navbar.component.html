@@ -1,16 +1,16 @@
 <mat-toolbar class="toolbar">
-  <button mat-icon-button class="home-icon" type="button">
+  <button mat-icon-button class="home-icon" type="button" title="Back to home">
     <mat-icon> home</mat-icon>
   </button>
   <div class="auth-buttons">
     <div *ngIf="isAuth; else not_authorized">
-      <button mat-icon-button class="logout-icon" type="button">
+      <button mat-icon-button class="logout-icon" type="button" title="Logout">
         <mat-icon>logout</mat-icon>
       </button>
     </div>
   </div>
   <ng-template #not_authorized>
-    <button mat-icon-button type="button">
+    <button mat-icon-button type="button" title="Login">
       <mat-icon>login</mat-icon>
     </button>
   </ng-template>
