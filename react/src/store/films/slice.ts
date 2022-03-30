@@ -28,7 +28,9 @@ export const filmsSlice = createSlice({
       filmsAdapter.removeAll(state);
       filmsAdapter.setAll(state, action.payload.films);
       state.cursors = action.payload.cursors;
-      state.loading = false;
+      if (action.payload.films.length !== 0) {
+        state.loading = false;
+      }
     })
     .addCase(getPreviousPage.rejected, rejectedReducer)
     .addCase(getPreviousPage.pending, pendingReducer)

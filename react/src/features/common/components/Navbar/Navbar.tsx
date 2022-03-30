@@ -2,7 +2,7 @@ import {
   AppBar, Box, Button, IconButton, Toolbar,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import MenuIcon from '@mui/icons-material/Menu';
+import HomeIcon from '@mui/icons-material/Home';
 import { useCallback, VFC } from 'react';
 import './Navbar.css';
 import { useAppDispatch, useAppSelector } from '../../../../store';
@@ -20,6 +20,16 @@ export const Navbar: VFC = () => {
     [dispatch],
   );
 
+  /**
+   * Navigate to table.
+   */
+  const backToTable = useCallback((): void => {
+    navigate('/films');
+  }, [navigate]);
+
+  /**
+   * If user is not authenticated, navigate return to auth page.
+   */
   const loginHandler = useCallback((): void => {
     navigate('/auth');
   }, [navigate]);
@@ -38,8 +48,9 @@ export const Navbar: VFC = () => {
             edge="start"
             color="inherit"
             aria-label="menu"
+            onClick={backToTable}
           >
-            <MenuIcon />
+            <HomeIcon />
           </IconButton>
           <div className="navbar-button">
             {isAuthorized

@@ -6,6 +6,14 @@
     "airbnb-typescript",
     "plugin:react/jsx-runtime"
   ],
+  "overrides": [
+    {
+      "files": ["*.dto.ts"],
+      "rules": {
+        "@typescript-eslint/naming-convention": "off"
+      }
+    }
+  ],
   "rules": {
     "@typescript-eslint/member-ordering": 0,
     "import/prefer-default-export": 0,

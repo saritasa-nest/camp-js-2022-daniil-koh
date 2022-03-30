@@ -1,0 +1,9 @@
+.film-details-grid {
+  padding: 5% 10%;
+}
+
+.film-details-loading {
+  position: fixed;
+  left: 50%;
+  top: 20%;
+}

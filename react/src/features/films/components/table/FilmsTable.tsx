@@ -7,6 +7,7 @@ import {
 } from '@mui/material';
 
 import './Table.css';
+import { createSearchParams, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../../store';
 import {
   selectFilms,
@@ -41,6 +42,8 @@ export const FilmsTable: VFC = () => {
   });
   /** Current page. */
   const [page, setPage] = useState(0);
+  /** Navigation.  */
+  const navigate = useNavigate();
   /** Get app dispatch. */
   const dispatch = useAppDispatch();
   /** Search string value. */
@@ -57,18 +60,30 @@ export const FilmsTable: VFC = () => {
   const sortedColumns = arrayOfAllShowedColumns(['title', 'producer', 'director', 'created']);
 
   /**
+   * Navigate to detail chosen.
+   * @param id Chosen film id.
+   */
+  const goToFilmDetails = (id: string): void => {
+    navigate({
+      pathname: '/details',
+      search: `?${createSearchParams({ id })}`,
+    });
+  };
+
+  /**
    * Handler to change sort.
    * @param header Header to sort by.
    */
   const handleRequestSort = useCallback((
-    header: FilmsService.SortedColumns,
-  ): void => {
-    const isAsc = sortState.sortedColumn === header && sortState.sortDirection === 'asc';
-    setSortState({
-      sortedColumn: header,
-      sortDirection: isAsc ? 'desc' : 'asc',
-    });
-  }, []);
+    (
+      header: FilmsService.SortedColumns,
+    ): void => {
+      const isAsc = sortState.sortedColumn === header && sortState.sortDirection === 'asc';
+      setSortState({
+        sortedColumn: header,
+        sortDirection: isAsc ? 'desc' : 'asc',
+      });
+    }), [sortState]);
 
   /** Handler to go to next page. */
   const onNextPage = useCallback((): void => {
@@ -80,7 +95,7 @@ export const FilmsTable: VFC = () => {
       searchString: searchStringFilms,
       cursors,
     }));
-  }, [dispatch]);
+  }, [dispatch, filmsPerPage, sortState, searchStringFilms, cursors]);
 
   const lastFilmElementRef = useCallback(node => {
     if (loading) return;
@@ -159,6 +174,8 @@ export const FilmsTable: VFC = () => {
         <TableBody className="films-table-body">
           {films.map((data, index) => (
             <TableRow
+              onClick={() => goToFilmDetails(data.id)}
+              hover
               id={data.id}
               data-index={index}
               ref={index + 1 === films.length ? lastFilmElementRef : null}
@@ -175,12 +192,12 @@ export const FilmsTable: VFC = () => {
                 {data.director}
               </TableCell>
               <TableCell align="right">
-                {data.created.toISOString()}
+                {data.created.toLocaleDateString()}
               </TableCell>
             </TableRow>
           ))}
-          <TableRow>
-            {loading && <CircularProgress className="films-loading" color="inherit" />}
+          <TableRow className="films-table-row-loading">
+            {loading && <CircularProgress className="films-table-loading" color="inherit" />}
           </TableRow>
         </TableBody>
       </Table>

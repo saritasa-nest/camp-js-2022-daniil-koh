@@ -31,7 +31,7 @@ const AuthGuard: VFC<Props> = ({
    */
   useEffect(() => {
     dispatch(getAuth());
-  }, []);
+  }, [dispatch]);
 
   if (loading) {
     return <CircularProgress color="inherit" />;

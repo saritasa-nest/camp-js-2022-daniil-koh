@@ -7,12 +7,18 @@ import { RootRouter } from './routes/RootRouter';
 import { Navbar } from './features/common/components/Navbar';
 import { themeOptions } from './theme/mui-theme';
 import { store } from './store';
+import './theme/App.css';
 
 export const App: VFC = () => (
   <Provider store={store}>
     <BrowserRouter>
       <div>
-        <Suspense fallback={<CircularProgress color="inherit" />}>
+        <Suspense fallback={(
+          <CircularProgress
+            color="inherit"
+          />
+        )}
+        >
           <ThemeProvider theme={themeOptions}>
             <Navbar />
           </ThemeProvider>

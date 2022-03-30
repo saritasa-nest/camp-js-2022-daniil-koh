@@ -6,11 +6,13 @@ import {
 } from 'react-redux';
 import { userSlice } from './user/slice';
 import { filmsSlice } from './films/slice';
+import { filmDetailsSlice } from './filmDetails/slice';
 
 export const store = configureStore({
   reducer: {
     user: userSlice.reducer,
     films: filmsSlice.reducer,
+    filmDetails: filmDetailsSlice.reducer,
   },
   middleware: getDefaultMiddleware => getDefaultMiddleware({
     serializableCheck: false,
