@@ -1,0 +1,1 @@
+export { FilmsTable } from './FilmsTable';

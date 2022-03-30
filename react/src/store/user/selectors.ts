@@ -1,5 +1,4 @@
 import { createSelector } from '@reduxjs/toolkit';
-
 import { RootState } from '../store';
 
 /** Select user authorization from store. */

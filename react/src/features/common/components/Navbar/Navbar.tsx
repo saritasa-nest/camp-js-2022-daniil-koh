@@ -3,23 +3,26 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
-import { VFC } from 'react';
+import { useCallback, VFC } from 'react';
 import './Navbar.css';
 import { useAppDispatch, useAppSelector } from '../../../../store';
 import { selectAuthStatus } from '../../../../store/user/selectors';
 import { logOut } from '../../../../store/user/dispatchers';
 
-const Navbar: VFC = () => {
+export const Navbar: VFC = () => {
   const navigate = useNavigate();
   const isAuthorized = useAppSelector(selectAuthStatus);
   const dispatch = useAppDispatch();
-  const logoutHandler = (): void => {
-    dispatch(logOut());
-  };
+  const logoutHandler = useCallback(
+    (): void => {
+      dispatch(logOut());
+    },
+    [dispatch],
+  );
 
-  const loginHandler = (): void => {
+  const loginHandler = useCallback((): void => {
     navigate('/auth');
-  };
+  }, [navigate]);
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
@@ -44,7 +47,7 @@ const Navbar: VFC = () => {
                 <Button
                   className="navbar-logout-button"
                   color="inherit"
-                  onClick={() => logoutHandler()}
+                  onClick={logoutHandler}
                 >
                   Logout
                 </Button>
@@ -53,7 +56,7 @@ const Navbar: VFC = () => {
                 <Button
                   className="navbar-login-button"
                   color="inherit"
-                  onClick={() => loginHandler()}
+                  onClick={loginHandler}
                 >
                   Login
                 </Button>
@@ -64,5 +67,3 @@ const Navbar: VFC = () => {
     </Box>
   );
 };
-
-export default Navbar;

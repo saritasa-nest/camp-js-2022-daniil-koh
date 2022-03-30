@@ -20,7 +20,7 @@ export class SpeciesMapper {
       homeWorld: dto.fields.home_world,
       language: dto.fields.language,
       name: dto.fields.name,
-      people: dto.fields.people,
+      peopleIds: dto.fields.people,
       skinColors: dto.fields.skin_colors,
       classification: dto.fields.classification,
     };

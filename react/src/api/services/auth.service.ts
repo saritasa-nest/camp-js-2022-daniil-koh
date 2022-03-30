@@ -13,7 +13,7 @@ export namespace AuthService {
   export async function getAuthState(): Promise<boolean> {
     return new Promise((resolve, reject) => {
       onAuthStateChanged(auth, user => {
-        resolve(!!user);
+        resolve(Boolean(user));
       }, err => {
         reject(err);
       });
@@ -25,7 +25,7 @@ export namespace AuthService {
    */
   export async function signInByGoogle(): Promise<boolean> {
     const { user } = await signInWithPopup(auth, provider);
-    return !!user;
+    return Boolean(user);
   }
 
   /**

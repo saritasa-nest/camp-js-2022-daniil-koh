@@ -1,4 +1,4 @@
-import { VFC } from 'react';
+import { useCallback, VFC } from 'react';
 import { Box, Button } from '@mui/material';
 import GoogleIcon from '@mui/icons-material/Google';
 import './AuthPage.css';
@@ -7,9 +7,12 @@ import { signIn } from '../../../../store/user/dispatchers';
 
 export const AuthPage: VFC = () => {
   const dispatch = useAppDispatch();
-  const signUpWithGoogleHandler = (): void => {
-    dispatch(signIn());
-  };
+  const signUpWithGoogleHandler = useCallback(
+    (): void => {
+      dispatch(signIn());
+    },
+    [dispatch],
+  );
   return (
     <Box
       className="auth-container"
@@ -19,7 +22,7 @@ export const AuthPage: VFC = () => {
       </h3>
       <Box className="sign-up-button-container">
         <Button
-          onClick={() => signUpWithGoogleHandler()}
+          onClick={signUpWithGoogleHandler}
           type="button"
           className="sign-up-button"
           variant="outlined"

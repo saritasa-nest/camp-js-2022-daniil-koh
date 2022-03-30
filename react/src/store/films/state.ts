@@ -1,13 +1,19 @@
 import { FilmWithId } from 'src/api/models/film-with-id';
+import { createEntityAdapter } from '@reduxjs/toolkit';
 import { DefaultInitialState } from '../../models/defaultState';
 import { FilmsService } from '../../api/services/films.service';
+
+/**
+ * Films adapter.
+ */
+export const filmsAdapter = createEntityAdapter<FilmWithId>({
+  selectId: film => film.id,
+});
 
 /**
  * Posts state.
  */
 export interface FilmsState extends DefaultInitialState {
-  /** Films list. */
-  readonly films: FilmWithId[];
 
   /** Cursors for pagination. */
   readonly cursors: FilmsService.Cursors;
@@ -16,12 +22,11 @@ export interface FilmsState extends DefaultInitialState {
   readonly searchingString: string;
 }
 
-export const initialState: FilmsState = {
+export const initialState = filmsAdapter.getInitialState<FilmsState>({
   loading: false,
-  films: [],
   searchingString: '',
   cursors: {
     firstVisibleDocCursor: null,
     lastVisibleDocCursor: null,
   },
-};
+});

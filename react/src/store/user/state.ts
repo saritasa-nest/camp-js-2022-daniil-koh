@@ -5,7 +5,6 @@ import { DefaultInitialState } from '../../models/defaultState';
 export interface UserState extends DefaultInitialState{
   /** Authorization user state. */
   readonly isAuthorized: boolean;
-  /** Loading. */
 }
 
 export const initialState: UserState = {

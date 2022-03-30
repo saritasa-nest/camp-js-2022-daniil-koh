@@ -17,7 +17,7 @@ export class CharacterMapper {
       gender: dto.fields.gender,
       hairColor: dto.fields.hair_color,
       height: Number(dto.fields.height),
-      homeWorld: dto.fields.homeworld,
+      homeWorldId: dto.fields.homeworld,
       mass: Number(dto.fields.mass),
       name: dto.fields.name,
       skinColor: dto.fields.skin_color,

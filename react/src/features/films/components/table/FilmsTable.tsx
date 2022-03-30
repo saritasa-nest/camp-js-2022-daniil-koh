@@ -5,6 +5,8 @@ import {
   CircularProgress,
   Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel,
 } from '@mui/material';
+
+import './Table.css';
 import { useAppDispatch, useAppSelector } from '../../../../store';
 import {
   selectFilms,
@@ -12,23 +14,31 @@ import {
   selectFilmsLoading,
   selectSearchString,
 } from '../../../../store/films/selectors';
-import { getAllFilms, getNextPage } from '../../../../store/films/dispatchers';
 import { FilmsService } from '../../../../api/services/films.service';
-import { FilmWithId } from '../../../../api/models/film-with-id';
-import './Table.css';
 import { arrayOfAll } from '../../../../models/arrayOfAll';
+import { getAllFilms, getNextPage } from '../../../../store/films/dispatchers';
 import { capitalizeFirstLetter } from '../../../../mappers';
+import { FilmWithId } from '../../../../api/models/film-with-id';
+
+/** State to sort films. */
+interface SortState {
+  /** Columns to sorting table. */
+  sortedColumn: FilmsService.SortedColumns;
+  /** Direction to sorting table. */
+  sortDirection: FilmsService.SortDirection;
+}
 
 const filmsPerPage = 2;
 const arrayOfAllShowedColumns = arrayOfAll<FilmsService.SortedColumns>();
 
-const FilmsTable: VFC = () => {
+export const FilmsTable: VFC = () => {
   /** Films in table. */
   const [films, setFilms] = useState<FilmWithId[]>([]);
-  /** Columns to sorting table. */
-  const [sortedColumn, setSortedColumn] = useState<FilmsService.SortedColumns>('title');
-  /** Direction to sorting table. */
-  const [sortDirection, setSortDirection] = useState<FilmsService.SortDirection>('asc');
+  /** State to sort films. */
+  const [sortState, setSortState] = useState<SortState>({
+    sortedColumn: 'title',
+    sortDirection: 'asc',
+  });
   /** Current page. */
   const [page, setPage] = useState(0);
   /** Get app dispatch. */
@@ -50,25 +60,27 @@ const FilmsTable: VFC = () => {
    * Handler to change sort.
    * @param header Header to sort by.
    */
-  const handleRequestSort = (
+  const handleRequestSort = useCallback((
     header: FilmsService.SortedColumns,
   ): void => {
-    const isAsc = sortedColumn === header && sortDirection === 'asc';
-    setSortDirection(isAsc ? 'desc' : 'asc');
-    setSortedColumn(header);
-  };
+    const isAsc = sortState.sortedColumn === header && sortState.sortDirection === 'asc';
+    setSortState({
+      sortedColumn: header,
+      sortDirection: isAsc ? 'desc' : 'asc',
+    });
+  }, []);
 
   /** Handler to go to next page. */
-  const onNextPage = (): void => {
+  const onNextPage = useCallback((): void => {
     setPage(prevState => prevState + 1);
     dispatch(getNextPage({
       limitFilms: filmsPerPage,
-      sortField: sortedColumn,
-      sortKey: sortDirection,
+      sortField: sortState.sortedColumn,
+      sortKey: sortState.sortDirection,
       searchString: searchStringFilms,
       cursors,
     }));
-  };
+  }, [dispatch]);
 
   const lastFilmElementRef = useCallback(node => {
     if (loading) return;
@@ -86,8 +98,8 @@ const FilmsTable: VFC = () => {
     const handler = setTimeout(() => {
       dispatch(getAllFilms({
         limitFilms: filmsPerPage,
-        sortField: sortedColumn,
-        sortKey: sortDirection,
+        sortField: sortState.sortedColumn,
+        sortKey: sortState.sortDirection,
         searchString: searchStringFilms,
         cursors,
       }));
@@ -96,15 +108,15 @@ const FilmsTable: VFC = () => {
     return () => {
       clearTimeout(handler);
     };
-  }, [searchStringFilms, sortDirection, sortedColumn]);
+  }, [searchStringFilms, sortState.sortDirection, sortState.sortedColumn]);
 
   /** If fetched films are empty just fetch again. */
   useEffect(() => {
     if (fetchedFilmsData.length === 0 && page !== 0) {
       dispatch(getNextPage({
         limitFilms: filmsPerPage,
-        sortField: sortedColumn,
-        sortKey: sortDirection,
+        sortField: sortState.sortedColumn,
+        sortKey: sortState.sortDirection,
         searchString: searchStringFilms,
         cursors,
       }));
@@ -131,11 +143,11 @@ const FilmsTable: VFC = () => {
               <TableCell
                 data-value={header}
                 align={index !== 0 ? 'right' : undefined}
-                sortDirection={sortedColumn === header ? sortDirection : false}
+                sortDirection={sortState.sortedColumn === header ? sortState.sortDirection : false}
               >
                 <TableSortLabel
-                  active={sortedColumn === header}
-                  direction={sortedColumn === header ? sortDirection : 'asc'}
+                  active={sortState.sortedColumn === header}
+                  direction={sortState.sortedColumn === header ? sortState.sortDirection : 'asc'}
                   onClick={() => handleRequestSort(header)}
                 >
                   {capitalizeFirstLetter(header)}
@@ -150,6 +162,8 @@ const FilmsTable: VFC = () => {
               id={data.id}
               data-index={index}
               ref={index + 1 === films.length ? lastFilmElementRef : null}
+              /* eslint-disable-next-line react/no-array-index-key */
+              key={index}
             >
               <TableCell component="th" scope="row">
                 {data.title}
@@ -173,5 +187,3 @@ const FilmsTable: VFC = () => {
     </TableContainer>
   );
 };
-
-export default FilmsTable;

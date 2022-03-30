@@ -41,7 +41,7 @@ export interface Character {
   /**
    * Primary key of homeland planet.
    */
-  readonly homeWorld: string;
+  readonly homeWorldId: string;
 
   /**
    * Mass of people.

@@ -1,9 +1,9 @@
-import { ChangeEvent, VFC } from 'react';
+import { ChangeEvent, useCallback, VFC } from 'react';
 import { TextField } from '@mui/material';
+import './TextFieldFilm.css';
+import { setSearchStringChange } from '../../../../store/films/slice';
 import { useAppDispatch, useAppSelector } from '../../../../store';
 import { selectSearchString } from '../../../../store/films/selectors';
-import { searchStringChange } from '../../../../store/films/slice';
-import './TextFieldFilm.css';
 
 export const TextFieldFilm: VFC = () => {
   const dispatch = useAppDispatch();
@@ -13,9 +13,12 @@ export const TextFieldFilm: VFC = () => {
    * Change text field state.
    * @param event Event.
    */
-  const inputChangesHandler = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>): void => {
-    dispatch(searchStringChange(event.target.value));
-  };
+  const inputChangesHandler = useCallback(
+    (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>): void => {
+      dispatch(setSearchStringChange(event.target.value));
+    },
+    [dispatch],
+  );
 
   return (
     <TextField
@@ -23,7 +26,7 @@ export const TextFieldFilm: VFC = () => {
       id="standard-basic"
       variant="standard"
       value={searchString}
-      onChange={event => inputChangesHandler(event)}
+      onChange={inputChangesHandler}
     />
   );
 };

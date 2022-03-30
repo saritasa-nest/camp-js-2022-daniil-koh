@@ -7,10 +7,10 @@ import { getAuth } from '../../store/user/dispatchers';
 
 interface Props {
   /** Path to redirect if user not authorized. */
-  redirectPath: string;
+  readonly redirectPath: string;
 
   /** Does component need authorization status. */
-  needAuth?: boolean;
+  readonly needAuth?: boolean;
 }
 
 /**

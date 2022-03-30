@@ -61,7 +61,7 @@ export interface Species {
   /**
    * Array of primary keys of people.
    */
-  readonly people: readonly string[];
+  readonly peopleIds: readonly string[];
 
   /**
    * Skin colors separated by ','.
